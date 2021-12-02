@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import LeftSider from '../LeftSider/Sider.vue';
+import RightSider from '../RightSider/Sider.vue';
+import Content from '../Content/Content.vue';
 
 // defineProps<{ msg: string }>()
 </script>
@@ -9,8 +12,18 @@ import { ref } from 'vue';
     <n-layout position="absolute">
       <n-layout-header style="height: 64px; padding: 24px" bordered>颐和园路</n-layout-header>
       <n-layout has-sider position="absolute" style="top: 64px; bottom: 64px">
-        <n-layout-sider bordered content-style="padding: 24px;">海淀桥</n-layout-sider>
-        <n-layout content-style="padding: 24px;"></n-layout>
+        <n-layout-sider bordered content-style="padding: 24px;">
+          <LeftSider />
+        </n-layout-sider>
+        <n-layout content-style="padding: 24px;">
+          <Content />
+        </n-layout>
+        <n-layout-sider
+          bordered
+          content-style="padding: 24px;border-left: 1px solid var(--border-color)"
+        >
+          <RightSider />
+        </n-layout-sider>
       </n-layout>
       <n-layout-footer bordered position="absolute" style="height: 64px; padding: 24px">
         footer
