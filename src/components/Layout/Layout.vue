@@ -5,6 +5,9 @@ import Content from '../Content/Content.vue';
 
 defineProps<{ isDark: boolean }>();
 defineEmits(['changeTheme']);
+const handleOpenGithub = () => {
+  window.open('https://github.com/doom-9/naive-create-form', '_blank');
+};
 </script>
 
 <template>
@@ -25,7 +28,7 @@ defineEmits(['changeTheme']);
           <n-button strong quaternary round @click="$emit('changeTheme')">
             {{ $props.isDark ? '白天' : '黑夜' }}
           </n-button>
-          <n-button strong quaternary round>Github</n-button>
+          <n-button strong quaternary round @click="handleOpenGithub">Github</n-button>
         </n-space>
       </n-layout-header>
       <n-layout has-sider position="absolute" style="top: 64px; bottom: 64px">
