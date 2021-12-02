@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import LeftSider from '../LeftSider/Sider.vue';
 import RightSider from '../RightSider/Sider.vue';
 import Content from '../Content/Content.vue';

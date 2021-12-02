@@ -425,6 +425,11 @@
     "@vue/compiler-dom" "3.2.23"
     "@vue/shared" "3.2.23"
 
+"@vue/devtools-api@^6.0.0-beta.11":
+  version "6.0.0-beta.20.1"
+  resolved "https://registry.npmmirror.com/@vue/devtools-api/download/@vue/devtools-api-6.0.0-beta.20.1.tgz#5b499647e929c35baf2a66a399578f9aa4601142"
+  integrity sha512-R2rfiRY+kZugzWh9ZyITaovx+jpU4vgivAEAiz80kvh3yviiTU3CBuGuyWpSwGz9/C7TkSWVM/FtQRGlZ16n8Q==
+
 "@vue/reactivity@3.2.23", "@vue/reactivity@^3.2.19":
   version "3.2.23"
   resolved "https://registry.npmmirror.com/@vue/reactivity/download/@vue/reactivity-3.2.23.tgz#d2f10749d554f7e94d8d52f36e7e6a0b021a2418"
@@ -2966,6 +2971,13 @@ vueuc@^0.4.18:
     seemly "^0.3.1"
     vdirs "^0.1.4"
     vooks "^0.2.4"
+
+vuex@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.nlark.com/vuex/download/vuex-4.0.2.tgz?cache=0&sync_timestamp=1623945253165&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvuex%2Fdownload%2Fvuex-4.0.2.tgz#f896dbd5bf2a0e963f00c67e9b610de749ccacc9"
+  integrity sha1-+Jbb1b8qDpY/AMZ+m2EN50nMrMk=
+  dependencies:
+    "@vue/devtools-api" "^6.0.0-beta.11"
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"
