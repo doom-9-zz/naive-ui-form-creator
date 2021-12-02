@@ -5,14 +5,20 @@ import { darkTheme } from 'naive-ui';
 import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface';
 const theme = ref<null | BuiltInGlobalTheme>(null);
 
-const goDark = () => {
-  theme.value = darkTheme;
+const changeTheme = () => {
+  if (theme.value === null) {
+    theme.value = darkTheme;
+  } else {
+    theme.value = null;
+  }
 };
 </script>
 
 <template>
   <n-config-provider :theme="theme">
-    <n-message-provider><Layout @goDark="goDark" /></n-message-provider>
+    <n-message-provider>
+      <Layout @changeTheme="changeTheme" :isDark="theme === null ? false : true" />
+    </n-message-provider>
   </n-config-provider>
 </template>
 
