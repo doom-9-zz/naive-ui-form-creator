@@ -1575,7 +1575,7 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-highlight.js@^11.0.1:
+highlight.js@^11.0.1, highlight.js@^11.3.1:
   version "11.3.1"
   resolved "https://registry.npmmirror.com/highlight.js/download/highlight.js-11.3.1.tgz#813078ef3aa519c61700f84fe9047231c5dc3291"
   integrity sha1-gTB47zqlGcYXAPhP6QRyMcXcMpE=

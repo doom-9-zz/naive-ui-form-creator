@@ -3,7 +3,8 @@ import { useStore } from 'vuex';
 import LeftSider from '../LeftSider/Sider.vue';
 import RightSider from '../RightSider/Sider.vue';
 import Content from '../Content/Content.vue';
-import { generateCode } from '../../utils';
+import { copy, generateCode } from '../../utils';
+import { ref } from 'vue';
 
 defineProps<{ isDark: boolean }>();
 defineEmits(['changeTheme']);
@@ -12,8 +13,18 @@ const handleOpenGithub = () => {
   window.open('https://github.com/doom-9/naive-create-form', '_blank');
 };
 const handleGenerateCode = () => {
-  generateCode(store.state.formItemTypeArray);
+  modalCode.value = generateCode(store.state.formItemTypeArray);
+  showModal.value = true;
 };
+const showModal = ref<boolean>(false);
+const submitCallback = () => {
+  copy(modalCode.value);
+  window.$message.success('复制成功');
+};
+const cancelCallback = () => {
+  showModal.value = false;
+};
+const modalCode = ref<string>('');
 </script>
 
 <template>
@@ -32,7 +43,7 @@ const handleGenerateCode = () => {
         <n-gradient-text type="success" :size="35">naive-ui-form-creator</n-gradient-text>
         <n-space>
           <n-button type="primary" strong secondary round size="medium" @click="handleGenerateCode">
-            复制生成组件代码
+            生成组件代码
           </n-button>
           <n-button strong quaternary round @click="$emit('changeTheme')">
             {{ $props.isDark ? '白天' : '黑夜' }}
@@ -59,6 +70,17 @@ const handleGenerateCode = () => {
         持续完善中
       </n-layout-footer>
     </n-layout>
+    <n-modal
+      v-model:show="showModal"
+      preset="dialog"
+      title="预览"
+      positive-text="复制"
+      @positive-click="submitCallback"
+      @negative-click="cancelCallback"
+      negative-text="重新弄一下"
+    >
+      <n-code :code="modalCode" language="javascript" />
+    </n-modal>
   </div>
 </template>
 
