@@ -6,7 +6,7 @@ module.exports = {
       rules: {}
     },
     {
-      files: ['*.ts', '*.tsx'],
+      files: ['*.ts'],
       extends: ['standard-with-typescript', 'prettier'],
       parserOptions: {
         project: './tsconfig.json',
