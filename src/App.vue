@@ -16,7 +16,7 @@ const changeTheme = () => {
 
 <template>
   <n-config-provider :theme="theme">
-    <n-message-provider>
+    <n-message-provider :max="3">
       <Layout @changeTheme="changeTheme" :isDark="theme === null ? false : true" />
     </n-message-provider>
   </n-config-provider>

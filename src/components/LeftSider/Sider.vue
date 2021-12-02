@@ -4,7 +4,6 @@ import { options } from './const';
 import { useMessage } from 'naive-ui';
 
 const store = useStore();
-const message = useMessage();
 window.$message = useMessage();
 const handleAddClick = (value: string) => {
   store.commit('add', {

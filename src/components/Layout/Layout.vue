@@ -1,12 +1,18 @@
 <script setup lang="ts">
+import { useStore } from 'vuex';
 import LeftSider from '../LeftSider/Sider.vue';
 import RightSider from '../RightSider/Sider.vue';
 import Content from '../Content/Content.vue';
+import { generateCode } from '../../utils';
 
 defineProps<{ isDark: boolean }>();
 defineEmits(['changeTheme']);
+const store = useStore();
 const handleOpenGithub = () => {
   window.open('https://github.com/doom-9/naive-create-form', '_blank');
+};
+const handleGenerateCode = () => {
+  generateCode(store.state.formItemTypeArray);
 };
 </script>
 
@@ -25,6 +31,9 @@ const handleOpenGithub = () => {
       >
         <n-gradient-text type="success" :size="35">naive-ui-form-creator</n-gradient-text>
         <n-space>
+          <n-button type="primary" strong secondary round size="medium" @click="handleGenerateCode">
+            复制生成组件代码
+          </n-button>
           <n-button strong quaternary round @click="$emit('changeTheme')">
             {{ $props.isDark ? '白天' : '黑夜' }}
           </n-button>

@@ -33,6 +33,9 @@ export const store = createStore<State>({
       );
       window.$message.success('操作成功');
     },
+    clear(state): void {
+      state.formItemTypeArray = [];
+    },
     copy(state, payload: string): void {
       const index = state.formItemTypeArray.findIndex(item => item.id === payload);
       if (index !== -1) {
