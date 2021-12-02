@@ -7,7 +7,9 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@types/uuid": "^8.3.3",
     "naive-ui": "^2.21.2",
+    "uuid": "^8.3.2",
     "vue": "^3.2.16",
     "vuex": "^4.0.2"
   },

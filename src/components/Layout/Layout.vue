@@ -11,7 +11,7 @@ import Content from '../Content/Content.vue';
     <n-layout position="absolute">
       <n-layout-header style="height: 64px; padding: 24px" bordered>颐和园路</n-layout-header>
       <n-layout has-sider position="absolute" style="top: 64px; bottom: 64px">
-        <n-layout-sider bordered content-style="padding: 24px;">
+        <n-layout-sider bordered content-style="padding: 24px;" width="200">
           <LeftSider />
         </n-layout-sider>
         <n-layout content-style="padding: 24px;">
@@ -20,6 +20,7 @@ import Content from '../Content/Content.vue';
         <n-layout-sider
           bordered
           content-style="padding: 24px;border-left: 1px solid var(--border-color)"
+          width="400"
         >
           <RightSider />
         </n-layout-sider>

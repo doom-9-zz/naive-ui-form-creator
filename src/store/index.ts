@@ -1,7 +1,8 @@
 import { createStore } from 'vuex';
-interface selectItemValue {
+export interface selectItemValue {
   label: string;
   value: string;
+  id: string;
 }
 
 interface State {
