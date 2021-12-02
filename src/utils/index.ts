@@ -1,6 +1,21 @@
-import { selectItemValue } from '../store';
+import { selectItemValue, store } from '../store';
 
-const getTypeToCode = (type: string): string => {
+const typeToImport: Record<string, string> = {
+  0: 'Input',
+  1: 'InputNumber',
+  2: 'Radio',
+  3: 'Rate',
+  4: 'Select',
+  5: 'Slider',
+  6: 'Switch',
+  7: 'TimePicker',
+  8: 'TreeSelect',
+  9: 'Upload',
+  10: 'ColorPicker',
+  11: 'Checkbox',
+};
+
+const getTypeToTemplate = (type: string): string => {
   switch (type) {
     case '0':
       return `
@@ -89,11 +104,27 @@ const getTypeToCode = (type: string): string => {
       return '';
   }
 };
+const getTypeToImport = (data: selectItemValue[]): string => {
+  if (store.state.autoAddImport) {
+    const importStr = `
+<script setup type="ts">
+  import { ${data
+    .map(item => `N${typeToImport[item.value]} ,`)
+    .join('')} NFrom, NFormItem } from 'naive-ui';
+</script>
+    `;
+
+    return importStr;
+  }
+  return '';
+};
 export const generateCode = (data: selectItemValue[]): string => {
-  const Code: string = `<template>
-    <n-form>${data.map(item => getTypeToCode(item.value)).join('')}
+  let Code: string = `<template>
+    <n-form>${data.map(item => getTypeToTemplate(item.value)).join('')}
     </n-form>
 </template>`;
+
+  Code = Code.concat(getTypeToImport(data));
 
   return Code;
 };

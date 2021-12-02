@@ -3,8 +3,10 @@ import { useStore } from 'vuex';
 import LeftSider from '../LeftSider/Sider.vue';
 import RightSider from '../RightSider/Sider.vue';
 import Content from '../Content/Content.vue';
+import SetGenerateCodeModal from './components/SetGenerateCodeModal/SetGenerateCodeModal.vue';
 import { copy, generateCode } from '../../utils';
 import { ref } from 'vue';
+import { SettingOutlined, FolderOutlined } from '@vicons/antd';
 
 defineProps<{ isDark: boolean }>();
 defineEmits(['changeTheme']);
@@ -25,6 +27,14 @@ const cancelCallback = () => {
   showModal.value = false;
 };
 const modalCode = ref<string>('');
+const SetGenerateCodeModalRef = ref<null | {
+  handleShowModal: () => void;
+}>(null);
+const handleGenerateCodeSet = () => {
+  if (SetGenerateCodeModalRef.value) {
+    SetGenerateCodeModalRef.value.handleShowModal();
+  }
+};
 </script>
 
 <template>
@@ -42,8 +52,24 @@ const modalCode = ref<string>('');
       >
         <n-gradient-text type="success" :size="35">naive-ui-form-creator</n-gradient-text>
         <n-space>
+          <n-button
+            type="primary"
+            strong
+            secondary
+            round
+            size="medium"
+            @click="handleGenerateCodeSet"
+          >
+            生成代码设置
+            <n-icon size="20">
+              <SettingOutlined />
+            </n-icon>
+          </n-button>
           <n-button type="primary" strong secondary round size="medium" @click="handleGenerateCode">
             生成组件代码
+            <n-icon size="20">
+              <FolderOutlined />
+            </n-icon>
           </n-button>
           <n-button strong quaternary round @click="$emit('changeTheme')">
             {{ $props.isDark ? '白天' : '黑夜' }}
@@ -81,6 +107,7 @@ const modalCode = ref<string>('');
     >
       <n-code :code="modalCode" language="javascript" />
     </n-modal>
+    <SetGenerateCodeModal ref="SetGenerateCodeModalRef" />
   </div>
 </template>
 

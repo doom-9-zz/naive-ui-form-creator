@@ -40,22 +40,22 @@ const handleCopyClick = (id: string) => {
           <n-space>
             <n-button circle type="primary" size="small" @click="handleCopyClick(item.id)">
               <n-icon size="20">
-                <copy-outlined />
+                <CopyOutlined />
               </n-icon>
             </n-button>
             <n-button circle type="error" size="small" @click="handleRemoveClick(item.id)">
               <n-icon size="20">
-                <delete-outlined />
+                <DeleteOutlined />
               </n-icon>
             </n-button>
             <n-button circle type="info" size="small" @click="handleDownClick(item.id)">
               <n-icon size="20">
-                <arrow-down-outlined />
+                <ArrowDownOutlined />
               </n-icon>
             </n-button>
             <n-button circle type="info" size="small" @click="handleUpClick(item.id)">
               <n-icon size="20">
-                <arrow-up-outlined />
+                <ArrowUpOutlined />
               </n-icon>
             </n-button>
           </n-space>

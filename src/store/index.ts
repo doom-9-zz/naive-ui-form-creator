@@ -9,6 +9,7 @@ export interface selectItemValue {
 
 interface State {
   formItemTypeArray: selectItemValue[];
+  autoAddImport: boolean;
 }
 
 export const store = createStore<State>({
@@ -16,6 +17,7 @@ export const store = createStore<State>({
   state() {
     return {
       formItemTypeArray: [],
+      autoAddImport: false,
     };
   },
   mutations: {
@@ -64,6 +66,9 @@ export const store = createStore<State>({
       } else {
         window.$message.warning('已经是最后一个了');
       }
+    },
+    changeAutoAddImport(state, payload: boolean) {
+      state.autoAddImport = payload;
     },
   },
 });
