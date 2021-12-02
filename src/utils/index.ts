@@ -108,9 +108,9 @@ const getTypeToImport = (data: selectItemValue[]): string => {
   if (store.state.autoAddImport) {
     const importStr = `
 <script setup type="ts">
-  import { ${data
-    .map(item => `N${typeToImport[item.value]} ,`)
-    .join('')} NFrom, NFormItem } from 'naive-ui';
+  import { ${Array.from(new Set(data.map(item => `N${typeToImport[item.value]} ,`))).join(
+    '',
+  )} NFrom, NFormItem } from 'naive-ui';
 </script>
     `;
 

@@ -26,4 +26,8 @@ const changeTheme = () => {
   </n-config-provider>
 </template>
 
-<style></style>
+<style>
+pre {
+  overflow: auto;
+}
+</style>
