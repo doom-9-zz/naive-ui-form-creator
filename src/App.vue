@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue';
+import Layout from './components/Layout.vue';
+import { darkTheme } from 'naive-ui';
+import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface';
+const theme = ref<null | BuiltInGlobalTheme>(null);
+
+const goDark = () => {
+  theme.value = darkTheme;
+};
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <n-config-provider :theme="theme"><Layout @goDark="goDark" /></n-config-provider>
 </template>
 
 <style></style>

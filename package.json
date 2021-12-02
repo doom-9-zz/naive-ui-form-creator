@@ -7,6 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "naive-ui": "^2.21.2",
     "vue": "^3.2.16"
   },
   "devDependencies": {
