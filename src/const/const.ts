@@ -1,3 +1,5 @@
+import { State } from '../store';
+
 type selectItem = Array<{
   label: string;
   value: string;
@@ -53,3 +55,15 @@ export const options: selectItem = [
     value: '11',
   },
 ];
+
+export const initialFormState: State['formConfig'] = {
+  labelPlacement: 'left',
+  labelWidth: '80',
+  labelAlign: 'left',
+  showRequireMark: false,
+  size: 'medium',
+  inline: false,
+  showFeedback: true,
+  showLabel: true,
+  requireMarkPlacement: 'right',
+};

@@ -157,3 +157,7 @@ export const copy = (value: string): void => {
   document.execCommand('copy');
   document.body.removeChild(textarea);
 };
+
+export function copyPropertyValue<T, K extends keyof T>(obj: T, target: T, key: K): void {
+  obj[key] = target[key];
+}

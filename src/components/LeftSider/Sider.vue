@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
-import { options } from './const';
+import { options } from '../../const/const';
 import { useMessage } from 'naive-ui';
 
 const store = useStore();

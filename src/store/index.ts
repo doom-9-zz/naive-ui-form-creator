@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import { initialFormState } from '../const/const';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface selectItemValue {
@@ -29,17 +30,7 @@ export const store = createStore<State>({
     return {
       formItemTypeArray: [],
       autoAddImport: false,
-      formConfig: {
-        labelPlacement: 'left',
-        labelWidth: '80',
-        labelAlign: 'left',
-        showRequireMark: true,
-        size: 'medium',
-        inline: false,
-        showFeedback: true,
-        showLabel: true,
-        requireMarkPlacement: 'right',
-      },
+      formConfig: initialFormState,
     };
   },
   mutations: {

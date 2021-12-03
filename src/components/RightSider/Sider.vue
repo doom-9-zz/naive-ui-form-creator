@@ -1,19 +1,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
+import { initialFormState } from '../../const/const';
+import { State } from '../../store/index';
+import { copyPropertyValue } from '../../utils/index';
 
-const initialState: Record<string, string | boolean> = {
-  labelPlacement: 'left',
-  labelWidth: '80',
-  labelAlign: 'left',
-  showRequireMark: false,
-  size: 'medium',
-  inline: false,
-  showFeedback: true,
-  showLabel: true,
-  requireMarkPlacement: 'right',
-};
-const formValue = ref<Record<string, string | boolean>>({
+const formValue = ref<State['formConfig']>({
   labelPlacement: 'left',
   labelWidth: '80',
   labelAlign: 'left',
@@ -30,10 +22,9 @@ const handleApplyClick = () => {
   store.commit('changeFormConfig', formValue.value);
 };
 const handleResetClick = () => {
-  Object.keys(initialState).forEach(key => {
-    console.log(key);
-
-    formValue.value[key] = initialState[key];
+  const keys = Object.keys(initialFormState);
+  keys.forEach(key => {
+    copyPropertyValue(formValue.value, initialFormState, key as keyof State['formConfig']);
   });
 };
 </script>
