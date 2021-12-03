@@ -62,7 +62,7 @@ export const initialFormState: State['formConfig'] = {
   labelAlign: 'left',
   showRequireMark: false,
   size: 'medium',
-  inline: true,
+  inline: false,
   showFeedback: true,
   showLabel: true,
   requireMarkPlacement: 'right',

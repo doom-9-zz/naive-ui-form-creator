@@ -82,12 +82,14 @@ export const store = createStore<State>({
     },
     changeAutoAddImport(state, payload: boolean) {
       state.autoAddImport = payload;
+      window.$message.success('操作成功');
     },
     changeFormConfig(state, payload: Partial<State['formConfig']>) {
       state.formConfig = {
         ...state.formConfig,
         ...payload,
       };
+      window.$message.success('操作成功');
     },
   },
 });

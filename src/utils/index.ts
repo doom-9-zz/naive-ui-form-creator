@@ -125,7 +125,7 @@ const getTypeToImport = (data: selectItemValue[]): string => {
 <script setup type="ts">
   import { ${Array.from(new Set(data.map(item => `N${typeToImport[item.value]} ,`))).join(
     '',
-  )} NFrom, NFormItem } from 'naive-ui';
+  )} NForm, NFormItem } from 'naive-ui';
 </script>
     `;
 
