@@ -67,3 +67,6 @@ export const initialFormState: State['formConfig'] = {
   showLabel: true,
   requireMarkPlacement: 'right',
 };
+
+export const UI_NAME = 'naive-ui';
+export const PREFIX = 'n';

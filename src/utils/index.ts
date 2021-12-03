@@ -1,3 +1,4 @@
+import { PREFIX, UI_NAME } from '../const/const';
 import { selectItemValue, store } from '../store';
 
 const typeToImport: Record<string, string> = {
@@ -19,27 +20,27 @@ const getTypeToFormItem = (type: string): string => {
   switch (type) {
     case '0':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
         <n-input />
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '1':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
         <n-input-number />
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '2':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
         <n-radio value="radio" name="radio">radio</n-radio>
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '3':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
         <n-rate />
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '4':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
           <n-select
           v-else-if="item.value === '4'"
           :options="[
@@ -49,25 +50,25 @@ const getTypeToFormItem = (type: string): string => {
             },
           ]"
         />
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '5':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
         <n-slider />
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '6':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
         <n-switch />
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '7':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
         <n-time-picker />
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '8':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
           <n-tree-select
           :options="[
             {
@@ -82,24 +83,24 @@ const getTypeToFormItem = (type: string): string => {
             },
           ]"
         />
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '9':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
         <n-upload>
           <n-button>上传文件</n-button>
         </n-upload>
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '10':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
         <n-color-picker />
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     case '11':
       return `
-      <n-form-item>
+      <${PREFIX}-form-item>
         <n-checkbox />
-      </n-form-item>`;
+      </${PREFIX}-form-item>`;
     default:
       return '';
   }
@@ -120,12 +121,13 @@ const getFormConfig = (): string => {
 };
 
 const getTypeToImport = (data: selectItemValue[]): string => {
+  const prefix = PREFIX.toUpperCase();
   if (store.state.autoAddImport) {
     const importStr = `
 <script setup type="ts">
-  import { ${Array.from(new Set(data.map(item => `N${typeToImport[item.value]} ,`))).join(
+  import { ${Array.from(new Set(data.map(item => `${prefix}${typeToImport[item.value]} ,`))).join(
     '',
-  )} NForm, NFormItem } from 'naive-ui';
+  )} ${prefix}Form, ${prefix}FormItem } from '${UI_NAME}';
 </script>
     `;
 
@@ -136,8 +138,8 @@ const getTypeToImport = (data: selectItemValue[]): string => {
 
 export const generateCode = (data: selectItemValue[]): string => {
   let Code: string = `<template>
-    <n-form ${getFormConfig()}>${data.map(item => getTypeToFormItem(item.value)).join('')}
-    </n-form>
+    <${PREFIX}-form ${getFormConfig()}>${data.map(item => getTypeToFormItem(item.value)).join('')}
+    </${PREFIX}-form>
 </template>`;
 
   Code = Code.concat(getTypeToImport(data));
