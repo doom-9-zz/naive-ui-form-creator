@@ -6,15 +6,7 @@ import { State } from '../../store/index';
 import { copyPropertyValue } from '../../utils/index';
 
 const formValue = ref<State['formConfig']>({
-  labelPlacement: 'left',
-  labelWidth: '80',
-  labelAlign: 'left',
-  showRequireMark: false,
-  size: 'medium',
-  inline: false,
-  showFeedback: true,
-  showLabel: true,
-  requireMarkPlacement: 'right',
+  ...initialFormState,
 });
 
 const store = useStore();
@@ -22,8 +14,7 @@ const handleApplyClick = () => {
   store.commit('changeFormConfig', formValue.value);
 };
 const handleResetClick = () => {
-  const keys = Object.keys(initialFormState);
-  keys.forEach(key => {
+  Object.keys(initialFormState).forEach(key => {
     copyPropertyValue(formValue.value, initialFormState, key as keyof State['formConfig']);
   });
 };
