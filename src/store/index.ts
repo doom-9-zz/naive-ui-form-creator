@@ -2,14 +2,17 @@ import { createStore } from 'vuex';
 import { initialFormState } from '../const/const';
 import { v4 as uuidv4 } from 'uuid';
 
-export interface selectItemValue {
+export interface formItemType {
   label: string;
   value: string;
   id: string;
+  formItemConfig: {
+    [key: string]: any;
+  };
 }
 
 export interface State {
-  formItemTypeArray: selectItemValue[];
+  formItemArray: formItemType[];
   autoAddImport: boolean;
   formConfig: {
     labelPlacement: 'left' | 'top';
@@ -28,54 +31,55 @@ export const store = createStore<State>({
   strict: true,
   state() {
     return {
-      formItemTypeArray: [],
+      formItemArray: [],
       autoAddImport: false,
       formConfig: initialFormState,
     };
   },
   mutations: {
-    add(state, payload: Omit<selectItemValue, 'id'>): void {
-      state.formItemTypeArray.push({
+    add(state, payload: Omit<formItemType, 'id' | 'formItemConfig'>): void {
+      state.formItemArray.push({
         id: uuidv4(),
+        formItemConfig: {},
         ...payload,
       });
       window.$message.success('操作成功');
     },
     remove(state, payload: string): void {
-      state.formItemTypeArray.splice(
-        state.formItemTypeArray.findIndex(item => item.id === payload),
+      state.formItemArray.splice(
+        state.formItemArray.findIndex(item => item.id === payload),
         1,
       );
       window.$message.success('操作成功');
     },
     clear(state): void {
-      state.formItemTypeArray = [];
+      state.formItemArray = [];
     },
     copy(state, payload: string): void {
-      const index = state.formItemTypeArray.findIndex(item => item.id === payload);
+      const index = state.formItemArray.findIndex(item => item.id === payload);
       if (index !== -1) {
-        const newItem = { ...state.formItemTypeArray[index] };
+        const newItem = { ...state.formItemArray[index] };
         newItem.id = uuidv4();
-        state.formItemTypeArray.splice(index + 1, 0, newItem);
+        state.formItemArray.splice(index + 1, 0, newItem);
       }
       window.$message.success('操作成功');
     },
     up(state, payload: string) {
-      const index = state.formItemTypeArray.findIndex(item => item.id === payload);
+      const index = state.formItemArray.findIndex(item => item.id === payload);
       if (index > 0) {
-        const item = state.formItemTypeArray[index];
-        state.formItemTypeArray.splice(index, 1);
-        state.formItemTypeArray.splice(index - 1, 0, item);
+        const item = state.formItemArray[index];
+        state.formItemArray.splice(index, 1);
+        state.formItemArray.splice(index - 1, 0, item);
       } else {
         window.$message.warning('已经是第一个了');
       }
     },
     down(state, payload: string) {
-      const index = state.formItemTypeArray.findIndex(item => item.id === payload);
-      if (index < state.formItemTypeArray.length - 1) {
-        const item = state.formItemTypeArray[index];
-        state.formItemTypeArray.splice(index, 1);
-        state.formItemTypeArray.splice(index + 1, 0, item);
+      const index = state.formItemArray.findIndex(item => item.id === payload);
+      if (index < state.formItemArray.length - 1) {
+        const item = state.formItemArray[index];
+        state.formItemArray.splice(index, 1);
+        state.formItemArray.splice(index + 1, 0, item);
       } else {
         window.$message.warning('已经是最后一个了');
       }

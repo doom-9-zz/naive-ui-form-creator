@@ -1,5 +1,5 @@
 import { PREFIX, UI_NAME } from '../const/const';
-import { selectItemValue, store } from '../store';
+import { formItemType, store } from '../store';
 
 const typeToImport: Record<string, string> = {
   0: 'Input',
@@ -120,7 +120,7 @@ const getFormConfig = (): string => {
   }"`;
 };
 
-const getTypeToImport = (data: selectItemValue[]): string => {
+const getTypeToImport = (data: formItemType[]): string => {
   const prefix = PREFIX.toUpperCase();
   if (store.state.autoAddImport) {
     const importStr = `
@@ -136,7 +136,7 @@ const getTypeToImport = (data: selectItemValue[]): string => {
   return '';
 };
 
-export const generateCode = (data: selectItemValue[]): string => {
+export const generateCode = (data: formItemType[]): string => {
   let Code: string = `<template>
     <${PREFIX}-form ${getFormConfig()}>${data.map(item => getTypeToFormItem(item.value)).join('')}
     </${PREFIX}-form>

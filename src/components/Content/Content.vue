@@ -5,8 +5,8 @@ import { DeleteOutlined, CopyOutlined, ArrowDownOutlined, ArrowUpOutlined } from
 import { State } from '../../store/index';
 
 const store = useStore<State>();
-const formItemTypeArray = computed(() => {
-  return store.state.formItemTypeArray;
+const formItemArray = computed(() => {
+  return store.state.formItemArray;
 });
 const formConfig = computed(() => {
   return store.state.formConfig;
@@ -32,7 +32,7 @@ const handleCopyClick = (id: string) => {
 </script>
 <template>
   <n-divider title-placement="left">预览</n-divider>
-  <n-empty description="从左侧添加表单项" v-if="formItemTypeArray.length === 0">
+  <n-empty description="从左侧添加表单项" v-if="formItemArray.length === 0">
     <template #extra>
       <n-button @click="handleAddClick">试着添加一个</n-button>
     </template>
@@ -49,7 +49,7 @@ const handleCopyClick = (id: string) => {
     v-else
   >
     <n-space vertical :size="15">
-      <n-card v-for="item in formItemTypeArray">
+      <n-card v-for="item in formItemArray">
         <div class="buttons">
           <n-space>
             <n-button circle type="primary" size="small" @click="handleCopyClick(item.id)">

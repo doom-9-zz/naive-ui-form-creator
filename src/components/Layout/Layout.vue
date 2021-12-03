@@ -16,7 +16,7 @@ const handleOpenGithub = () => {
   window.open('https://github.com/doom-9/naive-create-form', '_blank');
 };
 const handleGenerateCode = () => {
-  modalCode.value = generateCode(store.state.formItemTypeArray);
+  modalCode.value = generateCode(store.state.formItemArray);
   showModal.value = true;
 };
 const showModal = ref<boolean>(false);
