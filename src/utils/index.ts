@@ -119,8 +119,17 @@ const getTypeToImport = (data: selectItemValue[]): string => {
   return '';
 };
 export const generateCode = (data: selectItemValue[]): string => {
+  const formConfig = store.state.formConfig;
   let Code: string = `<template>
-    <n-form>${data.map(item => getTypeToTemplate(item.value)).join('')}
+    <n-form size="${formConfig.size}" :inline="${String(formConfig.inline)}" :label-width="${
+    formConfig.labelWidth
+  }" label-align="${formConfig.labelAlign}" label-placement="${
+    formConfig.labelPlacement
+  }" :show-feedback="${String(formConfig.showFeedback)}" :show-label="${String(
+    formConfig.showLabel,
+  )}" :show-require-mark="${String(formConfig.showRequireMark)}" require-mark-placement="${
+    formConfig.requireMarkPlacement
+  }">${data.map(item => getTypeToTemplate(item.value)).join('')}
     </n-form>
 </template>`;
 

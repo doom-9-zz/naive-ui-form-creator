@@ -6,23 +6,23 @@ const initialState = {
   labelPlacement: 'left',
   labelWidth: '80',
   labelAlign: 'left',
-  requiredFlag: true,
+  showRequireMark: true,
   size: 'medium',
-  inlineFlag: false,
-  showFeedbackFlag: true,
-  showLabelFlag: true,
-  requiredMarkPlacement: 'right',
+  inline: false,
+  showFeedback: true,
+  showLabel: true,
+  requireMarkPlacement: 'right',
 };
 const formValue = ref({
   labelPlacement: 'left',
   labelWidth: '80',
   labelAlign: 'left',
-  requiredFlag: true,
+  showRequireMark: true,
   size: 'medium',
-  inlineFlag: false,
-  showFeedbackFlag: true,
-  showLabelFlag: true,
-  requiredMarkPlacement: 'right',
+  inline: false,
+  showFeedback: true,
+  showLabel: true,
+  requireMarkPlacement: 'right',
 });
 
 const store = useStore();
@@ -49,7 +49,7 @@ const handleResetClick = () => {
           </n-radio-group>
         </n-form-item>
         <n-form-item label="是否展示为行内表单">
-          <n-switch v-model="formValue.inlineFlag"></n-switch>
+          <n-switch v-model="formValue.inline"></n-switch>
         </n-form-item>
         <n-form-item label="标签位置">
           <n-radio-group v-model:value="formValue.labelPlacement">
@@ -71,16 +71,16 @@ const handleResetClick = () => {
           </n-radio-group>
         </n-form-item>
         <n-form-item label="是否展示校验反馈">
-          <n-switch v-model="formValue.showFeedbackFlag"></n-switch>
+          <n-switch v-model="formValue.showFeedback"></n-switch>
         </n-form-item>
         <n-form-item label="是否展示标签">
-          <n-switch v-model="formValue.showLabelFlag"></n-switch>
+          <n-switch v-model="formValue.showLabel"></n-switch>
         </n-form-item>
         <n-form-item label="是否显示必填标志">
-          <n-switch v-model:value="formValue.requiredFlag" />
+          <n-switch v-model:value="formValue.showRequireMark" />
         </n-form-item>
         <n-form-item label="必填标志的位置">
-          <n-radio-group v-model:value="formValue.requiredMarkPlacement">
+          <n-radio-group v-model:value="formValue.requireMarkPlacement">
             <n-space>
               <n-radio key="left" value="left">left</n-radio>
               <n-radio key="right" value="right">right</n-radio>

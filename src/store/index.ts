@@ -14,12 +14,12 @@ interface State {
     labelPlacement: 'left' | 'top';
     labelWidth: string;
     labelAlign: 'left' | 'right';
-    requiredFlag: boolean;
     size: 'small' | 'medium' | 'large';
-    inlineFlag: boolean;
-    showFeedbackFlag: boolean;
-    showLabelFlag: boolean;
-    requiredMarkPlacement: 'left' | 'right';
+    inline: boolean;
+    showFeedback: boolean;
+    showLabel: boolean;
+    showRequireMark: boolean;
+    requireMarkPlacement: 'left' | 'right';
   };
 }
 
@@ -33,12 +33,12 @@ export const store = createStore<State>({
         labelPlacement: 'left',
         labelWidth: '80',
         labelAlign: 'left',
-        requiredFlag: true,
+        showRequireMark: true,
         size: 'medium',
-        inlineFlag: false,
-        showFeedbackFlag: true,
-        showLabelFlag: true,
-        requiredMarkPlacement: 'right',
+        inline: false,
+        showFeedback: true,
+        showLabel: true,
+        requireMarkPlacement: 'right',
       },
     };
   },
