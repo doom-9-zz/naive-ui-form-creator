@@ -7,10 +7,11 @@ import SetGenerateCodeModal from './components/SetGenerateCodeModal/SetGenerateC
 import { copy, generateCode } from '../../utils';
 import { ref } from 'vue';
 import { SettingOutlined, FolderOutlined } from '@vicons/antd';
+import { State } from '../../store';
 
 defineProps<{ isDark: boolean }>();
 defineEmits(['changeTheme']);
-const store = useStore();
+const store = useStore<State>();
 const handleOpenGithub = () => {
   window.open('https://github.com/doom-9/naive-create-form', '_blank');
 };

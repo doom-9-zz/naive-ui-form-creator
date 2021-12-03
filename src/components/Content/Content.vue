@@ -2,10 +2,14 @@
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { DeleteOutlined, CopyOutlined, ArrowDownOutlined, ArrowUpOutlined } from '@vicons/antd';
+import { State } from '../../store/index';
 
-const store = useStore();
+const store = useStore<State>();
 const formItemTypeArray = computed(() => {
   return store.state.formItemTypeArray;
+});
+const formConfig = computed(() => {
+  return store.state.formConfig;
 });
 const handleAddClick = () => {
   store.commit('add', {
@@ -33,7 +37,17 @@ const handleCopyClick = (id: string) => {
       <n-button @click="handleAddClick">试着添加一个</n-button>
     </template>
   </n-empty>
-  <n-form label-placement="left" v-else>
+  <n-form
+    :label-placement="formConfig.labelPlacement"
+    :size="formConfig.size"
+    :label-width="formConfig.labelWidth"
+    :label-align="formConfig.labelAlign"
+    :show-feedback="formConfig.showFeedback"
+    :show-label="formConfig.showLabel"
+    :show-require-mark="formConfig.showRequireMark"
+    :require-mark-placement="formConfig.requireMarkPlacement"
+    v-else
+  >
     <n-space vertical :size="15">
       <n-card v-for="item in formItemTypeArray">
         <div class="buttons">

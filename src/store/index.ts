@@ -7,7 +7,7 @@ export interface selectItemValue {
   id: string;
 }
 
-interface State {
+export interface State {
   formItemTypeArray: selectItemValue[];
   autoAddImport: boolean;
   formConfig: {
