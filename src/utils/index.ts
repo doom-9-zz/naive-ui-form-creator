@@ -15,7 +15,7 @@ const typeToImport: Record<string, string> = {
   11: 'Checkbox',
 };
 
-const getTypeToTemplate = (type: string): string => {
+const getTypeToFormItem = (type: string): string => {
   switch (type) {
     case '0':
       return `
@@ -104,6 +104,21 @@ const getTypeToTemplate = (type: string): string => {
       return '';
   }
 };
+
+const getFormConfig = (): string => {
+  const formConfig = store.state.formConfig;
+
+  return `size="${formConfig.size}" :inline="${String(formConfig.inline)}" :label-width="${
+    formConfig.labelWidth
+  }" label-align="${formConfig.labelAlign}" label-placement="${
+    formConfig.labelPlacement
+  }" :show-feedback="${String(formConfig.showFeedback)}" :show-label="${String(
+    formConfig.showLabel,
+  )}" :show-require-mark="${String(formConfig.showRequireMark)}" require-mark-placement="${
+    formConfig.requireMarkPlacement
+  }"`;
+};
+
 const getTypeToImport = (data: selectItemValue[]): string => {
   if (store.state.autoAddImport) {
     const importStr = `
@@ -118,18 +133,10 @@ const getTypeToImport = (data: selectItemValue[]): string => {
   }
   return '';
 };
+
 export const generateCode = (data: selectItemValue[]): string => {
-  const formConfig = store.state.formConfig;
   let Code: string = `<template>
-    <n-form size="${formConfig.size}" :inline="${String(formConfig.inline)}" :label-width="${
-    formConfig.labelWidth
-  }" label-align="${formConfig.labelAlign}" label-placement="${
-    formConfig.labelPlacement
-  }" :show-feedback="${String(formConfig.showFeedback)}" :show-label="${String(
-    formConfig.showLabel,
-  )}" :show-require-mark="${String(formConfig.showRequireMark)}" require-mark-placement="${
-    formConfig.requireMarkPlacement
-  }">${data.map(item => getTypeToTemplate(item.value)).join('')}
+    <n-form ${getFormConfig()}>${data.map(item => getTypeToFormItem(item.value)).join('')}
     </n-form>
 </template>`;
 

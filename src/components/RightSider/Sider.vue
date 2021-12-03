@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 
-const initialState = {
+const initialState: Record<string, string | boolean> = {
   labelPlacement: 'left',
   labelWidth: '80',
   labelAlign: 'left',
@@ -13,7 +13,7 @@ const initialState = {
   showLabel: true,
   requireMarkPlacement: 'right',
 };
-const formValue = ref({
+const formValue = ref<Record<string, string | boolean>>({
   labelPlacement: 'left',
   labelWidth: '80',
   labelAlign: 'left',
@@ -30,7 +30,11 @@ const handleApplyClick = () => {
   store.commit('changeFormConfig', formValue.value);
 };
 const handleResetClick = () => {
-  formValue.value = initialState;
+  Object.keys(initialState).forEach(key => {
+    console.log(key);
+
+    formValue.value[key] = initialState[key];
+  });
 };
 </script>
 <template>
@@ -49,7 +53,7 @@ const handleResetClick = () => {
           </n-radio-group>
         </n-form-item>
         <n-form-item label="是否展示为行内表单">
-          <n-switch v-model="formValue.inline"></n-switch>
+          <n-switch v-model:value="formValue.inline"></n-switch>
         </n-form-item>
         <n-form-item label="标签位置">
           <n-radio-group v-model:value="formValue.labelPlacement">
@@ -71,10 +75,10 @@ const handleResetClick = () => {
           </n-radio-group>
         </n-form-item>
         <n-form-item label="是否展示校验反馈">
-          <n-switch v-model="formValue.showFeedback"></n-switch>
+          <n-switch v-model:value="formValue.showFeedback"></n-switch>
         </n-form-item>
         <n-form-item label="是否展示标签">
-          <n-switch v-model="formValue.showLabel"></n-switch>
+          <n-switch v-model:value="formValue.showLabel"></n-switch>
         </n-form-item>
         <n-form-item label="是否显示必填标志">
           <n-switch v-model:value="formValue.showRequireMark" />
@@ -88,8 +92,10 @@ const handleResetClick = () => {
           </n-radio-group>
         </n-form-item>
       </n-form>
-      <n-button type="primary" @click="handleApplyClick">应用</n-button>
-      <n-button type="warning" @click="handleResetClick">重置</n-button>
+      <n-space>
+        <n-button type="primary" @click="handleApplyClick">应用</n-button>
+        <n-button type="warning" @click="handleResetClick">重置</n-button>
+      </n-space>
     </n-tab-pane>
   </n-tabs>
 </template>
