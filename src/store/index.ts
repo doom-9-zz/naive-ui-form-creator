@@ -10,6 +10,17 @@ export interface selectItemValue {
 interface State {
   formItemTypeArray: selectItemValue[];
   autoAddImport: boolean;
+  formConfig: {
+    labelPlacement: 'left' | 'top';
+    labelWidth: string;
+    labelAlign: 'left' | 'right';
+    requiredFlag: boolean;
+    size: 'small' | 'medium' | 'large';
+    inlineFlag: boolean;
+    showFeedbackFlag: boolean;
+    showLabelFlag: boolean;
+    requiredMarkPlacement: 'left' | 'right';
+  };
 }
 
 export const store = createStore<State>({
@@ -18,6 +29,17 @@ export const store = createStore<State>({
     return {
       formItemTypeArray: [],
       autoAddImport: false,
+      formConfig: {
+        labelPlacement: 'left',
+        labelWidth: '80',
+        labelAlign: 'left',
+        requiredFlag: true,
+        size: 'medium',
+        inlineFlag: false,
+        showFeedbackFlag: true,
+        showLabelFlag: true,
+        requiredMarkPlacement: 'right',
+      },
     };
   },
   mutations: {
@@ -69,6 +91,12 @@ export const store = createStore<State>({
     },
     changeAutoAddImport(state, payload: boolean) {
       state.autoAddImport = payload;
+    },
+    changeFormConfig(state, payload: Partial<State['formConfig']>) {
+      state.formConfig = {
+        ...state.formConfig,
+        ...payload,
+      };
     },
   },
 });
