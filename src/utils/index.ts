@@ -133,6 +133,7 @@ const getTypeToImport = (data: formItemType[]): string => {
 
     return importStr;
   }
+
   return '';
 };
 

@@ -13,6 +13,7 @@ export interface formItemType {
 
 export interface State {
   formItemArray: formItemType[];
+  selectedFormItem: string;
   autoAddImport: boolean;
   formConfig: {
     labelPlacement: 'left' | 'top';
@@ -34,6 +35,7 @@ export const store = createStore<State>({
       formItemArray: [],
       autoAddImport: false,
       formConfig: initialFormState,
+      selectedFormItem: '',
     };
   },
   mutations: {
@@ -94,6 +96,21 @@ export const store = createStore<State>({
         ...payload,
       };
       window.$message.success('操作成功');
+    },
+    changeSelectedFormItem(state, payload: string) {
+      state.selectedFormItem = payload;
+    },
+    changeSelectedFormItemConfig(state, payload: formItemType['formItemConfig']) {
+      const index = state.formItemArray.findIndex(item => item.id === state.selectedFormItem);
+      if (index !== -1) {
+        state.formItemArray[index].formItemConfig = {
+          ...state.formItemArray[index].formItemConfig,
+          ...payload,
+        };
+        state.formItemArray[index].label = payload.label;
+      } else {
+        window.$message.warning('请先选中一个表单项');
+      }
     },
   },
 });

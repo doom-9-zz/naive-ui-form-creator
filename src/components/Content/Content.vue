@@ -29,6 +29,12 @@ const handleRemoveClick = (id: string) => {
 const handleCopyClick = (id: string) => {
   store.commit('copy', id);
 };
+const setSelectedFormItem = (id: string) => {
+  store.commit('changeSelectedFormItem', id);
+};
+const selectedFormItem = computed(() => {
+  return store.state.selectedFormItem;
+});
 </script>
 <template>
   <n-divider title-placement="left">预览</n-divider>
@@ -49,7 +55,13 @@ const handleCopyClick = (id: string) => {
     v-else
   >
     <n-space vertical :size="15">
-      <n-card v-for="item in formItemArray">
+      <n-card
+        v-for="item in formItemArray"
+        @click="setSelectedFormItem(item.id)"
+        :contentStyle="`cursor: pointer; ${
+          selectedFormItem === item.id ? 'border: 1px solid #18a058;' : ''
+        }`"
+      >
         <div class="buttons">
           <n-space>
             <n-button circle type="primary" size="small" @click="handleCopyClick(item.id)">
@@ -74,7 +86,6 @@ const handleCopyClick = (id: string) => {
             </n-button>
           </n-space>
         </div>
-
         <n-form-item :label="item.label">
           <n-input v-if="item.value === '0'" />
           <n-input-number v-else-if="item.value === '1'" />
