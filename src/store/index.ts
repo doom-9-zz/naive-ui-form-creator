@@ -14,6 +14,7 @@ export interface formItemType {
 export interface State {
   formItemArray: formItemType[];
   selectedFormItem: string;
+  selectedFormItemType: string;
   autoAddImport: boolean;
   formConfig: {
     labelPlacement: 'left' | 'top';
@@ -36,15 +37,27 @@ export const store = createStore<State>({
       autoAddImport: false,
       formConfig: initialFormState,
       selectedFormItem: '',
+      selectedFormItemType: '',
     };
   },
   mutations: {
     add(state, payload: Omit<formItemType, 'id' | 'formItemConfig'>): void {
+      const id = uuidv4();
       state.formItemArray.push({
-        id: uuidv4(),
+        id,
         formItemConfig: {},
         ...payload,
       });
+      window.$message.success('操作成功');
+    },
+    addAndSelect(state, payload: Omit<formItemType, 'id' | 'formItemConfig'>): void {
+      const id = uuidv4();
+      state.formItemArray.push({
+        id,
+        formItemConfig: {},
+        ...payload,
+      });
+      store.commit('changeSelectedFormItem', id);
       window.$message.success('操作成功');
     },
     remove(state, payload: string): void {
@@ -99,6 +112,10 @@ export const store = createStore<State>({
     },
     changeSelectedFormItem(state, payload: string) {
       state.selectedFormItem = payload;
+      const index = state.formItemArray.findIndex(item => item.id === payload);
+      if (index !== -1) {
+        state.selectedFormItemType = state.formItemArray[index].value;
+      }
     },
     changeSelectedFormItemConfig(state, payload: formItemType['formItemConfig']) {
       const index = state.formItemArray.findIndex(item => item.id === state.selectedFormItem);
@@ -111,6 +128,11 @@ export const store = createStore<State>({
       } else {
         window.$message.warning('请先选中一个表单项');
       }
+    },
+  },
+  getters: {
+    formItemArrayLength(state) {
+      return state.formItemArray.length;
     },
   },
 });
