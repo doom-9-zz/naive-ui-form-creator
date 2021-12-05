@@ -64,22 +64,22 @@ const selectedFormItem = computed(() => {
       >
         <div class="buttons">
           <n-space>
-            <n-button circle type="primary" size="small" @click="handleCopyClick(item.id)">
+            <n-button circle type="primary" size="small" @click.stop="handleCopyClick(item.id)">
               <n-icon size="20">
                 <CopyOutlined />
               </n-icon>
             </n-button>
-            <n-button circle type="error" size="small" @click="handleRemoveClick(item.id)">
+            <n-button circle type="error" size="small" @click.stop="handleRemoveClick(item.id)">
               <n-icon size="20">
                 <DeleteOutlined />
               </n-icon>
             </n-button>
-            <n-button circle type="info" size="small" @click="handleDownClick(item.id)">
+            <n-button circle type="info" size="small" @click.stop="handleDownClick(item.id)">
               <n-icon size="20">
                 <ArrowDownOutlined />
               </n-icon>
             </n-button>
-            <n-button circle type="info" size="small" @click="handleUpClick(item.id)">
+            <n-button circle type="info" size="small" @click.stop="handleUpClick(item.id)">
               <n-icon size="20">
                 <ArrowUpOutlined />
               </n-icon>
