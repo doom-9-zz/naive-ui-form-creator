@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import FormConfig from './components/FormConfig/FormConfig.vue';
 import InputFormItemConfig from './components/FormItemConfig/InputFormItemConfig.vue';
+import InputNumberFormItemConfig from './components/FormItemConfig/InputNumberFormItemConfig.vue';
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 const store = useStore();
@@ -16,6 +17,16 @@ const handleAddClick = () => {
     label: '文本输入',
   });
 };
+const showComponent = computed(() => {
+  switch (selectedFormItemType.value) {
+    case '0':
+      return InputFormItemConfig;
+    case '1':
+      return InputNumberFormItemConfig;
+    default:
+      break;
+  }
+});
 </script>
 <template>
   <n-divider title-placement="left">配置</n-divider>
@@ -30,7 +41,7 @@ const handleAddClick = () => {
         </template>
       </n-empty>
       <n-space>
-        <InputFormItemConfig v-if="selectedFormItemType === '0'" />
+        <component :is="showComponent"></component>
       </n-space>
     </n-tab-pane>
     <n-tab-pane name="the beatles" tab="表单配置">
