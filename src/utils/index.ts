@@ -16,31 +16,32 @@ const typeToImport: Record<string, string> = {
   11: 'Checkbox',
 };
 
-const getTypeToFormItem = (type: string): string => {
+const getTypeToFormItem = (item: formItemType): string => {
+  const type = item.value;
   switch (type) {
     case '0':
       return `
-      <${PREFIX}-form-item>
-        <n-input />
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+        <n-input ${getFormItemContentConfig(item.formItemConfig)}/>
       </${PREFIX}-form-item>`;
     case '1':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
         <n-input-number />
       </${PREFIX}-form-item>`;
     case '2':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
         <n-radio value="radio" name="radio">radio</n-radio>
       </${PREFIX}-form-item>`;
     case '3':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
         <n-rate />
       </${PREFIX}-form-item>`;
     case '4':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
           <n-select
           v-else-if="item.value === '4'"
           :options="[
@@ -53,22 +54,22 @@ const getTypeToFormItem = (type: string): string => {
       </${PREFIX}-form-item>`;
     case '5':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
         <n-slider />
       </${PREFIX}-form-item>`;
     case '6':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
         <n-switch />
       </${PREFIX}-form-item>`;
     case '7':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
         <n-time-picker />
       </${PREFIX}-form-item>`;
     case '8':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
           <n-tree-select
           :options="[
             {
@@ -86,24 +87,36 @@ const getTypeToFormItem = (type: string): string => {
       </${PREFIX}-form-item>`;
     case '9':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
         <n-upload>
           <n-button>上传文件</n-button>
         </n-upload>
       </${PREFIX}-form-item>`;
     case '10':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
         <n-color-picker />
       </${PREFIX}-form-item>`;
     case '11':
       return `
-      <${PREFIX}-form-item>
+      <${PREFIX}-form-item ${getFormItemConfig(item)}>
         <n-checkbox />
       </${PREFIX}-form-item>`;
     default:
       return '';
   }
+};
+
+const getFormItemConfig = (item: formItemType): string => {
+  return `label="${item.label}"`;
+};
+
+const getFormItemContentConfig = (item: { [key: string]: any }): string => {
+  if (Object.keys(item).length === 0) {
+    return '';
+  }
+
+  return ``;
 };
 
 const getFormConfig = (): string => {
@@ -139,7 +152,7 @@ const getTypeToImport = (data: formItemType[]): string => {
 
 export const generateCode = (data: formItemType[]): string => {
   let Code: string = `<template>
-    <${PREFIX}-form ${getFormConfig()}>${data.map(item => getTypeToFormItem(item.value)).join('')}
+    <${PREFIX}-form ${getFormConfig()}>${data.map(item => getTypeToFormItem(item)).join('')}
     </${PREFIX}-form>
 </template>`;
 
