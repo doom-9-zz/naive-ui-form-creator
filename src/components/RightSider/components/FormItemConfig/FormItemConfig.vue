@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useStore } from 'vuex';
-import { initialFormState } from '../../../../const/const';
-import { State } from '../../../../store/index';
-import { copyPropertyValue } from '../../../../utils/index';
+// import { initialFormState } from '../../../../const/const';
+// import { State } from '../../../../store/index';
+// import { copyPropertyValue } from '../../../../utils/index';
 
 const formValue = ref({
   label: '',
@@ -11,7 +11,7 @@ const formValue = ref({
 });
 const store = useStore();
 const handleApplyClick = () => {
-  store.commit('changeFormConfig', formValue.value);
+  store.commit('changeSelectedFormItemConfig', formValue.value);
 };
 </script>
 
