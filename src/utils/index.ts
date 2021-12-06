@@ -57,15 +57,7 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '4':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-          <n-select
-          v-else-if="item.value === '4'"
-          :options="[
-            {
-              label: 'select',
-              value: 'select',
-            },
-          ]"
-        />
+        <n-select ${formItemContentConfig} />
       </${PREFIX}-form-item>`;
     case '5':
       return `
@@ -139,6 +131,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
       return getRadioFormItemContentConfig(item);
     case '3':
       return getRateFormItemContentConfig(item);
+    case '4':
+      return getSelectFormItemContentConfig(item);
     default:
       return ``;
   }
@@ -191,6 +185,19 @@ const getRateFormItemContentConfig = (item: { [key: string]: any }): string => {
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('count', count),
   )} ${bindBooleanAndNumberConfig(combineNameAndValue('allow-half', allowHalf))}`;
+};
+
+const getSelectFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, size, multiple, placeholder, clearable, options } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindStringConfig(
+    combineNameAndValue('size', size),
+  )} ${bindStringConfig(
+    combineNameAndValue('placeholder', placeholder),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('multiple', multiple),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('clearable', clearable),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('options', JSON.stringify(options)))}`;
 };
 
 interface bindConfig {
