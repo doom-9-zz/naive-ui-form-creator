@@ -6,16 +6,16 @@ import { useStore } from 'vuex';
 // import { copyPropertyValue } from '../../../../utils/index';
 
 const formValue = ref<{
-  label: string;
-  name: string;
+  label: string | undefined;
+  name: string | undefined;
   size: 'small' | 'medium' | 'large';
   options: Array<{
     label: string;
     value: string;
   }>;
 }>({
-  label: '',
-  name: '',
+  label: undefined,
+  name: undefined,
   size: 'medium',
   options: [],
 });

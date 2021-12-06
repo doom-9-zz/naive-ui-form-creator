@@ -52,7 +52,7 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '3':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-rate />
+        <n-rate ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '4':
       return `
@@ -137,6 +137,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
       return getInputNumberFormItemContentConfig(item);
     case '2':
       return getRadioFormItemContentConfig(item);
+    case '3':
+      return getRateFormItemContentConfig(item);
     default:
       return ``;
   }
@@ -180,6 +182,15 @@ const getRadioFormItemContentConfig = (item: { [key: string]: any }): string => 
   return `${bindValueConfig(combineNameAndValue('name', name))} ${bindStringConfig(
     combineNameAndValue('size', size),
   )}`;
+};
+
+const getRateFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, size, count, allowHalf } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindStringConfig(
+    combineNameAndValue('size', size),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('count', count),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('allow-half', allowHalf))}`;
 };
 
 interface bindConfig {
@@ -234,6 +245,7 @@ const getTypeToImport = (data: formItemType[]): string => {
   return '';
 };
 
+// entry
 export const generateCode = (data: formItemType[]): string => {
   let Code: string = `<template>
     <${PREFIX}-form ${getFormConfig()}>${data.map(item => getTypeToFormItem(item)).join('')}
