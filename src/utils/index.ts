@@ -77,20 +77,7 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '8':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-          <n-tree-select
-          :options="[
-            {
-              label: 'tree',
-              key: 'tree',
-              children: [
-                {
-                  label: 'tree-select',
-                  key: 'tree-select',
-                },
-              ],
-            },
-          ]"
-        />
+          <n-tree-select ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '9':
       return `
@@ -139,6 +126,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
       return getSwitchFormItemContentConfig(item);
     case '7':
       return getTimePickerFormItemContentConfig(item);
+    case '8':
+      return getTreeSelectFormItemContentConfig(item);
     default:
       return ``;
   }
@@ -240,6 +229,14 @@ const getTimePickerFormItemContentConfig = (item: { [key: string]: any }): strin
     combineNameAndValue('placeholder', placeholder),
   )} ${bindStringConfig(combineNameAndValue('size', size))}`;
 };
+
+const getTreeSelectFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, size, clearable } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('clearable', clearable),
+  )} ${bindStringConfig(combineNameAndValue('size', size))}`;
+};
+
 interface bindConfig {
   name: string;
   val: any;
