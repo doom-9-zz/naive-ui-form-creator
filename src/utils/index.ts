@@ -232,7 +232,7 @@ const getTypeToImport = (data: formItemType[]): string => {
   import { ${Array.from(
     new Set(
       data.map(item => {
-        return typeToImport[item.value].map(importItem => `${prefix}${importItem} ,`).join(', ');
+        return typeToImport[item.value].map(importItem => `${prefix}${importItem} ,`).join('');
       }),
     ),
   ).join('')} ${prefix}Form, ${prefix}FormItem } from '${UI_NAME}';
