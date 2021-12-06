@@ -70,7 +70,9 @@ const showComponent = computed(() => {
           <n-button @click="handleAddClick">试着添加一个并且选中它</n-button>
         </template>
       </n-empty>
+      <!-- <keep-alive> -->
       <component :is="showComponent"></component>
+      <!-- </keep-alive> -->
     </n-tab-pane>
     <n-tab-pane name="the beatles" tab="表单配置">
       <FormConfig />

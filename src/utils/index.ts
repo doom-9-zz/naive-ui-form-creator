@@ -62,7 +62,7 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '5':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-slider />
+        <n-slider ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '6':
       return `
@@ -133,6 +133,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
       return getRateFormItemContentConfig(item);
     case '4':
       return getSelectFormItemContentConfig(item);
+    case '5':
+      return getSliderFormItemContentConfig(item);
     default:
       return ``;
   }
@@ -198,6 +200,21 @@ const getSelectFormItemContentConfig = (item: { [key: string]: any }): string =>
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('clearable', clearable),
   )} ${bindBooleanAndNumberConfig(combineNameAndValue('options', JSON.stringify(options)))}`;
+};
+
+const getSliderFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, max, min, step, range, reverse, vertical, tooltip } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('max', max),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('min', min))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('step', step),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('range', range),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('reverse', reverse),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('vertical', vertical),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('tooltip', tooltip))}`;
 };
 
 interface bindConfig {
