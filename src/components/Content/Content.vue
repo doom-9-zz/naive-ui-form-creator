@@ -116,7 +116,6 @@ const songs = ref(
         <n-form-item :label="item.label">
           <n-input v-if="item.value === '0'" />
           <n-input-number v-else-if="item.value === '1'" />
-
           <n-radio-group name="radiogroup" v-else-if="item.value === '2'">
             <n-space>
               <n-radio v-for="song in songs" :key="song.value" :value="song.value">

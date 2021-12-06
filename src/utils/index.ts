@@ -82,7 +82,7 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '9':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-upload>
+        <n-upload ${formItemContentConfig}>
           <n-button>上传文件</n-button>
         </n-upload>
       </${PREFIX}-form-item>`;
@@ -128,6 +128,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
       return getTimePickerFormItemContentConfig(item);
     case '8':
       return getTreeSelectFormItemContentConfig(item);
+    case '9':
+      return getUploadFormItemContentConfig(item);
     default:
       return ``;
   }
@@ -237,6 +239,56 @@ const getTreeSelectFormItemContentConfig = (item: { [key: string]: any }): strin
   )} ${bindStringConfig(combineNameAndValue('size', size))}`;
 };
 
+const getUploadFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const {
+    name,
+    accept,
+    action,
+    defaultUpload,
+    data,
+    headers,
+    listType,
+    max,
+    method,
+    multiple,
+    fileName,
+    withCredentials,
+  } = item;
+  const handledDate: Record<string, string> = {};
+  const handledHeaders: Record<string, string> = {};
+  (
+    data as Array<{
+      key: string;
+      value: string;
+    }>
+  ).map(item => {
+    return (handledDate[item.key] = item.value);
+  });
+  (
+    headers as Array<{
+      key: string;
+      value: string;
+    }>
+  ).map(item => {
+    return (handledHeaders[item.key] = item.value);
+  });
+  return `${bindFileListConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('default-upload', defaultUpload),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('data', JSON.stringify(handledDate)),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('headers', JSON.stringify(handledHeaders)),
+  )} ${bindStringConfig(combineNameAndValue('accept', accept))} ${bindStringConfig(
+    combineNameAndValue('action', action),
+  )} ${bindStringConfig(combineNameAndValue('list-type', listType))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('max', max),
+  )} ${bindStringConfig(combineNameAndValue('method', method))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('multiple', multiple),
+  )} ${bindStringConfig(combineNameAndValue('name', fileName))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('with-credentials', withCredentials),
+  )}`;
+};
+
 interface bindConfig {
   name: string;
   val: any;
@@ -252,6 +304,10 @@ const bindStringConfig = (config: bindConfig): string => {
 
 const bindValueConfig = (config: bindConfig): string => {
   return `${config.val !== undefined ? `v-model="${String(config.val)}"` : ''}`;
+};
+
+const bindFileListConfig = (config: bindConfig): string => {
+  return `${config.val !== undefined ? `v-model:file-list="${String(config.val)}"` : ''}`;
 };
 
 const getFormConfig = (): string => {
