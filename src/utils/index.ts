@@ -18,30 +18,32 @@ const typeToImport: Record<string, string> = {
 
 const getTypeToFormItem = (item: formItemType): string => {
   const type = item.value;
+  const formItemConfig = getFormItemConfig(item);
+  const formItemContentConfig = getFormItemContentConfig(item.formItemConfig, type);
   switch (type) {
     case '0':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
-        <n-input ${getFormItemContentConfig(item.formItemConfig)}/>
+      <${PREFIX}-form-item ${formItemConfig}>
+        <n-input ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '1':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
         <n-input-number />
       </${PREFIX}-form-item>`;
     case '2':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
         <n-radio value="radio" name="radio">radio</n-radio>
       </${PREFIX}-form-item>`;
     case '3':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
         <n-rate />
       </${PREFIX}-form-item>`;
     case '4':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
           <n-select
           v-else-if="item.value === '4'"
           :options="[
@@ -54,22 +56,22 @@ const getTypeToFormItem = (item: formItemType): string => {
       </${PREFIX}-form-item>`;
     case '5':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
         <n-slider />
       </${PREFIX}-form-item>`;
     case '6':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
         <n-switch />
       </${PREFIX}-form-item>`;
     case '7':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
         <n-time-picker />
       </${PREFIX}-form-item>`;
     case '8':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
           <n-tree-select
           :options="[
             {
@@ -87,19 +89,19 @@ const getTypeToFormItem = (item: formItemType): string => {
       </${PREFIX}-form-item>`;
     case '9':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
         <n-upload>
           <n-button>上传文件</n-button>
         </n-upload>
       </${PREFIX}-form-item>`;
     case '10':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
         <n-color-picker />
       </${PREFIX}-form-item>`;
     case '11':
       return `
-      <${PREFIX}-form-item ${getFormItemConfig(item)}>
+      <${PREFIX}-form-item ${formItemConfig}>
         <n-checkbox />
       </${PREFIX}-form-item>`;
     default:
@@ -111,12 +113,56 @@ const getFormItemConfig = (item: formItemType): string => {
   return `label="${item.label}"`;
 };
 
-const getFormItemContentConfig = (item: { [key: string]: any }): string => {
+const getFormItemContentConfig = (item: { [key: string]: any }, type: string): string => {
   if (Object.keys(item).length === 0) {
     return '';
   }
-
+  switch (type) {
+    case '0':
+      return getInputFormItemContentConfig(item);
+    default:
+      break;
+  }
   return ``;
+};
+
+const combineNameAndValue = (
+  name: string,
+  val: any,
+): {
+  name: string;
+  val: any;
+} => {
+  return {
+    name,
+    val,
+  };
+};
+
+const getInputFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, clearable, maxlength, type, size } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('clearable', clearable),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('maxlength', maxlength))} ${bindStringConfig(
+    combineNameAndValue('type', type),
+  )} ${bindStringConfig(combineNameAndValue('size', size))}`;
+};
+
+interface bindConfig {
+  name: string;
+  val: any;
+}
+
+const bindBooleanAndNumberConfig = (config: bindConfig): string => {
+  return `${config.val !== undefined ? `:${String(config.name)}="${String(config.val)}"` : ''}`;
+};
+
+const bindStringConfig = (config: bindConfig): string => {
+  return `${config.val !== undefined ? `${String(config.name)}="${String(config.val)}"` : ''}`;
+};
+
+const bindValueConfig = (config: bindConfig): string => {
+  return `${config.val !== undefined ? `v-model="${String(config.val)}"` : ''}`;
 };
 
 const getFormConfig = (): string => {
