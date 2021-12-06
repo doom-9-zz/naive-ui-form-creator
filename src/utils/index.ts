@@ -72,7 +72,7 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '7':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-time-picker />
+        <n-time-picker ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '8':
       return `
@@ -137,6 +137,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
       return getSliderFormItemContentConfig(item);
     case '6':
       return getSwitchFormItemContentConfig(item);
+    case '7':
+      return getTimePickerFormItemContentConfig(item);
     default:
       return ``;
   }
@@ -226,6 +228,18 @@ const getSwitchFormItemContentConfig = (item: { [key: string]: any }): string =>
   )} ${bindStringConfig(combineNameAndValue('size', size))}`;
 };
 
+const getTimePickerFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, size, actions, clearable, format, placeholder, use12Hours } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('clearable', clearable),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('use-12-hours', use12Hours),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('actions', JSON.stringify(actions)),
+  )} ${bindStringConfig(combineNameAndValue('format', format))} ${bindStringConfig(
+    combineNameAndValue('placeholder', placeholder),
+  )} ${bindStringConfig(combineNameAndValue('size', size))}`;
+};
 interface bindConfig {
   name: string;
   val: any;
