@@ -5,6 +5,7 @@ import { darkTheme } from 'naive-ui';
 import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
+import { zhCN, dateZhCN } from 'naive-ui';
 
 hljs.registerLanguage('javascript', javascript);
 const theme = ref<null | BuiltInGlobalTheme>(null);
@@ -19,7 +20,7 @@ const changeTheme = () => {
 </script>
 
 <template>
-  <n-config-provider :theme="theme" :hljs="hljs">
+  <n-config-provider :theme="theme" :hljs="hljs" :locale="zhCN" :date-locale="dateZhCN">
     <n-message-provider :max="3">
       <Layout @changeTheme="changeTheme" :isDark="theme === null ? false : true" />
     </n-message-provider>
