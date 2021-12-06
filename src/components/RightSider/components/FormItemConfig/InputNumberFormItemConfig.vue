@@ -8,13 +8,13 @@ import { useStore } from 'vuex';
 const formValue = ref({
   label: undefined,
   name: undefined,
-  clearable: false,
+  clearable: 'false',
   max: undefined,
   min: undefined,
   type: 'text',
   size: 'medium',
   step: '1',
-  showButton: true,
+  showButton: 'true',
 });
 const store = useStore();
 const handleApplyClick = () => {
@@ -33,8 +33,8 @@ const handleApplyClick = () => {
     <n-form-item label="是否可清空">
       <n-radio-group v-model:value="formValue.clearable">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" value="true">是</n-radio>
+          <n-radio :key="1" value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
@@ -50,8 +50,8 @@ const handleApplyClick = () => {
     <n-form-item label="是否有按钮">
       <n-radio-group v-model:value="formValue.showButton">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" value="true">是</n-radio>
+          <n-radio :key="1" value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
