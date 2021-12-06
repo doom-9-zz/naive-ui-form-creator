@@ -67,7 +67,7 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '6':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-switch />
+        <n-switch ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '7':
       return `
@@ -135,6 +135,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
       return getSelectFormItemContentConfig(item);
     case '5':
       return getSliderFormItemContentConfig(item);
+    case '6':
+      return getSwitchFormItemContentConfig(item);
     default:
       return ``;
   }
@@ -215,6 +217,13 @@ const getSliderFormItemContentConfig = (item: { [key: string]: any }): string =>
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('vertical', vertical),
   )} ${bindBooleanAndNumberConfig(combineNameAndValue('tooltip', tooltip))}`;
+};
+
+const getSwitchFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, round, size } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('round', round),
+  )} ${bindStringConfig(combineNameAndValue('size', size))}`;
 };
 
 interface bindConfig {
