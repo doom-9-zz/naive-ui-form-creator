@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { DeleteOutlined, CopyOutlined, ArrowDownOutlined, ArrowUpOutlined } from '@vicons/antd';
 import { State } from '../../store/index';
 
@@ -35,6 +35,33 @@ const setSelectedFormItem = (id: string) => {
 const selectedFormItem = computed(() => {
   return store.state.selectedFormItem;
 });
+const songs = ref(
+  [
+    {
+      value: "Rock'n'Roll Star",
+      label: "Rock'n'Roll Star",
+    },
+    {
+      value: 'Shakermaker',
+      label: 'Shakermaker',
+    },
+    {
+      value: 'Live Forever',
+      label: 'Live Forever',
+    },
+    {
+      value: 'Up in the Sky',
+      label: 'Up in the Sky',
+    },
+    {
+      value: '...',
+      label: '...',
+    },
+  ].map(s => {
+    s.value = s.value.toLowerCase();
+    return s;
+  }),
+);
 </script>
 <template>
   <n-divider title-placement="left">预览</n-divider>
@@ -89,7 +116,14 @@ const selectedFormItem = computed(() => {
         <n-form-item :label="item.label">
           <n-input v-if="item.value === '0'" />
           <n-input-number v-else-if="item.value === '1'" />
-          <n-radio v-else-if="item.value === '2'" value="radio" name="radio">radio</n-radio>
+
+          <n-radio-group name="radiogroup" v-else-if="item.value === '2'">
+            <n-space>
+              <n-radio v-for="song in songs" :key="song.value" :value="song.value">
+                {{ song.label }}
+              </n-radio>
+            </n-space>
+          </n-radio-group>
           <n-rate v-else-if="item.value === '3'" />
           <n-select
             v-else-if="item.value === '4'"

@@ -1,19 +1,19 @@
 import { PREFIX, UI_NAME } from '../const/const';
 import { formItemType, store } from '../store';
 
-const typeToImport: Record<string, string> = {
-  0: 'Input',
-  1: 'InputNumber',
-  2: 'Radio',
-  3: 'Rate',
-  4: 'Select',
-  5: 'Slider',
-  6: 'Switch',
-  7: 'TimePicker',
-  8: 'TreeSelect',
-  9: 'Upload',
-  10: 'ColorPicker',
-  11: 'Checkbox',
+const typeToImport: Record<string, string[]> = {
+  0: ['Input'],
+  1: ['InputNumber'],
+  2: ['Radio', 'RadioGroup', 'Space'],
+  3: ['Rate'],
+  4: ['Select'],
+  5: ['Slider'],
+  6: ['Switch'],
+  7: ['TimePicker'],
+  8: ['TreeSelect'],
+  9: ['Upload'],
+  10: ['ColorPicker'],
+  11: ['Checkbox'],
 };
 
 const getTypeToFormItem = (item: formItemType): string => {
@@ -29,12 +29,25 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '1':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-input-number />
+        <n-input-number ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '2':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-radio value="radio" name="radio">radio</n-radio>
+        <n-radio-group ${formItemContentConfig}>
+          <n-space>
+            ${
+              item.formItemConfig.options !== undefined
+                ? (item.formItemConfig.options as Array<{ label: string; value: string }>)
+                    .map(
+                      (option: { value: string; label: string }) =>
+                        `<n-radio value="${option.value}">${option.label}</n-radio>`,
+                    )
+                    .join('')
+                : ''
+            }
+          </n-space>
+        </n-radio-group>
       </${PREFIX}-form-item>`;
     case '3':
       return `
@@ -120,10 +133,13 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
   switch (type) {
     case '0':
       return getInputFormItemContentConfig(item);
+    case '1':
+      return getInputNumberFormItemContentConfig(item);
+    case '2':
+      return getRadioFormItemContentConfig(item);
     default:
-      break;
+      return ``;
   }
-  return ``;
 };
 
 const combineNameAndValue = (
@@ -146,6 +162,24 @@ const getInputFormItemContentConfig = (item: { [key: string]: any }): string => 
   )} ${bindBooleanAndNumberConfig(combineNameAndValue('maxlength', maxlength))} ${bindStringConfig(
     combineNameAndValue('type', type),
   )} ${bindStringConfig(combineNameAndValue('size', size))}`;
+};
+
+const getInputNumberFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, clearable, max, min, size, step, showButton } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('clearable', clearable),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('max', max))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('min', min),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('step', step))} ${bindStringConfig(
+    combineNameAndValue('size', size),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('show-button', showButton))}`;
+};
+
+const getRadioFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, size } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindStringConfig(
+    combineNameAndValue('size', size),
+  )}`;
 };
 
 interface bindConfig {
@@ -184,9 +218,13 @@ const getTypeToImport = (data: formItemType[]): string => {
   if (store.state.autoAddImport) {
     const importStr = `
 <script setup type="ts">
-  import { ${Array.from(new Set(data.map(item => `${prefix}${typeToImport[item.value]} ,`))).join(
-    '',
-  )} ${prefix}Form, ${prefix}FormItem } from '${UI_NAME}';
+  import { ${Array.from(
+    new Set(
+      data.map(item => {
+        return typeToImport[item.value].map(importItem => `${prefix}${importItem} ,`).join(', ');
+      }),
+    ),
+  ).join('')} ${prefix}Form, ${prefix}FormItem } from '${UI_NAME}';
 </script>
     `;
 
