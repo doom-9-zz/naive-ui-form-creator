@@ -155,7 +155,14 @@ const songs = ref(
             <n-button>上传文件</n-button>
           </n-upload>
           <n-color-picker v-else-if="item.value === '10'" />
-          <n-checkbox v-else-if="item.value === '11'" />
+          <n-checkbox-group v-else-if="item.value === '11'">
+            <n-space item-style="display: flex;">
+              <n-checkbox value="Beijing" label="北京" />
+              <n-checkbox value="Shanghai" label="上海" />
+              <n-checkbox value="Guangzhou" label="广州" />
+              <n-checkbox value="Shenzen" label="深圳" />
+            </n-space>
+          </n-checkbox-group>
         </n-form-item>
       </n-card>
     </n-space>

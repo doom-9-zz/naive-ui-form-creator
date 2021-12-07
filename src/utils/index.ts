@@ -94,7 +94,20 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '11':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-checkbox />
+        <n-checkbox-group ${formItemContentConfig}>
+          <n-space item-style="display: flex;">
+            ${
+              item.formItemConfig.options !== undefined
+                ? (item.formItemConfig.options as Array<{ label: string; value: string }>)
+                    .map(
+                      (option: { value: string; label: string }) =>
+                        `<n-checkbox value="${option.value}" label="${option.label}"/>`,
+                    )
+                    .join('')
+                : ''
+            }
+          </n-space>
+        </n-checkbox-group>
       </${PREFIX}-form-item>`;
     default:
       return '';
@@ -132,6 +145,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
       return getUploadFormItemContentConfig(item);
     case '10':
       return getColorPickerFormItemContentConfig(item);
+    case '11':
+      return getCheckBoxFormItemContentConfig(item);
     default:
       return ``;
   }
@@ -289,6 +304,13 @@ const getUploadFormItemContentConfig = (item: { [key: string]: any }): string =>
   )} ${bindStringConfig(combineNameAndValue('name', fileName))} ${bindBooleanAndNumberConfig(
     combineNameAndValue('with-credentials', withCredentials),
   )}`;
+};
+
+const getCheckBoxFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, max, min } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('max', max),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('min', min))}`;
 };
 
 const getColorPickerFormItemContentConfig = (item: { [key: string]: any }): string => {
