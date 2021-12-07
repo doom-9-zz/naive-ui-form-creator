@@ -294,12 +294,12 @@ const getUploadFormItemContentConfig = (item: { [key: string]: any }): string =>
 const getColorPickerFormItemContentConfig = (item: { [key: string]: any }): string => {
   const { name, size, modes, showAlpha, actions } = item;
   return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
-    combineNameAndValue('modes', modes),
+    combineNameAndValue('modes', JSON.stringify(modes)),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('showAlpha', showAlpha),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('actions', actions))} ${bindStringConfig(
-    combineNameAndValue('size', size),
-  )}`;
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('actions', JSON.stringify(actions)),
+  )} ${bindStringConfig(combineNameAndValue('size', size))}`;
 };
 
 interface bindConfig {
