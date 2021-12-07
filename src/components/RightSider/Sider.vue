@@ -18,6 +18,9 @@ const store = useStore();
 const selectedFormItemType = computed(() => {
   return store.state.selectedFormItemType;
 });
+const selectedFormItem = computed(() => {
+  return store.state.selectedFormItem;
+});
 const formItemArrayLength = computed(() => {
   return store.getters.formItemArrayLength;
 });
@@ -71,7 +74,7 @@ const showComponent = computed(() => {
         </template>
       </n-empty>
       <!-- <keep-alive> -->
-      <component :is="showComponent"></component>
+      <component :is="showComponent" :key="selectedFormItem"></component>
       <!-- </keep-alive> -->
     </n-tab-pane>
     <n-tab-pane name="the beatles" tab="表单配置">
