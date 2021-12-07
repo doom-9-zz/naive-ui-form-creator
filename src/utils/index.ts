@@ -13,7 +13,7 @@ const typeToImport: Record<string, string[]> = {
   8: ['TreeSelect'],
   9: ['Upload'],
   10: ['ColorPicker'],
-  11: ['Checkbox'],
+  11: ['Checkbox', 'CheckboxGroup', 'Space'],
 };
 
 const getTypeToFormItem = (item: formItemType): string => {
