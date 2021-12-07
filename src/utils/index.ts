@@ -89,7 +89,7 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '10':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-color-picker />
+        <n-color-picker ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '11':
       return `
@@ -130,6 +130,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
       return getTreeSelectFormItemContentConfig(item);
     case '9':
       return getUploadFormItemContentConfig(item);
+    case '10':
+      return getColorPickerFormItemContentConfig(item);
     default:
       return ``;
   }
@@ -286,6 +288,17 @@ const getUploadFormItemContentConfig = (item: { [key: string]: any }): string =>
     combineNameAndValue('multiple', multiple),
   )} ${bindStringConfig(combineNameAndValue('name', fileName))} ${bindBooleanAndNumberConfig(
     combineNameAndValue('with-credentials', withCredentials),
+  )}`;
+};
+
+const getColorPickerFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, size, modes, showAlpha, actions } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('modes', modes),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('showAlpha', showAlpha),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('actions', actions))} ${bindStringConfig(
+    combineNameAndValue('size', size),
   )}`;
 };
 
