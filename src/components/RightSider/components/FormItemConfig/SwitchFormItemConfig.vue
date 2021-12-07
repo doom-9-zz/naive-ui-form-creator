@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useStore } from 'vuex';
+import { useConfig } from '../../../../utils/hook/useConfig';
 
-const formValue = ref({
+const formValue = useConfig({
   label: undefined,
   name: undefined,
   round: 'true',

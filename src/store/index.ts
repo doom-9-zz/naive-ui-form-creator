@@ -135,5 +135,8 @@ export const store = createStore<State>({
     formItemArrayLength(state) {
       return state.formItemArray.length;
     },
+    formItemConfig(state) {
+      return state.formItemArray.find(item => item.id === state.selectedFormItem)?.formItemConfig;
+    },
   },
 });
