@@ -7,7 +7,7 @@ const formValue = useConfig<{
   name: string | undefined;
   accept: string | undefined;
   action: string | undefined;
-  defaultUpload: 'true' | 'false';
+  defaultUpload: boolean;
   data: Array<{
     key: string;
     value: string;
@@ -19,23 +19,23 @@ const formValue = useConfig<{
   listType: 'text' | 'image' | 'image-card';
   max: string | undefined;
   method: string;
-  multiple: 'true' | 'false';
+  multiple: boolean;
   fileName: string;
-  withCredentials: 'true' | 'false';
+  withCredentials: boolean;
 }>({
   label: undefined,
   name: undefined,
   accept: undefined,
   action: undefined,
-  defaultUpload: 'true',
+  defaultUpload: true,
   data: [],
   headers: [],
   listType: 'text',
   max: undefined,
   method: 'POST',
-  multiple: 'false',
+  multiple: false,
   fileName: 'file',
-  withCredentials: 'false',
+  withCredentials: false,
 });
 const store = useStore();
 const handleApplyClick = () => {
@@ -119,8 +119,8 @@ const onCreate = () => {
     <n-form-item label="选择文件时候是否默认上传">
       <n-radio-group v-model:value="formValue.defaultUpload">
         <n-space>
-          <n-radio :key="0" value="true">是</n-radio>
-          <n-radio :key="1" value="false">否</n-radio>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
@@ -142,8 +142,8 @@ const onCreate = () => {
     <n-form-item label="是否支持多个文件">
       <n-radio-group v-model:value="formValue.multiple">
         <n-space>
-          <n-radio :key="0" value="true">是</n-radio>
-          <n-radio :key="1" value="false">否</n-radio>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
@@ -153,8 +153,8 @@ const onCreate = () => {
     <n-form-item label="是否携带 Cookie">
       <n-radio-group v-model:value="formValue.withCredentials">
         <n-space>
-          <n-radio :key="0" value="true">是</n-radio>
-          <n-radio :key="1" value="false">否</n-radio>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>

@@ -6,9 +6,9 @@ const formValue = useConfig<{
   label: string | undefined;
   name: string | undefined;
   size: 'small' | 'medium' | 'large';
-  multiple: 'true' | 'false';
+  multiple: boolean;
   placeholder: string;
-  clearable: 'true' | 'false';
+  clearable: boolean;
   options: Array<{
     label: string;
     value: string;
@@ -17,9 +17,9 @@ const formValue = useConfig<{
   label: undefined,
   name: undefined,
   size: 'medium',
-  multiple: 'false',
+  multiple: false,
   placeholder: '请选择',
-  clearable: 'false',
+  clearable: false,
   options: [],
 });
 const store = useStore();
@@ -45,8 +45,8 @@ const onCreate = () => {
     <n-form-item label="是否可清空">
       <n-radio-group v-model:value="formValue.clearable">
         <n-space>
-          <n-radio :key="0" value="true">是</n-radio>
-          <n-radio :key="1" value="false">否</n-radio>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
@@ -65,8 +65,8 @@ const onCreate = () => {
     <n-form-item label="是否为多选">
       <n-radio-group v-model:value="formValue.multiple">
         <n-space>
-          <n-radio :key="0" value="true">是</n-radio>
-          <n-radio :key="1" value="false">否</n-radio>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>

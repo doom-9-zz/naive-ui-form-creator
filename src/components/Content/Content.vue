@@ -114,8 +114,22 @@ const songs = ref(
           </n-space>
         </div>
         <n-form-item :label="item.label">
-          <n-input v-if="item.value === '0'" />
-          <n-input-number v-else-if="item.value === '1'" />
+          <n-input
+            v-if="item.value === '0'"
+            :clearable="item.formItemConfig.clearable"
+            :maxlength="item.formItemConfig.maxlength"
+            :type="item.formItemConfig.type"
+            :size="item.formItemConfig.size"
+          />
+          <n-input-number
+            v-else-if="item.value === '1'"
+            :clearable="item.formItemConfig.clearable"
+            :max="item.formItemConfig.max"
+            :min="item.formItemConfig.min"
+            :size="item.formItemConfig.size"
+            :step="item.formItemConfig.step"
+            :showButton="item.formItemConfig.showButton"
+          />
           <n-radio-group name="radiogroup" v-else-if="item.value === '2'">
             <n-space>
               <n-radio v-for="song in songs" :key="song.value" :value="song.value">
