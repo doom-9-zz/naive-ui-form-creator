@@ -130,14 +130,23 @@ const songs = ref(
             :step="item.formItemConfig.step"
             :showButton="item.formItemConfig.showButton"
           />
-          <n-radio-group name="radiogroup" v-else-if="item.value === '2'">
+          <n-radio-group v-else-if="item.value === '2'" :size="item.formItemConfig.size">
             <n-space>
-              <n-radio v-for="song in songs" :key="song.value" :value="song.value">
-                {{ song.label }}
+              <n-radio
+                v-for="item in item.formItemConfig.options ?? songs"
+                :key="item.value"
+                :value="item.value"
+              >
+                {{ item.label }}
               </n-radio>
             </n-space>
           </n-radio-group>
-          <n-rate v-else-if="item.value === '3'" />
+          <n-rate
+            v-else-if="item.value === '3'"
+            :count="item.formItemConfig.count"
+            :size="item.formItemConfig.size"
+            :allowHalf="item.formItemConfig.allowHalf"
+          />
           <n-select
             v-else-if="item.value === '4'"
             :options="[

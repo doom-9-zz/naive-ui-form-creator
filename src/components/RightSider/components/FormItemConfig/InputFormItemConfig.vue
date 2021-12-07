@@ -5,7 +5,7 @@ import { useConfig } from '../../../../utils/hook/useConfig';
 const formValue = useConfig({
   label: undefined,
   name: undefined,
-  clearable: 'false',
+  clearable: false,
   maxlength: undefined,
   type: 'text',
   size: 'medium',
@@ -27,8 +27,8 @@ const handleApplyClick = () => {
     <n-form-item label="是否可清空">
       <n-radio-group v-model:value="formValue.clearable">
         <n-space>
-          <n-radio :key="0" value="true">是</n-radio>
-          <n-radio :key="1" value="false">否</n-radio>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>

@@ -8,10 +8,10 @@ const formValue = useConfig({
   max: undefined,
   min: undefined,
   step: '1',
-  range: 'false',
-  reverse: 'false',
-  vertical: 'false',
-  tooltip: 'false',
+  range: false,
+  reverse: false,
+  vertical: false,
+  tooltip: false,
 });
 const store = useStore();
 const handleApplyClick = () => {
@@ -30,32 +30,32 @@ const handleApplyClick = () => {
     <n-form-item label="是否选择范围值">
       <n-radio-group v-model:value="formValue.range">
         <n-space>
-          <n-radio :key="0" value="true">是</n-radio>
-          <n-radio :key="1" value="false">否</n-radio>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item label="是否倒转轨道">
       <n-radio-group v-model:value="formValue.reverse">
         <n-space>
-          <n-radio :key="0" value="true">是</n-radio>
-          <n-radio :key="1" value="false">否</n-radio>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item label="是否启用垂直模式">
       <n-radio-group v-model:value="formValue.vertical">
         <n-space>
-          <n-radio :key="0" value="true">是</n-radio>
-          <n-radio :key="1" value="false">否</n-radio>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item label="是否展示 tooltip">
       <n-radio-group v-model:value="formValue.tooltip">
         <n-space>
-          <n-radio :key="0" value="true">是</n-radio>
-          <n-radio :key="1" value="false">否</n-radio>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
