@@ -166,10 +166,12 @@ const combineNameAndValue = (
 };
 
 const getInputFormItemContentConfig = (item: { [key: string]: any }): string => {
-  const { name, clearable, maxlength, type, size } = item;
+  const { name, clearable, maxlength, minlength, type, size } = item;
   return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
     combineNameAndValue('clearable', clearable),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('maxlength', maxlength))} ${bindStringConfig(
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('maxlength', maxlength),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('minlength', minlength))} ${bindStringConfig(
     combineNameAndValue('type', type),
   )} ${bindStringConfig(combineNameAndValue('size', size))}`;
 };

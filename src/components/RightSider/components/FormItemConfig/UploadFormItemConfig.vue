@@ -17,7 +17,7 @@ const formValue = useConfig<{
     value: string;
   }>;
   listType: 'text' | 'image' | 'image-card';
-  max: string | undefined;
+  max: number | undefined;
   method: string;
   multiple: boolean;
   fileName: string;
@@ -134,7 +134,7 @@ const onCreate = () => {
       </n-radio-group>
     </n-form-item>
     <n-form-item label="限制上传文件数量">
-      <n-input v-model:value="formValue.max" type="text" placeholder="请输入限制上传文件数量" />
+      <n-input-number v-model:value="formValue.max" placeholder="请输入限制上传文件数量" />
     </n-form-item>
     <n-form-item label="HTTP 请求的方法">
       <n-input v-model:value="formValue.method" type="text" placeholder="请输入请求的方法" />

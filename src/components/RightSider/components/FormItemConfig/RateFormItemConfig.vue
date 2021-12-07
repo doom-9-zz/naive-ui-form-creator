@@ -6,7 +6,7 @@ const formValue = useConfig({
   label: undefined,
   name: undefined,
   size: 'medium',
-  count: '5',
+  count: 5,
   allowHalf: false,
 });
 const store = useStore();
@@ -33,7 +33,7 @@ const handleApplyClick = () => {
       </n-radio-group>
     </n-form-item>
     <n-form-item label="图标个数">
-      <n-input v-model:value="formValue.count" type="text" placeholder="请输入图标个数" />
+      <n-input-number v-model:value="formValue.count" placeholder="请输入图标个数" />
     </n-form-item>
     <n-form-item label="允许只激活一半图标">
       <n-radio-group v-model:value="formValue.allowHalf">

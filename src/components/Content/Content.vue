@@ -149,18 +149,47 @@ const songs = ref(
           />
           <n-select
             v-else-if="item.value === '4'"
-            :options="[
-              {
-                label: 'select',
-                value: 'select',
-              },
-            ]"
+            :multiple="item.formItemConfig.multiple"
+            :size="item.formItemConfig.size"
+            :placeholder="item.formItemConfig.placeholder"
+            :clearable="item.formItemConfig.clearable"
+            :options="
+              item.formItemConfig.options ?? [
+                {
+                  label: 'select',
+                  value: 'select',
+                },
+              ]
+            "
           />
-          <n-slider v-else-if="item.value === '5'" />
-          <n-switch v-else-if="item.value === '6'" />
-          <n-time-picker v-else-if="item.value === '7'" />
+          <n-slider
+            v-else-if="item.value === '5'"
+            :max="item.formItemConfig.max"
+            :min="item.formItemConfig.min"
+            :step="item.formItemConfig.step"
+            :range="item.formItemConfig.range"
+            :reverse="item.formItemConfig.reverse"
+            :vertical="item.formItemConfig.vertical"
+            :tooltip="item.formItemConfig.tooltip"
+          />
+          <n-switch
+            v-else-if="item.value === '6'"
+            :round="item.formItemConfig.round"
+            :size="item.formItemConfig.size"
+          />
+          <n-time-picker
+            v-else-if="item.value === '7'"
+            :size="item.formItemConfig.size"
+            :actions="item.formItemConfig.actions"
+            :clearable="item.formItemConfig.clearable"
+            :format="item.formItemConfig.format"
+            :placeholder="item.formItemConfig.placeholder"
+            :use12Hours="item.formItemConfig.use12Hours"
+          />
           <n-tree-select
             v-else-if="item.value === '8'"
+            :size="item.formItemConfig.size"
+            :clearable="item.formItemConfig.clearable"
             :options="[
               {
                 label: 'tree',
@@ -174,16 +203,38 @@ const songs = ref(
               },
             ]"
           />
-          <n-upload v-else-if="item.value === '9'">
+          <n-upload
+            v-else-if="item.value === '9'"
+            :accept="item.formItemConfig.accept"
+            :action="item.formItemConfig.action"
+            :defaultUpload="item.formItemConfig.defaultUpload"
+            :listType="item.formItemConfig.listType"
+            :max="item.formItemConfig.max"
+            :method="item.formItemConfig.method"
+            :multiple="item.formItemConfig.multiple"
+            :fileName="item.formItemConfig.fileName"
+            :withCredentials="item.formItemConfig.withCredentials"
+          >
             <n-button>上传文件</n-button>
           </n-upload>
-          <n-color-picker v-else-if="item.value === '10'" />
-          <n-checkbox-group v-else-if="item.value === '11'">
+          <n-color-picker
+            v-else-if="item.value === '10'"
+            :size="item.formItemConfig.size"
+            :modes="item.formItemConfig.modes"
+            :showAlpha="item.formItemConfig.showAlpha"
+            :actions="item.formItemConfig.actions"
+          />
+          <n-checkbox-group
+            v-else-if="item.value === '11'"
+            :max="item.formItemConfig.max"
+            :min="item.formItemConfig.min"
+          >
             <n-space item-style="display: flex;">
-              <n-checkbox value="Beijing" label="北京" />
-              <n-checkbox value="Shanghai" label="上海" />
-              <n-checkbox value="Guangzhou" label="广州" />
-              <n-checkbox value="Shenzen" label="深圳" />
+              <n-checkbox
+                v-for="item in item.formItemConfig.options"
+                :value="item.value"
+                :label="item.label"
+              />
             </n-space>
           </n-checkbox-group>
         </n-form-item>

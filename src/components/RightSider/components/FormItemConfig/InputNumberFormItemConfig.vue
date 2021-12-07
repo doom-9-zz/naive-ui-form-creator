@@ -10,7 +10,7 @@ const formValue = useConfig({
   min: undefined,
   type: 'text',
   size: 'medium',
-  step: '1',
+  step: 1,
   showButton: true,
 });
 const store = useStore();
@@ -36,13 +36,13 @@ const handleApplyClick = () => {
       </n-radio-group>
     </n-form-item>
     <n-form-item label="最大值">
-      <n-input v-model:value="formValue.max" type="text" placeholder="请输入最大值" />
+      <n-input-number v-model:value="formValue.max" placeholder="请输入最大值" />
     </n-form-item>
     <n-form-item label="最小值">
-      <n-input v-model:value="formValue.min" type="text" placeholder="请输入最小值" />
+      <n-input-number v-model:value="formValue.min" placeholder="请输入最小值" />
     </n-form-item>
     <n-form-item label="每次改变步数，可以为小数">
-      <n-input v-model:value="formValue.step" type="text" placeholder="请输入每次改变步数" />
+      <n-input-number v-model:value="formValue.step" placeholder="请输入每次改变步数" />
     </n-form-item>
     <n-form-item label="是否有按钮">
       <n-radio-group v-model:value="formValue.showButton">

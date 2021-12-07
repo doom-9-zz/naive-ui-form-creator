@@ -5,13 +5,13 @@ import { useConfig } from '../../../../utils/hook/useConfig';
 const formValue = useConfig({
   label: undefined,
   name: undefined,
-  max: undefined,
-  min: undefined,
-  step: '1',
+  max: 100,
+  min: 0,
+  step: 1,
   range: false,
   reverse: false,
   vertical: false,
-  tooltip: false,
+  tooltip: true,
 });
 const store = useStore();
 const handleApplyClick = () => {
@@ -60,13 +60,13 @@ const handleApplyClick = () => {
       </n-radio-group>
     </n-form-item>
     <n-form-item label="最大值">
-      <n-input v-model:value="formValue.max" type="text" placeholder="请输入最大值" />
+      <n-input-number v-model:value="formValue.max" placeholder="请输入最大值" />
     </n-form-item>
     <n-form-item label="最小值">
-      <n-input v-model:value="formValue.min" type="text" placeholder="请输入最小值" />
+      <n-input-number v-model:value="formValue.min" placeholder="请输入最小值" />
     </n-form-item>
     <n-form-item label="步长">
-      <n-input v-model:value="formValue.step" type="text" placeholder="请输入步长" />
+      <n-input-number v-model:value="formValue.step" placeholder="请输入步长" />
     </n-form-item>
   </n-form>
   <n-space>

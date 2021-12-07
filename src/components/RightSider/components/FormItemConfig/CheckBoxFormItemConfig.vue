@@ -5,8 +5,8 @@ import { useConfig } from '../../../../utils/hook/useConfig';
 const formValue = useConfig<{
   label: string | undefined;
   name: string | undefined;
-  max: string | undefined;
-  min: string | undefined;
+  max: number | undefined;
+  min: number | undefined;
   options: Array<{
     label: string;
     value: string;
@@ -39,10 +39,10 @@ const onCreate = () => {
       <n-input v-model:value="formValue.label" type="text" placeholder="请输入字段名称" />
     </n-form-item>
     <n-form-item label="可被勾选的 checkbox 的最大数量">
-      <n-input v-model:value="formValue.max" type="text" placeholder="请输入最大数量" />
+      <n-input-number v-model:value="formValue.max" placeholder="请输入最大数量" />
     </n-form-item>
     <n-form-item label="可被勾选的 checkbox 的最小数量">
-      <n-input v-model:value="formValue.min" type="text" placeholder="请输入最小数量" />
+      <n-input-number v-model:value="formValue.min" placeholder="请输入最小数量" />
     </n-form-item>
     <n-form-item label="添加选项">
       <n-dynamic-input

@@ -7,6 +7,7 @@ const formValue = useConfig({
   name: undefined,
   clearable: false,
   maxlength: undefined,
+  minlength: undefined,
   type: 'text',
   size: 'medium',
 });
@@ -33,7 +34,10 @@ const handleApplyClick = () => {
       </n-radio-group>
     </n-form-item>
     <n-form-item label="最大输入长度">
-      <n-input v-model:value="formValue.maxlength" type="text" placeholder="请输入最大输入长度" />
+      <n-input-number v-model:value="formValue.maxlength" placeholder="请输入最大输入长度" />
+    </n-form-item>
+    <n-form-item label="最小输入长度">
+      <n-input-number v-model:value="formValue.minlength" placeholder="请输入最大输入长度" />
     </n-form-item>
     <n-form-item label="输入框类型">
       <n-radio-group v-model:value="formValue.type">
