@@ -348,17 +348,34 @@ const bindFileListConfig = (config: bindConfig): string => {
 };
 
 const getFormConfig = (): string => {
-  const formConfig = store.state.formConfig;
+  const {
+    size,
+    inline,
+    labelWidth,
+    labelAlign,
+    labelPlacement,
+    showFeedback,
+    showLabel,
+    showRequireMark,
+    requireMarkPlacement,
+    model,
+  } = store.state.formConfig;
 
-  return `size="${formConfig.size}" :inline="${String(formConfig.inline)}" :label-width="${
-    formConfig.labelWidth
-  }" label-align="${formConfig.labelAlign}" label-placement="${
-    formConfig.labelPlacement
-  }" :show-feedback="${String(formConfig.showFeedback)}" :show-label="${String(
-    formConfig.showLabel,
-  )}" :show-require-mark="${String(formConfig.showRequireMark)}" require-mark-placement="${
-    formConfig.requireMarkPlacement
-  }"`;
+  return `${bindBooleanAndNumberConfig(combineNameAndValue('model', model))} ${bindStringConfig(
+    combineNameAndValue('size', size),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('inline', inline),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('label-width', labelWidth),
+  )} ${bindStringConfig(combineNameAndValue('label-align', labelAlign))} ${bindStringConfig(
+    combineNameAndValue('label-placement', labelPlacement),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('show-feedback', showFeedback),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('show-label', showLabel),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('show-require-mark', showRequireMark),
+  )} ${bindStringConfig(combineNameAndValue('require-mark-placement', requireMarkPlacement))}`;
 };
 
 const getTypeToImport = (data: formItemType[]): string => {

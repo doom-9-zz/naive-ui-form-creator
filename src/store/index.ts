@@ -26,6 +26,7 @@ export interface State {
     showLabel: boolean;
     showRequireMark: boolean;
     requireMarkPlacement: 'left' | 'right';
+    model: string | undefined;
   };
 }
 

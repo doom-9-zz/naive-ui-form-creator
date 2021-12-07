@@ -21,6 +21,9 @@ const handleResetClick = () => {
 
 <template>
   <n-form>
+    <n-form-item label="收集到的值的对象标识">
+      <n-input v-model:value="formValue.model" type="text" placeholder="请输入对象标识" />
+    </n-form-item>
     <n-form-item label="表单尺寸">
       <n-radio-group v-model:value="formValue.size">
         <n-space>
