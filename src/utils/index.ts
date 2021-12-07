@@ -24,90 +24,90 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '0':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-input ${formItemContentConfig}/>
+        <${PREFIX}-input ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '1':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-input-number ${formItemContentConfig}/>
+        <${PREFIX}-input-number ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '2':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-radio-group ${formItemContentConfig}>
-          <n-space>
+        <${PREFIX}-radio-group ${formItemContentConfig}>
+          <${PREFIX}-space>
             ${
               item.formItemConfig.options !== undefined
                 ? (item.formItemConfig.options as Array<{ label: string; value: string }>)
                     .map(
                       (option: { value: string; label: string }) =>
-                        `<n-radio value="${option.value}">${option.label}</n-radio>`,
+                        `<${PREFIX}-radio value="${option.value}">${option.label}</${PREFIX}-radio>`,
                     )
                     .join('')
                 : ''
             }
-          </n-space>
-        </n-radio-group>
+          </${PREFIX}-space>
+        </${PREFIX}-radio-group>
       </${PREFIX}-form-item>`;
     case '3':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-rate ${formItemContentConfig}/>
+        <${PREFIX}-rate ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '4':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-select ${formItemContentConfig} />
+        <${PREFIX}-select ${formItemContentConfig} />
       </${PREFIX}-form-item>`;
     case '5':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-slider ${formItemContentConfig}/>
+        <${PREFIX}-slider ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '6':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-switch ${formItemContentConfig}/>
+        <${PREFIX}-switch ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '7':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-time-picker ${formItemContentConfig}/>
+        <${PREFIX}-time-picker ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '8':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-          <n-tree-select ${formItemContentConfig}/>
+          <${PREFIX}-tree-select ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '9':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-upload ${formItemContentConfig}>
-          <n-button>上传文件</n-button>
-        </n-upload>
+        <${PREFIX}-upload ${formItemContentConfig}>
+          <${PREFIX}-button>上传文件</${PREFIX}-button>
+        </${PREFIX}-upload>
       </${PREFIX}-form-item>`;
     case '10':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-color-picker ${formItemContentConfig}/>
+        <${PREFIX}-color-picker ${formItemContentConfig}/>
       </${PREFIX}-form-item>`;
     case '11':
       return `
       <${PREFIX}-form-item ${formItemConfig}>
-        <n-checkbox-group ${formItemContentConfig}>
-          <n-space item-style="display: flex;">
+        <${PREFIX}-checkbox-group ${formItemContentConfig}>
+          <${PREFIX}-space item-style="display: flex;">
             ${
               item.formItemConfig.options !== undefined
                 ? (item.formItemConfig.options as Array<{ label: string; value: string }>)
                     .map(
                       (option: { value: string; label: string }) =>
-                        `<n-checkbox value="${option.value}" label="${option.label}"/>`,
+                        `<${PREFIX}-checkbox value="${option.value}" label="${option.label}"/>`,
                     )
                     .join('')
                 : ''
             }
-          </n-space>
-        </n-checkbox-group>
+          </${PREFIX}-space>
+        </${PREFIX}-checkbox-group>
       </${PREFIX}-form-item>`;
     default:
       return '';
