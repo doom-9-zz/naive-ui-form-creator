@@ -138,5 +138,12 @@ export const store = createStore<State>({
     formItemConfig(state) {
       return state.formItemArray.find(item => item.id === state.selectedFormItem)?.formItemConfig;
     },
+    selectedFormItem(state) {
+      const index = state.formItemArray.findIndex(item => item.id === state.selectedFormItem);
+      if (index !== -1) {
+        return state.formItemArray[index];
+      }
+      return null;
+    },
   },
 });
