@@ -247,7 +247,7 @@ const songs = ref(
 .buttons {
   position: absolute;
   top: 100%;
-  left: 80%;
+  right: 5%;
   transform: translateY(-50%);
 }
 </style>
