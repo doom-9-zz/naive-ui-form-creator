@@ -231,7 +231,7 @@ const songs = ref(
           >
             <n-space item-style="display: flex;">
               <n-checkbox
-                v-for="item in item.formItemConfig.options"
+                v-for="item in item.formItemConfig.options ?? [{ label: 'demo', value: 'demo' }]"
                 :value="item.value"
                 :label="item.label"
               />
