@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useStore } from 'vuex';
-// import { initialFormState } from '../../../../const/const';
-// import { State } from '../../../../store/index';
-// import { copyPropertyValue } from '../../../../utils/index';
 
 const formValue = ref<{
   label: string | undefined;
