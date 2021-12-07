@@ -340,7 +340,13 @@ const bindStringConfig = (config: bindConfig): string => {
 };
 
 const bindValueConfig = (config: bindConfig): string => {
-  return `${config.val !== undefined ? `v-model="${String(config.val)}"` : ''}`;
+  return `${
+    config.val !== undefined
+      ? `v-model="${
+          store.state.formConfig.model !== undefined ? store.state.formConfig.model + '.' : ''
+        }${String(config.val)}"`
+      : ''
+  }`;
 };
 
 const bindFileListConfig = (config: bindConfig): string => {
