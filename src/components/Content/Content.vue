@@ -19,12 +19,6 @@ const handleAddClick = () => {
     label: '文本输入',
   });
 };
-const handleUpClick = (id: string) => {
-  store.commit('up', id);
-};
-const handleDownClick = (id: string) => {
-  store.commit('down', id);
-};
 const handleRemoveClick = (id: string) => {
   store.commit('remove', id);
 };
@@ -102,16 +96,6 @@ const songs = ref(
               <n-button circle type="error" size="small" @click.stop="handleRemoveClick(item.id)">
                 <n-icon size="20">
                   <DeleteOutlined />
-                </n-icon>
-              </n-button>
-              <n-button circle type="info" size="small" @click.stop="handleDownClick(item.id)">
-                <n-icon size="20">
-                  <ArrowDownOutlined />
-                </n-icon>
-              </n-button>
-              <n-button circle type="info" size="small" @click.stop="handleUpClick(item.id)">
-                <n-icon size="20">
-                  <ArrowUpOutlined />
                 </n-icon>
               </n-button>
             </n-space>
