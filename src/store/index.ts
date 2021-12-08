@@ -100,6 +100,16 @@ export const store = createStore<State>({
         window.$message.warning('已经是最后一个了');
       }
     },
+    exchange(state, payload: { id1: string; id2: string }) {
+      const index1 = state.formItemArray.findIndex(item => item.id === payload.id1);
+      const index2 = state.formItemArray.findIndex(item => item.id === payload.id2);
+      if (index1 !== -1 && index2 !== -1) {
+        const item1 = state.formItemArray[index1];
+        const item2 = state.formItemArray[index2];
+        state.formItemArray.splice(index1, 1, item2);
+        state.formItemArray.splice(index2, 1, item1);
+      }
+    },
     changeAutoAddImport(state, payload: boolean) {
       state.autoAddImport = payload;
       window.$message.success('操作成功');
