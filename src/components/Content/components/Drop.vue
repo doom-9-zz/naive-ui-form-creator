@@ -10,7 +10,14 @@ const dragOver = (e: DragEvent) => {
   e.preventDefault();
   e.stopPropagation();
   if (e.target !== null) {
-    dropId = getParentElementId(e.target as HTMLElement);
+    let id = getParentElementId(e.target as HTMLElement);
+    if (dropId !== id) {
+      dropId = id;
+      store.commit('exchange', {
+        id1: dragId,
+        id2: dropId,
+      });
+    }
   }
 };
 const handleDragStart = (e: DragEvent) => {
@@ -19,17 +26,9 @@ const handleDragStart = (e: DragEvent) => {
     dragId = getParentElementId(e.target as HTMLDivElement);
   }
 };
-
-const handleDragEnd = (e: DragEvent) => {
-  e.stopPropagation();
-  store.commit('exchange', {
-    id1: dragId,
-    id2: dropId,
-  });
-};
 </script>
 <template>
-  <div @dragover="dragOver" @dragstart="handleDragStart" @dragend="handleDragEnd">
+  <div @dragover="dragOver" @dragstart="handleDragStart">
     <slot></slot>
   </div>
 </template>
