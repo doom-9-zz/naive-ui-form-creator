@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
-import { ref } from 'vue';
 import { getParentElementId } from '../../../utils/index';
 
 const store = useStore();
-let dragged: HTMLDivElement | null = null;
-let draggedParent = ref<HTMLDivElement | null>(null);
 let dragId: string | null = '';
 let dropId: string | null = '';
 
@@ -25,11 +22,6 @@ const handleDragStart = (e: DragEvent) => {
 
 const handleDragEnd = (e: DragEvent) => {
   e.stopPropagation();
-  console.log({
-    id1: dragId,
-    id2: dropId,
-  });
-
   store.commit('exchange', {
     id1: dragId,
     id2: dropId,
@@ -37,12 +29,7 @@ const handleDragEnd = (e: DragEvent) => {
 };
 </script>
 <template>
-  <div
-    @dragover="dragOver"
-    @dragstart="handleDragStart"
-    @dragend="handleDragEnd"
-    ref="draggedParent"
-  >
+  <div @dragover="dragOver" @dragstart="handleDragStart" @dragend="handleDragEnd">
     <slot></slot>
   </div>
 </template>
