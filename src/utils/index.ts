@@ -433,3 +433,14 @@ export const copy = (value: string): void => {
 export function copyPropertyValue<T, K extends keyof T>(obj: T, target: T, key: K): void {
   obj[key] = target[key];
 }
+
+export function getParentElementId(element: HTMLElement): string | null {
+  let parent = element.parentElement;
+  while (parent != null) {
+    if (parent.dataset.drag === 'doom') {
+      return parent.id;
+    }
+    parent = parent.parentElement;
+  }
+  return null;
+}
