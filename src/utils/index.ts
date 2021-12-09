@@ -109,6 +109,11 @@ const getTypeToFormItem = (item: formItemType): string => {
           </${PREFIX}-space>
         </${PREFIX}-checkbox-group>
       </${PREFIX}-form-item>`;
+    case '12':
+      return `
+        <${PREFIX}-divider ${formItemContentConfig}>${
+        item.formItemConfig.name as string
+      }</${PREFIX}-divider>`;
     default:
       return '';
   }
@@ -147,6 +152,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
       return getColorPickerFormItemContentConfig(item);
     case '11':
       return getCheckBoxFormItemContentConfig(item);
+    case '12':
+      return getDividerContentConfig(item);
     default:
       return ``;
   }
@@ -318,6 +325,17 @@ const getCheckBoxFormItemContentConfig = (item: { [key: string]: any }): string 
 };
 
 const getColorPickerFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const { name, size, modes, showAlpha, actions } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('modes', JSON.stringify(modes)),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('showAlpha', showAlpha),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('actions', JSON.stringify(actions)),
+  )} ${bindStringConfig(combineNameAndValue('size', size))}`;
+};
+
+const getDividerContentConfig = (item: { [key: string]: any }): string => {
   const { name, size, modes, showAlpha, actions } = item;
   return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
     combineNameAndValue('modes', JSON.stringify(modes)),

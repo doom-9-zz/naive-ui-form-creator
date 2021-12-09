@@ -12,6 +12,7 @@ import TimePickerFormItemConfig from './components/FormItemConfig/TimePickerForm
 import TreeSelectFormItemConfig from './components/FormItemConfig/TreeSelectFormItemConfig.vue';
 import UploadFormItemConfig from './components/FormItemConfig/UploadFormItemConfig.vue';
 import InputNumberFormItemConfig from './components/FormItemConfig/InputNumberFormItemConfig.vue';
+import DividerConfig from './components/FormItemConfig/DividerConfig.vue';
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 const store = useStore();
@@ -56,6 +57,9 @@ const showComponent = computed(() => {
       return ColorPickerFormItemConfig;
     case '11':
       return CheckBoxFormItemConfig;
+    case '12':
+      return DividerConfig;
+
     default:
       break;
   }

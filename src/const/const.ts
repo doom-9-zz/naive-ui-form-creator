@@ -56,6 +56,13 @@ export const options: selectItem = [
   },
 ];
 
+export const LayoutOptions: selectItem = [
+  {
+    label: '分割线',
+    value: '12',
+  },
+];
+
 export const initialFormState: State['formConfig'] = {
   labelPlacement: 'left',
   labelWidth: '80',
