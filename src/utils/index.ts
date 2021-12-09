@@ -434,7 +434,11 @@ export function copyPropertyValue<T, K extends keyof T>(obj: T, target: T, key: 
   obj[key] = target[key];
 }
 
-export function getParentElementId(element: HTMLElement): string | null {
+export function getParentElementId(element: HTMLElement | null): string | null {
+  if (element === null) {
+    return null;
+  }
+
   let currElement: HTMLElement | null = element;
   while (currElement != null) {
     if (currElement.dataset.drag === 'doom') {
