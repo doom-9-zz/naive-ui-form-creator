@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
 import { computed, ref } from 'vue';
-import { DeleteOutlined, CopyOutlined, ArrowDownOutlined, ArrowUpOutlined } from '@vicons/antd';
+import { DeleteOutlined, CopyOutlined } from '@vicons/antd';
 import { State } from '../../store/index';
 import DraggableItem from './components/DraggableItem.vue';
 import Drop from './components/Drop.vue';
@@ -78,7 +78,6 @@ const songs = ref(
     v-else
   >
     <Drop>
-      <!-- <n-space vertical :size="15"> -->
       <DraggableItem v-for="item in formItemArray" :id="item.id">
         <n-card
           @click="setSelectedFormItem(item.id)"
@@ -227,7 +226,6 @@ const songs = ref(
           </n-form-item>
         </n-card>
       </DraggableItem>
-      <!-- </n-space> -->
     </Drop>
   </n-form>
 </template>

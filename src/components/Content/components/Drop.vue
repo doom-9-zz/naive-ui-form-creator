@@ -29,13 +29,14 @@ const handleDragOver = (e: DragEvent) => {
   }
 };
 const handleDragStart = (e: DragEvent) => {
+  e.dataTransfer!.effectAllowed = 'move';
   let id = getParentElementId(e.target as HTMLElement);
   if (id !== null) {
     dragId = id;
   }
 };
 
-const handleDragEnd = (e: DragEvent) => {
+const handleDragEnd = () => {
   if (dragId !== null && dropId !== null) {
     store.commit('exchange', {
       id1: dragId,
