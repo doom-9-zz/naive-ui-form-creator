@@ -213,7 +213,9 @@ const getSelectFormItemContentConfig = (item: { [key: string]: any }): string =>
     combineNameAndValue('multiple', multiple),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('clearable', clearable),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('options', JSON.stringify(options)))}`;
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('options', replaceOptions(JSON.stringify(options))),
+  )}`;
 };
 
 const getSliderFormItemContentConfig = (item: { [key: string]: any }): string => {
@@ -351,6 +353,10 @@ const bindValueConfig = (config: bindConfig): string => {
 
 const bindFileListConfig = (config: bindConfig): string => {
   return `${config.val !== undefined ? `v-model:file-list="${String(config.val)}"` : ''}`;
+};
+
+const replaceOptions = (str: string): string => {
+  return str.replace(/"label"/g, 'label').replace(/"value"/g, 'value');
 };
 
 const getFormConfig = (): string => {
