@@ -112,7 +112,7 @@ const getTypeToFormItem = (item: formItemType): string => {
     case '12':
       return `
         <${PREFIX}-divider ${formItemContentConfig}>${
-        item.formItemConfig.name as string
+        (item.formItemConfig.name as string) ?? ''
       }</${PREFIX}-divider>`;
     default:
       return '';
@@ -336,14 +336,12 @@ const getColorPickerFormItemContentConfig = (item: { [key: string]: any }): stri
 };
 
 const getDividerContentConfig = (item: { [key: string]: any }): string => {
-  const { name, size, modes, showAlpha, actions } = item;
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
-    combineNameAndValue('modes', JSON.stringify(modes)),
-  )} ${bindBooleanAndNumberConfig(
-    combineNameAndValue('showAlpha', showAlpha),
-  )} ${bindBooleanAndNumberConfig(
-    combineNameAndValue('actions', JSON.stringify(actions)),
-  )} ${bindStringConfig(combineNameAndValue('size', size))}`;
+  const { dashed, vertical, titlePlacement } = item;
+  return `${bindBooleanAndNumberConfig(
+    combineNameAndValue('dashed', dashed),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('vertical', vertical))} ${bindStringConfig(
+    combineNameAndValue('title-placement', titlePlacement),
+  )}`;
 };
 
 interface bindConfig {

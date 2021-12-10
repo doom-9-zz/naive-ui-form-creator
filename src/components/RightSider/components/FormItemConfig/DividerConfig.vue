@@ -3,7 +3,7 @@ import { useStore } from 'vuex';
 import { useConfig } from '../../../../utils/hook/useConfig';
 
 const formValue = useConfig({
-  name: '虚线',
+  name: undefined,
   dashed: false,
   vertical: false,
   titlePlacement: 'center',

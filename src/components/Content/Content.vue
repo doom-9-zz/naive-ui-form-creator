@@ -223,7 +223,14 @@ const songs = ref(
                 />
               </n-space>
             </n-checkbox-group>
-            <n-divider v-else-if="item.value === '12'">{{ item.formItemConfig.name }}</n-divider>
+            <n-divider
+              v-else-if="item.value === '12'"
+              :dashed="item.formItemConfig.dashed"
+              :vertical="item.formItemConfig.vertical"
+              :title-placement="item.formItemConfig.titlePlacement"
+            >
+              {{ item.formItemConfig.name }}
+            </n-divider>
           </n-form-item>
         </n-card>
       </DraggableItem>
