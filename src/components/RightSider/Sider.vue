@@ -84,7 +84,7 @@ const handleTabsChange = (val: 'form' | 'formItem') => {
           <n-button @click="handleAddClick">试着添加一个并且选中它</n-button>
         </template>
       </n-empty>
-      <component :is="showComponent" :key="selectedFormItem"></component>
+      <component v-else :is="showComponent" :key="selectedFormItem"></component>
     </n-tab-pane>
     <n-tab-pane name="form" tab="表单配置" @click="handleTabsChange('form')">
       <FormConfig />
