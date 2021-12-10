@@ -27,37 +27,17 @@ const handleCopyClick = (id: string) => {
 };
 const setSelectedFormItem = (id: string) => {
   store.commit('changeSelectedFormItem', id);
+  store.commit('changeTabsValue', 'formItem');
 };
 const selectedFormItem = computed(() => {
   return store.state.selectedFormItem;
 });
-const songs = ref(
-  [
-    {
-      value: "Rock'n'Roll Star",
-      label: "Rock'n'Roll Star",
-    },
-    {
-      value: 'Shakermaker',
-      label: 'Shakermaker',
-    },
-    {
-      value: 'Live Forever',
-      label: 'Live Forever',
-    },
-    {
-      value: 'Up in the Sky',
-      label: 'Up in the Sky',
-    },
-    {
-      value: '...',
-      label: '...',
-    },
-  ].map(s => {
-    s.value = s.value.toLowerCase();
-    return s;
-  }),
-);
+const songs = ref([
+  {
+    value: 'demo',
+    label: 'demo',
+  },
+]);
 </script>
 <template>
   <n-divider title-placement="left">预览</n-divider>
@@ -78,7 +58,13 @@ const songs = ref(
     v-else
   >
     <Drop>
-      <DraggableItem v-for="item in formItemArray" :id="item.id">
+      <DraggableItem
+        v-for="item in formItemArray"
+        :id="item.id"
+        :style="{
+          marginBottom: '15px',
+        }"
+      >
         <n-card
           @click="setSelectedFormItem(item.id)"
           :contentStyle="`cursor: pointer; ${

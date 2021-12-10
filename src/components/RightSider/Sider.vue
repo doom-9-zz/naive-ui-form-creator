@@ -26,7 +26,7 @@ const formItemArrayLength = computed(() => {
   return store.getters.formItemArrayLength;
 });
 const handleAddClick = () => {
-  const id = store.commit('addAndSelect', {
+  store.commit('addAndSelect', {
     value: '0',
     label: '文本输入',
   });
@@ -64,11 +64,18 @@ const showComponent = computed(() => {
       break;
   }
 });
+
+const tabsValue = computed(() => {
+  return store.state.tabsValue;
+});
+const handleTabsChange = (val: 'form' | 'formItem') => {
+  store.commit('changeTabsValue', val);
+};
 </script>
 <template>
   <n-divider title-placement="left">配置</n-divider>
-  <n-tabs type="segment">
-    <n-tab-pane name="oasis" tab="表单项配置">
+  <n-tabs type="segment" :value="tabsValue">
+    <n-tab-pane name="formItem" tab="表单项配置" @click="handleTabsChange('formItem')">
       <n-empty
         description="从最左侧添加表单项"
         v-if="formItemArrayLength === 0 || selectedFormItemType === ''"
@@ -77,11 +84,9 @@ const showComponent = computed(() => {
           <n-button @click="handleAddClick">试着添加一个并且选中它</n-button>
         </template>
       </n-empty>
-      <!-- <keep-alive> -->
       <component :is="showComponent" :key="selectedFormItem"></component>
-      <!-- </keep-alive> -->
     </n-tab-pane>
-    <n-tab-pane name="the beatles" tab="表单配置">
+    <n-tab-pane name="form" tab="表单配置" @click="handleTabsChange('form')">
       <FormConfig />
     </n-tab-pane>
   </n-tabs>

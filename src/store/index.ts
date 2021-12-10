@@ -28,6 +28,7 @@ export interface State {
     requireMarkPlacement: 'left' | 'right';
     model: string | undefined;
   };
+  tabsValue: 'form' | 'formItem';
 }
 
 export const store = createStore<State>({
@@ -39,6 +40,7 @@ export const store = createStore<State>({
       formConfig: initialFormState,
       selectedFormItem: '',
       selectedFormItemType: '',
+      tabsValue: 'form',
     };
   },
   mutations: {
@@ -140,6 +142,9 @@ export const store = createStore<State>({
       } else {
         window.$message.warning('请先选中一个表单项');
       }
+    },
+    changeTabsValue(state, payload: State['tabsValue']) {
+      state.tabsValue = payload;
     },
   },
   getters: {

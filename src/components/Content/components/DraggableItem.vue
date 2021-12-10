@@ -1,12 +1,6 @@
 <script setup lang="ts"></script>
 <template>
-  <div
-    draggable="true"
-    data-drag="doom"
-    :style="{
-      marginBottom: '15px',
-    }"
-  >
+  <div draggable="true" data-drag="doom">
     <slot></slot>
   </div>
 </template>
