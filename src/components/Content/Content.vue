@@ -179,13 +179,18 @@ const songs = ref([
               v-else-if="item.value === '9'"
               :accept="item.formItemConfig.accept"
               :action="item.formItemConfig.action"
-              :defaultUpload="item.formItemConfig.defaultUpload"
-              :listType="item.formItemConfig.listType"
+              :default-upload="item.formItemConfig.defaultUpload"
+              :list-type="item.formItemConfig.listType"
               :max="item.formItemConfig.max"
               :method="item.formItemConfig.method"
               :multiple="item.formItemConfig.multiple"
-              :fileName="item.formItemConfig.fileName"
-              :withCredentials="item.formItemConfig.withCredentials"
+              :name="item.formItemConfig.fileName"
+              :with-credentials="item.formItemConfig.withCredentials"
+              :show-cancel-button="item.formItemConfig.showCancelButton"
+              :show-download-button="item.formItemConfig.showDownloadButton"
+              :show-remove-button="item.formItemConfig.showRemoveButton"
+              :show-retry-button="item.formItemConfig.showRetryButton"
+              :show-file-list="item.formItemConfig.showFileList"
             >
               <n-button>上传文件</n-button>
             </n-upload>

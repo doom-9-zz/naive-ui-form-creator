@@ -22,6 +22,11 @@ const formValue = useConfig<{
   multiple: boolean;
   fileName: string;
   withCredentials: boolean;
+  showCancelButton: boolean;
+  showDownloadButton: boolean;
+  showRemoveButton: boolean;
+  showRetryButton: boolean;
+  showFileList: boolean;
 }>({
   label: undefined,
   name: undefined,
@@ -36,6 +41,11 @@ const formValue = useConfig<{
   multiple: false,
   fileName: 'file',
   withCredentials: false,
+  showCancelButton: true,
+  showDownloadButton: false,
+  showRemoveButton: true,
+  showRetryButton: true,
+  showFileList: true,
 });
 const store = useStore();
 const handleApplyClick = () => {
@@ -152,6 +162,46 @@ const onCreate = () => {
     </n-form-item>
     <n-form-item label="是否携带 Cookie">
       <n-radio-group v-model:value="formValue.withCredentials">
+        <n-space>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
+        </n-space>
+      </n-radio-group>
+    </n-form-item>
+    <n-form-item label="是否显示取消按钮（在 pending、uploading、error 的时候展示）">
+      <n-radio-group v-model:value="formValue.showCancelButton">
+        <n-space>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
+        </n-space>
+      </n-radio-group>
+    </n-form-item>
+    <n-form-item label="是否显示下载按钮（在 finished 后展示）">
+      <n-radio-group v-model:value="formValue.showDownloadButton">
+        <n-space>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
+        </n-space>
+      </n-radio-group>
+    </n-form-item>
+    <n-form-item label="是否显示删除按钮（在 finished 后时候展示）">
+      <n-radio-group v-model:value="formValue.showRemoveButton">
+        <n-space>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
+        </n-space>
+      </n-radio-group>
+    </n-form-item>
+    <n-form-item label="是否显示重新上传按钮（在 error 时展示）">
+      <n-radio-group v-model:value="formValue.showRetryButton">
+        <n-space>
+          <n-radio :key="0" :value="true">是</n-radio>
+          <n-radio :key="1" :value="false">否</n-radio>
+        </n-space>
+      </n-radio-group>
+    </n-form-item>
+    <n-form-item label="是否显示文件列表">
+      <n-radio-group v-model:value="formValue.showFileList">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
           <n-radio :key="1" :value="false">否</n-radio>

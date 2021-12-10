@@ -281,6 +281,11 @@ const getUploadFormItemContentConfig = (item: { [key: string]: any }): string =>
     multiple,
     fileName,
     withCredentials,
+    showCancelButton,
+    showDownloadButton,
+    showRemoveButton,
+    showRetryButton,
+    showFileList,
   } = item;
   const handledDate: Record<string, string> = {};
   const handledHeaders: Record<string, string> = {};
@@ -306,6 +311,16 @@ const getUploadFormItemContentConfig = (item: { [key: string]: any }): string =>
     combineNameAndValue('data', JSON.stringify(handledDate)),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('headers', JSON.stringify(handledHeaders)),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('show-cancel-button', showCancelButton),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('show-download-button', showDownloadButton),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('show-remove-button', showRemoveButton),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('show-retry-button', showRetryButton),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('show-file-list', showFileList),
   )} ${bindStringConfig(combineNameAndValue('accept', accept))} ${bindStringConfig(
     combineNameAndValue('action', action),
   )} ${bindStringConfig(combineNameAndValue('list-type', listType))} ${bindBooleanAndNumberConfig(
