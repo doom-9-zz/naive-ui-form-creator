@@ -32,12 +32,6 @@ const setSelectedFormItem = (id: string) => {
 const selectedFormItem = computed(() => {
   return store.state.selectedFormItem;
 });
-const songs = ref([
-  {
-    value: 'demo',
-    label: 'demo',
-  },
-]);
 </script>
 <template>
   <n-divider title-placement="left">预览</n-divider>
@@ -100,12 +94,17 @@ const songs = ref([
               :min="item.formItemConfig.min"
               :size="item.formItemConfig.size"
               :step="item.formItemConfig.step"
-              :showButton="item.formItemConfig.showButton"
+              :show-button="item.formItemConfig.showButton"
             />
             <n-radio-group v-else-if="item.value === '2'" :size="item.formItemConfig.size">
               <n-space>
                 <n-radio
-                  v-for="item in item.formItemConfig.options ?? songs"
+                  v-for="item in item.formItemConfig.options ?? [
+                    {
+                      value: 'demo',
+                      label: 'demo',
+                    },
+                  ]"
                   :key="item.value"
                   :value="item.value"
                 >
@@ -117,7 +116,7 @@ const songs = ref([
               v-else-if="item.value === '3'"
               :count="item.formItemConfig.count"
               :size="item.formItemConfig.size"
-              :allowHalf="item.formItemConfig.allowHalf"
+              :allow-half="item.formItemConfig.allowHalf"
             />
             <n-select
               v-else-if="item.value === '4'"
@@ -156,7 +155,7 @@ const songs = ref([
               :clearable="item.formItemConfig.clearable"
               :format="item.formItemConfig.format"
               :placeholder="item.formItemConfig.placeholder"
-              :use12Hours="item.formItemConfig.use12Hours"
+              :use-12-hours="item.formItemConfig.use12Hours"
             />
             <n-tree-select
               v-else-if="item.value === '8'"
@@ -198,7 +197,7 @@ const songs = ref([
               v-else-if="item.value === '10'"
               :size="item.formItemConfig.size"
               :modes="item.formItemConfig.modes"
-              :showAlpha="item.formItemConfig.showAlpha"
+              :show-alpha="item.formItemConfig.showAlpha"
               :actions="item.formItemConfig.actions"
             />
             <n-checkbox-group
