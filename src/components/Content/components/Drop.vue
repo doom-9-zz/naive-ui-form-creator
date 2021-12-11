@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import { getParentElement } from '../../../utils/index';
 
@@ -8,23 +8,86 @@ let dragId = ref<string | null>(null);
 const dropId = ref<string | null>(null);
 const dropContainerElement = ref<HTMLDivElement | null>(null);
 const dragElement = ref<HTMLElement | null>(null);
-const preIndex = ref<number>(0);
-let time = 0;
+let canRun = true;
+
+const config = { childList: true };
+const callback = function (mutationsList: any) {
+  for (let mutation of mutationsList) {
+    if (mutation.type === 'childList') {
+      if (dropContainerElement.value) {
+        const children = Array.from(dropContainerElement.value.children);
+        children.forEach((child, index) => {
+          child.setAttribute('data-index', index.toString());
+        });
+      }
+    }
+  }
+};
+const observer = new MutationObserver(callback);
+onMounted(() => {
+  if (dropContainerElement.value) {
+    observer.observe(dropContainerElement.value, config);
+  }
+});
+onUnmounted(() => {
+  observer.disconnect();
+});
+
+if (dropContainerElement.value !== null) {
+  const children = Array.from(dropContainerElement.value.children);
+  children.forEach((child, index) => {
+    child.setAttribute('data-index', index.toString());
+  });
+}
 
 const handleTranslate = () => {
   if (dropContainerElement.value !== null && dragElement.value !== null) {
     const children = Array.from(dropContainerElement.value.children);
     const index = children.findIndex(child => child.id === dropId.value);
-    if (index !== -1) {
-      if (preIndex.value < index) {
-        (children[index] as HTMLDivElement).style.transform = `translateY(-${
+    if (index === -1) return;
+    const dropElement = children[index];
+    const dropDataIndex = Number(dropElement.getAttribute('data-index'));
+    const dragDataIndex = Number(dragElement.value.getAttribute('data-index'));
+
+    if (dropDataIndex > dragDataIndex) {
+      canRun = false;
+      const transformStr = (dropElement as HTMLDivElement).style.transform;
+      const str = `translateY(${dragElement.value.clientHeight + 15}px)`;
+      if (transformStr === str) {
+        (dropElement as HTMLDivElement).style.transform = `translateY(0px)`;
+      } else {
+        (dropElement as HTMLDivElement).style.transform = `translateY(-${
           dragElement.value.clientHeight + 15
         }px)`;
-      } else {
-        (children[index] as HTMLDivElement).style.transform = `translateY(0px)`;
       }
+      setTimeout(() => {
+        if (dragElement.value !== null) {
+          dragElement.value.setAttribute('data-index', `${dropDataIndex}`);
+          dropElement.setAttribute('data-index', `${dragDataIndex}`);
+          canRun = true;
+        }
+      }, 100);
     }
-    preIndex.value = index;
+    if (dropDataIndex < dragDataIndex) {
+      canRun = false;
+      const transformStr = (dropElement as HTMLDivElement).style.transform;
+      const str = `translateY(-${dragElement.value.clientHeight + 15}px)`;
+
+      if (transformStr === str) {
+        (dropElement as HTMLDivElement).style.transform = `translateY(0px)`;
+      } else {
+        (dropElement as HTMLDivElement).style.transform = `translateY(${
+          dragElement.value.clientHeight + 15
+        }px)`;
+      }
+      setTimeout(() => {
+        if (dragElement.value !== null) {
+          dragElement.value.setAttribute('data-index', `${dropDataIndex}`);
+          dropElement.setAttribute('data-index', `${dragDataIndex}`);
+          canRun = true;
+        }
+      }, 100);
+    }
   }
 };
 
@@ -39,14 +102,10 @@ const handleResetTranslate = () => {
 };
 
 const handleDragOver = (e: DragEvent) => {
-  let now = Date.now();
-  if (now - time > 200) {
-    time = now;
-    let ele = getParentElement(e.target as HTMLElement);
-    if (ele !== null) {
-      dropId.value = ele.id;
-      handleTranslate();
-    }
+  let ele = getParentElement(e.target as HTMLElement);
+  if (ele !== null && canRun) {
+    dropId.value = ele.id;
+    handleTranslate();
   }
 };
 const handleDragStart = (e: DragEvent) => {

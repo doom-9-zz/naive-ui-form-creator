@@ -4,7 +4,7 @@
     draggable="true"
     data-drag="doom"
     :style="{
-      transition: 'all 0.2s',
+      transition: 'all 0.1s',
     }"
   >
     <slot></slot>
