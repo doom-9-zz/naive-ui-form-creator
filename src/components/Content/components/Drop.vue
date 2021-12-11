@@ -49,6 +49,7 @@ const handleTranslate = () => {
     const dropDataIndex = Number(dropElement.getAttribute('data-index'));
     const dragDataIndex = Number(dragElement.value.getAttribute('data-index'));
 
+    console.log(dropDataIndex, dragDataIndex);
     if (dropDataIndex > dragDataIndex) {
       canRun = false;
       const transformStr = (dropElement as HTMLDivElement).style.transform;
@@ -114,7 +115,7 @@ const handleDragStart = (e: DragEvent) => {
   if (ele !== null) {
     dragId.value = ele.id;
     dragElement.value = ele;
-    dragElement.value.style.opacity = '0';
+    dragElement.value.style.transform = `translateY(-99999px)`;
   }
 };
 
