@@ -1,48 +1,72 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref } from 'vue';
 import { useStore } from 'vuex';
-import { getParentElementId } from '../../../utils/index';
+import { getParentElement } from '../../../utils/index';
 
 const store = useStore();
-let dragId: string | null = null;
+let dragId = ref<string | null>(null);
 const dropId = ref<string | null>(null);
 const dropContainerElement = ref<HTMLDivElement | null>(null);
+const dragElement = ref<HTMLElement | null>(null);
+const preIndex = ref<number>(0);
+let time = 0;
 
-watchEffect(() => {
-  if (dropContainerElement.value !== null) {
-    const children = dropContainerElement.value.children;
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i] as HTMLDivElement;
-      if (child.id === dropId.value) {
-        child.style.border = '1px dotted rgb(24, 160, 88)';
+const handleTranslate = () => {
+  if (dropContainerElement.value !== null && dragElement.value !== null) {
+    const children = Array.from(dropContainerElement.value.children);
+    const index = children.findIndex(child => child.id === dropId.value);
+    if (index !== -1) {
+      if (preIndex.value < index) {
+        (children[index] as HTMLDivElement).style.transform = `translateY(-${
+          dragElement.value.clientHeight + 15
+        }px)`;
       } else {
-        child.style.border = 'none';
+        (children[index] as HTMLDivElement).style.transform = `translateY(0px)`;
       }
     }
+    preIndex.value = index;
   }
-});
+};
+
+const handleResetTranslate = () => {
+  if (dropContainerElement.value !== null && dragElement.value !== null) {
+    dragElement.value!.style.opacity = '1';
+    const children = Array.from(dropContainerElement.value.children);
+    children.forEach(child => {
+      (child as HTMLDivElement).style.transform = `translateY(0px)`;
+    });
+  }
+};
 
 const handleDragOver = (e: DragEvent) => {
-  let id = getParentElementId(e.target as HTMLElement);
-  if (id !== null && dropId.value !== id) {
-    dropId.value = id;
+  let now = Date.now();
+  if (now - time > 200) {
+    time = now;
+    let ele = getParentElement(e.target as HTMLElement);
+    if (ele !== null) {
+      dropId.value = ele.id;
+      handleTranslate();
+    }
   }
 };
 const handleDragStart = (e: DragEvent) => {
   e.dataTransfer!.effectAllowed = 'move';
-  let id = getParentElementId(e.target as HTMLElement);
-  if (id !== null) {
-    dragId = id;
+  let ele = getParentElement(e.target as HTMLElement);
+  if (ele !== null) {
+    dragId.value = ele.id;
+    dragElement.value = ele;
+    dragElement.value.style.opacity = '0';
   }
 };
 
 const handleDragEnd = () => {
   if (dragId !== null && dropId !== null) {
+    handleResetTranslate();
     store.commit('exchange', {
-      id1: dragId,
+      id1: dragId.value,
       id2: dropId.value,
     });
-    dragId = null;
+    dragId.value = null;
     dropId.value = null;
   }
 };
