@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { initialFormState } from '../../../../const/const';
 import { State } from '../../../../store/index';
@@ -9,9 +9,15 @@ const formValue = ref<State['formConfig']>({
   ...initialFormState,
 });
 const store = useStore();
-const handleApplyClick = () => {
-  store.commit('changeFormConfig', formValue.value);
-};
+watch(
+  formValue,
+  () => {
+    store.commit('changeFormConfig', formValue.value);
+  },
+  {
+    deep: true,
+  },
+);
 const handleResetClick = () => {
   Object.keys(initialFormState).forEach(key => {
     copyPropertyValue(formValue.value, initialFormState, key as keyof State['formConfig']);
@@ -74,7 +80,6 @@ const handleResetClick = () => {
     </n-form-item>
   </n-form>
   <n-space>
-    <n-button type="primary" @click="handleApplyClick">应用</n-button>
     <n-button type="warning" @click="handleResetClick">重置</n-button>
   </n-space>
 </template>

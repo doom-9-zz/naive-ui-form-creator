@@ -13,10 +13,6 @@ const formValue = useConfig({
   vertical: false,
   tooltip: true,
 });
-const store = useStore();
-const handleApplyClick = () => {
-  store.commit('changeSelectedFormItemConfig', formValue.value);
-};
 </script>
 
 <template>
@@ -69,8 +65,5 @@ const handleApplyClick = () => {
       <n-input-number v-model:value="formValue.step" placeholder="请输入步长" />
     </n-form-item>
   </n-form>
-  <n-space>
-    <n-button type="primary" @click="handleApplyClick">应用</n-button>
-  </n-space>
 </template>
 <style></style>

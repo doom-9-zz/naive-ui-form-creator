@@ -10,10 +10,6 @@ const formValue = useConfig({
   showAlpha: true,
   actions: [],
 });
-const store = useStore();
-const handleApplyClick = () => {
-  store.commit('changeSelectedFormItemConfig', formValue.value);
-};
 </script>
 
 <template>
@@ -78,8 +74,5 @@ const handleApplyClick = () => {
       />
     </n-form-item>
   </n-form>
-  <n-space>
-    <n-button type="primary" @click="handleApplyClick">应用</n-button>
-  </n-space>
 </template>
 <style></style>

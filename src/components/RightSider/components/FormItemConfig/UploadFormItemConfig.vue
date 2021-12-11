@@ -47,10 +47,6 @@ const formValue = useConfig<{
   showRetryButton: true,
   showFileList: true,
 });
-const store = useStore();
-const handleApplyClick = () => {
-  store.commit('changeSelectedFormItemConfig', formValue.value);
-};
 
 const onCreate = () => {
   return {
@@ -209,8 +205,5 @@ const onCreate = () => {
       </n-radio-group>
     </n-form-item>
   </n-form>
-  <n-space>
-    <n-button type="primary" @click="handleApplyClick">应用</n-button>
-  </n-space>
 </template>
 <style></style>
