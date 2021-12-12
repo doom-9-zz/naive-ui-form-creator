@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import { getParentElement } from '../../../utils/index';
 
+const margin = 15;
 const store = useStore();
 const dragId = ref<string | null>(null);
 const dropId = ref<string | null>(null);
@@ -47,8 +48,8 @@ const handleTranslate = () => {
     dropElementValue.setAttribute('data-dropenter', 'true');
     const dropDataIndex = Number(dropElementValue.getAttribute('data-index'));
     const dragDataIndex = Number(dragElementValue.getAttribute('data-index'));
-    const downStr = `translateY(${dragElementValue.clientHeight + 15}px)`;
-    const upStr = `translateY(-${dragElementValue.clientHeight + 15}px)`;
+    const downStr = `translateY(${dragElementValue.clientHeight + margin}px)`;
+    const upStr = `translateY(-${dragElementValue.clientHeight + margin}px)`;
 
     // 往下拖动
     if (dropDataIndex > dragDataIndex) {
@@ -57,9 +58,7 @@ const handleTranslate = () => {
       if (transformStr === downStr) {
         (dropElementValue as HTMLDivElement).style.transform = `translateY(0px)`;
       } else {
-        (dropElementValue as HTMLDivElement).style.transform = `translateY(-${
-          dragElementValue.clientHeight + 15
-        }px)`;
+        (dropElementValue as HTMLDivElement).style.transform = upStr;
       }
     }
 
@@ -70,9 +69,7 @@ const handleTranslate = () => {
       if (transformStr === upStr) {
         (dropElementValue as HTMLDivElement).style.transform = `translateY(0px)`;
       } else {
-        (dropElementValue as HTMLDivElement).style.transform = `translateY(${
-          dragElementValue.clientHeight + 15
-        }px)`;
+        (dropElementValue as HTMLDivElement).style.transform = downStr;
       }
     }
 
