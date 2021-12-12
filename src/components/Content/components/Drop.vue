@@ -1,49 +1,139 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
-import { getParentElementId } from '../../../utils/index';
+import { getParentElement } from '../../../utils/index';
 
+const margin = 15;
 const store = useStore();
-let dragId: string | null = null;
+const dragId = ref<string | null>(null);
 const dropId = ref<string | null>(null);
 const dropContainerElement = ref<HTMLDivElement | null>(null);
+const dragElement = ref<HTMLElement | null>(null);
+const dropElement = ref<HTMLElement | null>(null);
+const initDragElementDataIndex = ref<number>(0);
 
-watchEffect(() => {
-  if (dropContainerElement.value !== null) {
-    const children = dropContainerElement.value.children;
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i] as HTMLDivElement;
-      if (child.id === dropId.value) {
-        child.style.border = '1px dotted rgb(24, 160, 88)';
-      } else {
-        child.style.border = 'none';
+const config = { childList: true };
+const callback = function (mutationsList: any) {
+  for (let mutation of mutationsList) {
+    if (mutation.type === 'childList') {
+      if (dropContainerElement.value) {
+        const children = Array.from(dropContainerElement.value.children);
+        children.forEach((child, index) => {
+          child.setAttribute('data-index', index.toString());
+          child.setAttribute('data-dropenter', 'false');
+        });
       }
     }
   }
+};
+const observer = new MutationObserver(callback);
+onMounted(() => {
+  if (dropContainerElement.value) {
+    observer.observe(dropContainerElement.value, config);
+  }
+});
+onUnmounted(() => {
+  observer.disconnect();
 });
 
+const handleTranslate = () => {
+  if (
+    dropContainerElement.value !== null &&
+    dragElement.value !== null &&
+    dropElement.value !== null
+  ) {
+    const { value: dropElementValue } = dropElement;
+    const { value: dragElementValue } = dragElement;
+    // 进入drop元素
+    dropElementValue.setAttribute('data-dropenter', 'true');
+    const dropDataIndex = Number(dropElementValue.getAttribute('data-index'));
+    const dragDataIndex = Number(dragElementValue.getAttribute('data-index'));
+    const downStr = `translateY(${dragElementValue.clientHeight + margin}px)`;
+    const upStr = `translateY(-${dragElementValue.clientHeight + margin}px)`;
+
+    // 往下拖动
+    if (dropDataIndex > dragDataIndex) {
+      const transformStr = (dropElementValue as HTMLDivElement).style.transform;
+
+      if (transformStr === downStr) {
+        (dropElementValue as HTMLDivElement).style.transform = `translateY(0px)`;
+      } else {
+        (dropElementValue as HTMLDivElement).style.transform = upStr;
+      }
+    }
+
+    // 往上拖动
+    if (dropDataIndex < dragDataIndex) {
+      const transformStr = (dropElementValue as HTMLDivElement).style.transform;
+
+      if (transformStr === upStr) {
+        (dropElementValue as HTMLDivElement).style.transform = `translateY(0px)`;
+      } else {
+        (dropElementValue as HTMLDivElement).style.transform = downStr;
+      }
+    }
+
+    if (dragElementValue !== null) {
+      dragElementValue.setAttribute('data-index', `${dropDataIndex}`);
+      dropElementValue.setAttribute('data-index', `${dragDataIndex}`);
+    }
+
+    // 动画执行期间不希望执行拖动事件
+    setTimeout(() => {
+      dropElementValue.setAttribute('data-dropenter', 'false');
+    }, 100);
+  }
+};
+
+const handleResetTranslate = () => {
+  if (dropContainerElement.value !== null && dragElement.value !== null) {
+    dragElement.value!.style.opacity = '1';
+    const children = Array.from(dropContainerElement.value.children);
+    children.forEach(child => {
+      (child as HTMLDivElement).style.transform = `translateY(0px)`;
+    });
+  }
+};
+
 const handleDragOver = (e: DragEvent) => {
-  let id = getParentElementId(e.target as HTMLElement);
-  if (id !== null && dropId.value !== id) {
-    dropId.value = id;
+  let ele = getParentElement(e.target as HTMLElement);
+  if (ele !== null) {
+    dropElement.value = ele;
+    dropId.value = ele.id;
+
+    const isDropEnter = dropElement.value.dataset.dropenter === 'true';
+    if (dropId.value !== dragId.value && !isDropEnter) {
+      handleTranslate();
+    }
   }
 };
 const handleDragStart = (e: DragEvent) => {
   e.dataTransfer!.effectAllowed = 'move';
-  let id = getParentElementId(e.target as HTMLElement);
-  if (id !== null) {
-    dragId = id;
+  let ele = getParentElement(e.target as HTMLElement);
+  if (ele !== null) {
+    dragId.value = ele.id;
+    dragElement.value = ele;
+    dragElement.value!.style.opacity = '0';
+    initDragElementDataIndex.value = Number(dragElement.value.getAttribute('data-index'));
   }
 };
 
 const handleDragEnd = () => {
-  if (dragId !== null && dropId !== null) {
-    store.commit('exchange', {
-      id1: dragId,
-      id2: dropId.value,
+  if (dragId !== null && dropId !== null && dragElement.value !== null) {
+    handleResetTranslate();
+
+    const nowDragDataIndex = Number(dragElement.value.getAttribute('data-index'));
+    if (nowDragDataIndex === initDragElementDataIndex.value) return;
+
+    store.commit('insertDrop', {
+      from: initDragElementDataIndex.value,
+      to: nowDragDataIndex,
     });
-    dragId = null;
+
+    dragId.value = null;
     dropId.value = null;
+    dragElement.value = null;
+    dropElement.value = null;
   }
 };
 </script>

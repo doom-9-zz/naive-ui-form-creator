@@ -58,6 +58,7 @@ const selectedFormItem = computed(() => {
         :style="{
           marginBottom: '15px',
         }"
+        :key="item.id"
       >
         <n-card
           @click="setSelectedFormItem(item.id)"

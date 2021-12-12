@@ -112,6 +112,20 @@ export const store = createStore<State>({
         state.formItemArray.splice(index2, 1, item1);
       }
     },
+    insertDrop(state, payload: { from: number; to: number }) {
+      if (payload.from !== -1 && payload.to !== -1) {
+        if (payload.from < payload.to) {
+          const item1 = state.formItemArray[payload.from];
+          state.formItemArray.splice(payload.from, 1);
+          state.formItemArray.splice(payload.to, 0, item1);
+        }
+        if (payload.from > payload.to) {
+          const item1 = state.formItemArray[payload.from];
+          state.formItemArray.splice(payload.from, 1);
+          state.formItemArray.splice(payload.to, 0, item1);
+        }
+      }
+    },
     changeAutoAddImport(state, payload: boolean) {
       state.autoAddImport = payload;
       window.$message.success('操作成功');
