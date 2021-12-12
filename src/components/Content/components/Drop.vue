@@ -18,8 +18,6 @@ const callback = function (mutationsList: any) {
       if (dropContainerElement.value) {
         const children = Array.from(dropContainerElement.value.children);
         children.forEach((child, index) => {
-          (child as HTMLDivElement).style.opacity = '1';
-          (child as HTMLDivElement).style.transform = `translateY(0px)`;
           child.setAttribute('data-index', index.toString());
           child.setAttribute('data-dropenter', 'false');
         });
@@ -90,6 +88,16 @@ const handleTranslate = () => {
   }
 };
 
+const handleResetTranslate = () => {
+  if (dropContainerElement.value !== null && dragElement.value !== null) {
+    dragElement.value!.style.opacity = '1';
+    const children = Array.from(dropContainerElement.value.children);
+    children.forEach(child => {
+      (child as HTMLDivElement).style.transform = `translateY(0px)`;
+    });
+  }
+};
+
 const handleDragOver = (e: DragEvent) => {
   let ele = getParentElement(e.target as HTMLElement);
   if (ele !== null) {
@@ -120,6 +128,8 @@ const handleDragEnd = () => {
     dropId.value !== dragId.value &&
     dragElement.value !== null
   ) {
+    handleResetTranslate();
+
     const nowDragDataIndex = Number(dragElement.value.getAttribute('data-index'));
     if (nowDragDataIndex === initDragElementDataIndex.value) return;
 
