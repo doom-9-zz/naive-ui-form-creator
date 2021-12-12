@@ -122,28 +122,16 @@ const handleDragStart = (e: DragEvent) => {
 };
 
 const handleDragEnd = () => {
-  if (
-    dragId !== null &&
-    dropId !== null &&
-    dropId.value !== dragId.value &&
-    dragElement.value !== null
-  ) {
+  if (dragId !== null && dropId !== null && dragElement.value !== null) {
     handleResetTranslate();
 
     const nowDragDataIndex = Number(dragElement.value.getAttribute('data-index'));
     if (nowDragDataIndex === initDragElementDataIndex.value) return;
 
-    if (initDragElementDataIndex.value > nowDragDataIndex) {
-      store.commit('insertBefore', {
-        from: dragId.value,
-        to: dropId.value,
-      });
-    } else {
-      store.commit('insertAfter', {
-        from: dragId.value,
-        to: dropId.value,
-      });
-    }
+    store.commit('insertDrop', {
+      from: initDragElementDataIndex.value,
+      to: nowDragDataIndex,
+    });
 
     dragId.value = null;
     dropId.value = null;
