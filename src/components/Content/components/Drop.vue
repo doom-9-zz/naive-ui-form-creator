@@ -15,8 +15,6 @@ const config = { childList: true };
 const callback = function (mutationsList: any) {
   for (let mutation of mutationsList) {
     if (mutation.type === 'childList') {
-      console.log(111);
-
       if (dropContainerElement.value) {
         const children = Array.from(dropContainerElement.value.children);
         children.forEach((child, index) => {
@@ -134,8 +132,6 @@ const handleDragEnd = () => {
 
     const nowDragDataIndex = Number(dragElement.value.getAttribute('data-index'));
     if (nowDragDataIndex === initDragElementDataIndex.value) return;
-
-    console.log(nowDragDataIndex, initDragElementDataIndex.value);
 
     if (initDragElementDataIndex.value > nowDragDataIndex) {
       store.commit('insertBefore', {
