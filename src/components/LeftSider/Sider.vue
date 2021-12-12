@@ -21,7 +21,6 @@ const handleLayoutAddClick = (value: string) => {
 
 <template>
   <n-space vertical>
-    <n-divider title-placement="left">添加表单项</n-divider>
     <n-divider title-placement="center">表单组件</n-divider>
     <n-button
       type="primary"
