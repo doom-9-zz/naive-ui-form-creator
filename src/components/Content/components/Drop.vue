@@ -42,12 +42,13 @@ const handleTranslate = () => {
     dropElement.value !== null
   ) {
     const { value: dropElementValue } = dropElement;
+    const { value: dragElementValue } = dragElement;
     // 进入drop元素
     dropElementValue.setAttribute('data-dropenter', 'true');
     const dropDataIndex = Number(dropElementValue.getAttribute('data-index'));
-    const dragDataIndex = Number(dragElement.value.getAttribute('data-index'));
-    const downStr = `translateY(${dragElement.value.clientHeight + 15}px)`;
-    const upStr = `translateY(-${dragElement.value.clientHeight + 15}px)`;
+    const dragDataIndex = Number(dragElementValue.getAttribute('data-index'));
+    const downStr = `translateY(${dragElementValue.clientHeight + 15}px)`;
+    const upStr = `translateY(-${dragElementValue.clientHeight + 15}px)`;
 
     // 往下拖动
     if (dropDataIndex > dragDataIndex) {
@@ -57,7 +58,7 @@ const handleTranslate = () => {
         (dropElementValue as HTMLDivElement).style.transform = `translateY(0px)`;
       } else {
         (dropElementValue as HTMLDivElement).style.transform = `translateY(-${
-          dragElement.value.clientHeight + 15
+          dragElementValue.clientHeight + 15
         }px)`;
       }
     }
@@ -70,13 +71,13 @@ const handleTranslate = () => {
         (dropElementValue as HTMLDivElement).style.transform = `translateY(0px)`;
       } else {
         (dropElementValue as HTMLDivElement).style.transform = `translateY(${
-          dragElement.value.clientHeight + 15
+          dragElementValue.clientHeight + 15
         }px)`;
       }
     }
 
-    if (dragElement.value !== null) {
-      dragElement.value.setAttribute('data-index', `${dropDataIndex}`);
+    if (dragElementValue !== null) {
+      dragElementValue.setAttribute('data-index', `${dropDataIndex}`);
       dropElementValue.setAttribute('data-index', `${dragDataIndex}`);
     }
 
