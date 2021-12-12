@@ -49,10 +49,10 @@ const handleTranslate = () => {
     const dropDataIndex = Number(dropElement.getAttribute('data-index'));
     const dragDataIndex = Number(dragElement.value.getAttribute('data-index'));
 
-    console.log(dropDataIndex, dragDataIndex);
     if (dropDataIndex > dragDataIndex) {
       canRun = false;
       const transformStr = (dropElement as HTMLDivElement).style.transform;
+      // 往下移动
       const str = `translateY(${dragElement.value.clientHeight + 15}px)`;
       if (transformStr === str) {
         (dropElement as HTMLDivElement).style.transform = `translateY(0px)`;
@@ -61,19 +61,20 @@ const handleTranslate = () => {
           dragElement.value.clientHeight + 15
         }px)`;
       }
+
+      if (dragElement.value !== null) {
+        dragElement.value.setAttribute('data-index', `${dropDataIndex}`);
+        dropElement.setAttribute('data-index', `${dragDataIndex}`);
+      }
       setTimeout(() => {
-        if (dragElement.value !== null) {
-          dragElement.value.setAttribute('data-index', `${dropDataIndex}`);
-          dropElement.setAttribute('data-index', `${dragDataIndex}`);
-          canRun = true;
-        }
+        canRun = true;
       }, 100);
     }
     if (dropDataIndex < dragDataIndex) {
       canRun = false;
       const transformStr = (dropElement as HTMLDivElement).style.transform;
+      // 往上移动
       const str = `translateY(-${dragElement.value.clientHeight + 15}px)`;
-
       if (transformStr === str) {
         (dropElement as HTMLDivElement).style.transform = `translateY(0px)`;
       } else {
@@ -81,12 +82,10 @@ const handleTranslate = () => {
           dragElement.value.clientHeight + 15
         }px)`;
       }
+      dragElement.value.setAttribute('data-index', `${dropDataIndex}`);
+      dropElement.setAttribute('data-index', `${dragDataIndex}`);
       setTimeout(() => {
-        if (dragElement.value !== null) {
-          dragElement.value.setAttribute('data-index', `${dropDataIndex}`);
-          dropElement.setAttribute('data-index', `${dragDataIndex}`);
-          canRun = true;
-        }
+        canRun = true;
       }, 100);
     }
   }
