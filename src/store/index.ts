@@ -124,10 +124,11 @@ export const store = createStore<State>({
     insertAfter(state, payload: { from: string; to: string }) {
       const fromIndex = state.formItemArray.findIndex(item => item.id === payload.from);
       const toIndex = state.formItemArray.findIndex(item => item.id === payload.to);
+
       if (fromIndex !== -1 && toIndex !== -1) {
         const item1 = state.formItemArray[fromIndex];
-        state.formItemArray.splice(fromIndex, 1);
         state.formItemArray.splice(toIndex + 1, 0, item1);
+        state.formItemArray.splice(fromIndex, 1);
       }
     },
     changeAutoAddImport(state, payload: boolean) {
