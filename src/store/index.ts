@@ -112,6 +112,24 @@ export const store = createStore<State>({
         state.formItemArray.splice(index2, 1, item1);
       }
     },
+    insertBefore(state, payload: { from: string; to: string }) {
+      const fromIndex = state.formItemArray.findIndex(item => item.id === payload.from);
+      const toIndex = state.formItemArray.findIndex(item => item.id === payload.to);
+      if (fromIndex !== -1 && toIndex !== -1) {
+        const item1 = state.formItemArray[fromIndex];
+        state.formItemArray.splice(fromIndex, 1);
+        state.formItemArray.splice(toIndex, 0, item1);
+      }
+    },
+    insertAfter(state, payload: { from: string; to: string }) {
+      const fromIndex = state.formItemArray.findIndex(item => item.id === payload.from);
+      const toIndex = state.formItemArray.findIndex(item => item.id === payload.to);
+      if (fromIndex !== -1 && toIndex !== -1) {
+        const item1 = state.formItemArray[fromIndex];
+        state.formItemArray.splice(fromIndex, 1);
+        state.formItemArray.splice(toIndex + 1, 0, item1);
+      }
+    },
     changeAutoAddImport(state, payload: boolean) {
       state.autoAddImport = payload;
       window.$message.success('操作成功');

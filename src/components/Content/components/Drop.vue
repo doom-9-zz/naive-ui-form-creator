@@ -4,16 +4,19 @@ import { useStore } from 'vuex';
 import { getParentElement } from '../../../utils/index';
 
 const store = useStore();
-let dragId = ref<string | null>(null);
+const dragId = ref<string | null>(null);
 const dropId = ref<string | null>(null);
 const dropContainerElement = ref<HTMLDivElement | null>(null);
 const dragElement = ref<HTMLElement | null>(null);
 const dropElement = ref<HTMLElement | null>(null);
+const initDragElementDataIndex = ref<number>(0);
 
 const config = { childList: true };
 const callback = function (mutationsList: any) {
   for (let mutation of mutationsList) {
     if (mutation.type === 'childList') {
+      console.log(111);
+
       if (dropContainerElement.value) {
         const children = Array.from(dropContainerElement.value.children);
         children.forEach((child, index) => {
@@ -35,53 +38,54 @@ onUnmounted(() => {
 });
 
 const handleTranslate = () => {
-  if (dropContainerElement.value !== null && dragElement.value !== null) {
-    const children = Array.from(dropContainerElement.value.children);
-    const index = children.findIndex(child => child.id === dropId.value);
-    if (index === -1) return;
-    const dropElement = children[index];
-    dropElement.setAttribute('data-dropenter', 'true');
-
-    const dropDataIndex = Number(dropElement.getAttribute('data-index'));
+  if (
+    dropContainerElement.value !== null &&
+    dragElement.value !== null &&
+    dropElement.value !== null
+  ) {
+    const { value: dropElementValue } = dropElement;
+    // 进入drop元素
+    dropElementValue.setAttribute('data-dropenter', 'true');
+    const dropDataIndex = Number(dropElementValue.getAttribute('data-index'));
     const dragDataIndex = Number(dragElement.value.getAttribute('data-index'));
+    const downStr = `translateY(${dragElement.value.clientHeight + 15}px)`;
+    const upStr = `translateY(-${dragElement.value.clientHeight + 15}px)`;
 
+    // 往下拖动
     if (dropDataIndex > dragDataIndex) {
-      const transformStr = (dropElement as HTMLDivElement).style.transform;
-      // 往下移动
-      const str = `translateY(${dragElement.value.clientHeight + 15}px)`;
-      if (transformStr === str) {
-        (dropElement as HTMLDivElement).style.transform = `translateY(0px)`;
-      } else {
-        (dropElement as HTMLDivElement).style.transform = `translateY(-${
-          dragElement.value.clientHeight + 15
-        }px)`;
-      }
+      const transformStr = (dropElementValue as HTMLDivElement).style.transform;
 
-      if (dragElement.value !== null) {
-        dragElement.value.setAttribute('data-index', `${dropDataIndex}`);
-        dropElement.setAttribute('data-index', `${dragDataIndex}`);
-      }
-      setTimeout(() => {
-        dropElement.setAttribute('data-dropenter', 'false');
-      }, 100);
-    }
-    if (dropDataIndex < dragDataIndex) {
-      const transformStr = (dropElement as HTMLDivElement).style.transform;
-      // 往上移动
-      const str = `translateY(-${dragElement.value.clientHeight + 15}px)`;
-      if (transformStr === str) {
-        (dropElement as HTMLDivElement).style.transform = `translateY(0px)`;
+      if (transformStr === downStr) {
+        (dropElementValue as HTMLDivElement).style.transform = `translateY(0px)`;
       } else {
-        (dropElement as HTMLDivElement).style.transform = `translateY(${
+        (dropElementValue as HTMLDivElement).style.transform = `translateY(-${
           dragElement.value.clientHeight + 15
         }px)`;
       }
-      dragElement.value.setAttribute('data-index', `${dropDataIndex}`);
-      dropElement.setAttribute('data-index', `${dragDataIndex}`);
-      setTimeout(() => {
-        dropElement.setAttribute('data-dropenter', 'false');
-      }, 100);
     }
+
+    // 往上拖动
+    if (dropDataIndex < dragDataIndex) {
+      const transformStr = (dropElementValue as HTMLDivElement).style.transform;
+
+      if (transformStr === upStr) {
+        (dropElementValue as HTMLDivElement).style.transform = `translateY(0px)`;
+      } else {
+        (dropElementValue as HTMLDivElement).style.transform = `translateY(${
+          dragElement.value.clientHeight + 15
+        }px)`;
+      }
+    }
+
+    if (dragElement.value !== null) {
+      dragElement.value.setAttribute('data-index', `${dropDataIndex}`);
+      dropElementValue.setAttribute('data-index', `${dragDataIndex}`);
+    }
+
+    // 动画执行期间不希望执行拖动事件
+    setTimeout(() => {
+      dropElementValue.setAttribute('data-dropenter', 'false');
+    }, 100);
   }
 };
 
@@ -100,10 +104,9 @@ const handleDragOver = (e: DragEvent) => {
   if (ele !== null) {
     dropElement.value = ele;
     dropId.value = ele.id;
-    console.log(dropElement.value.dataset);
 
-    const isDropEnter = dropElement.value.dataset.dropenter === 'false';
-    if (dropId.value !== dragId.value && isDropEnter) {
+    const isDropEnter = dropElement.value.dataset.dropenter === 'true';
+    if (dropId.value !== dragId.value && !isDropEnter) {
       handleTranslate();
     }
   }
@@ -114,19 +117,42 @@ const handleDragStart = (e: DragEvent) => {
   if (ele !== null) {
     dragId.value = ele.id;
     dragElement.value = ele;
+    dragElement.value!.style.opacity = '0';
     dragElement.value.style.transform = `translateY(-99999px)`;
+    initDragElementDataIndex.value = Number(dragElement.value.getAttribute('data-index'));
   }
 };
 
 const handleDragEnd = () => {
-  if (dragId !== null && dropId !== null) {
+  if (
+    dragId !== null &&
+    dropId !== null &&
+    dropId.value !== dragId.value &&
+    dragElement.value !== null
+  ) {
     handleResetTranslate();
-    store.commit('exchange', {
-      id1: dragId.value,
-      id2: dropId.value,
-    });
+
+    const nowDragDataIndex = Number(dragElement.value.getAttribute('data-index'));
+    if (nowDragDataIndex === initDragElementDataIndex.value) return;
+
+    console.log(nowDragDataIndex, initDragElementDataIndex.value);
+
+    if (initDragElementDataIndex.value > nowDragDataIndex) {
+      store.commit('insertBefore', {
+        from: dragId.value,
+        to: dropId.value,
+      });
+    } else {
+      store.commit('insertAfter', {
+        from: dragId.value,
+        to: dropId.value,
+      });
+    }
+
     dragId.value = null;
     dropId.value = null;
+    dragElement.value = null;
+    dropElement.value = null;
   }
 };
 </script>
