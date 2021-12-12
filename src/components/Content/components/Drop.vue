@@ -117,7 +117,6 @@ const handleDragStart = (e: DragEvent) => {
     dragId.value = ele.id;
     dragElement.value = ele;
     dragElement.value!.style.opacity = '0';
-    dragElement.value.style.transform = `translateY(-99999px)`;
     initDragElementDataIndex.value = Number(dragElement.value.getAttribute('data-index'));
   }
 };
