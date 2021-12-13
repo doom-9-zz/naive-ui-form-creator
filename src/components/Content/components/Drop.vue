@@ -110,6 +110,7 @@ const handleDragStart = (e: DragEvent) => {
 
 const handleDragEnd = () => {
   if (dragId !== null && dropId !== null && dragElement.value !== null) {
+    dragElement.value!.style.opacity = '1';
     const nowDragDataIndex = Number(dragElement.value.getAttribute('data-index'));
     if (nowDragDataIndex === initDragElementDataIndex.value) return;
 
