@@ -125,6 +125,7 @@ const handleDragEnd = () => {
     const nowDragDataIndex = Number(dragElement.value.getAttribute('data-index'));
     if (nowDragDataIndex === initDragElementDataIndex.value) return;
 
+    // dom diff
     store.commit('insertDrop', {
       from: initDragElementDataIndex.value,
       to: nowDragDataIndex,
