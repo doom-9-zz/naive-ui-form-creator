@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useStore } from 'vuex';
 import { useConfig } from '../../../../utils/hook/useConfig';
 
 const formValue = useConfig<{
