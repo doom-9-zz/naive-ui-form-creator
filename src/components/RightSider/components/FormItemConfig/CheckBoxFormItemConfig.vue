@@ -10,7 +10,9 @@ const formValue = useConfig<{
     label: string;
     value: string;
   }>;
-}>();
+}>({
+  sync: false,
+});
 const onCreate = () => {
   return {
     label: '',

@@ -26,7 +26,7 @@ const formValue = useConfig<{
   showRemoveButton: boolean;
   showRetryButton: boolean;
   showFileList: boolean;
-}>();
+}>({});
 
 const onCreate = () => {
   return {
