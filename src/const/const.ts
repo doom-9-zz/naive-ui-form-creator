@@ -39,6 +39,10 @@ export const options: selectItem = [
     value: '7',
   },
   {
+    label: '日期选择器',
+    value: '12',
+  },
+  {
     label: '树形选择',
     value: '8',
   },
@@ -59,7 +63,7 @@ export const options: selectItem = [
 export const LayoutOptions: selectItem = [
   {
     label: '分割线',
-    value: '12',
+    value: '13',
   },
 ];
 

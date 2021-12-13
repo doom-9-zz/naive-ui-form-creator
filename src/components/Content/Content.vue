@@ -214,8 +214,20 @@ const selectedFormItem = computed(() => {
                 />
               </n-space>
             </n-checkbox-group>
-            <n-divider
+            <n-date-picker
               v-else-if="item.value === '12'"
+              :actions="item.formItemConfig.actions"
+              :clearable="item.formItemConfig.clearable"
+              :format="item.formItemConfig.format"
+              :size="item.formItemConfig.size"
+              :placeholder="item.formItemConfig.placeholder"
+              :type="item.formItemConfig.type"
+              :start-placeholder="item.formItemConfig.startPlaceholder"
+              :end-placeholder="item.formItemConfig.endPlaceholder"
+              :separator="item.formItemConfig.separator"
+            />
+            <n-divider
+              v-else-if="item.value === '13'"
               :dashed="item.formItemConfig.dashed"
               :vertical="item.formItemConfig.vertical"
               :title-placement="item.formItemConfig.titlePlacement"

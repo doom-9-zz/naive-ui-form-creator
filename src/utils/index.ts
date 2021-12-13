@@ -14,6 +14,8 @@ const typeToImport: Record<string, string[]> = {
   9: ['Upload'],
   10: ['ColorPicker'],
   11: ['Checkbox', 'CheckboxGroup', 'Space'],
+  12: ['DatePicker'],
+  13: ['Divider'],
 };
 
 const getTypeToFormItem = (item: formItemType): string => {
@@ -109,11 +111,16 @@ const getTypeToFormItem = (item: formItemType): string => {
           </${PREFIX}-space>
         </${PREFIX}-checkbox-group>
       </${PREFIX}-form-item>`;
-    case '12':
+    case '13':
       return `
         <${PREFIX}-divider ${formItemContentConfig}>${
         (item.formItemConfig.name as string) ?? ''
       }</${PREFIX}-divider>`;
+    case '12':
+      return `
+      <${PREFIX}-form-item ${formItemConfig}>
+        <${PREFIX}-date-picker ${formItemContentConfig}/>
+      </${PREFIX}-form-item>`;
     default:
       return '';
   }
@@ -153,6 +160,8 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
     case '11':
       return getCheckBoxFormItemContentConfig(item);
     case '12':
+      return getDatePickerFormItemContentConfig(item);
+    case '13':
       return getDividerContentConfig(item);
     default:
       return ``;
@@ -356,6 +365,32 @@ const getDividerContentConfig = (item: { [key: string]: any }): string => {
     combineNameAndValue('dashed', dashed),
   )} ${bindBooleanAndNumberConfig(combineNameAndValue('vertical', vertical))} ${bindStringConfig(
     combineNameAndValue('title-placement', titlePlacement),
+  )}`;
+};
+
+const getDatePickerFormItemContentConfig = (item: { [key: string]: any }): string => {
+  const {
+    name,
+    clearable,
+    format,
+    size,
+    actions,
+    placeholder,
+    type,
+    startPlaceholder,
+    endPlaceholder,
+    separator,
+  } = item;
+  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('actions', JSON.stringify(actions)),
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('clearable', clearable))} ${bindStringConfig(
+    combineNameAndValue('format', format),
+  )} ${bindStringConfig(combineNameAndValue('size', size))} ${bindStringConfig(
+    combineNameAndValue('placeholder', placeholder),
+  )} ${bindStringConfig(combineNameAndValue('type', type))} ${bindStringConfig(
+    combineNameAndValue('start-placeholder', startPlaceholder),
+  )} ${bindStringConfig(combineNameAndValue('end-placeholder', endPlaceholder))} ${bindStringConfig(
+    combineNameAndValue('separator', separator),
   )}`;
 };
 

@@ -9,6 +9,7 @@ import SelectFormItemConfig from './components/FormItemConfig/SelectFormItemConf
 import SliderFormItemConfig from './components/FormItemConfig/SliderFormItemConfig.vue';
 import SwitchFormItemConfig from './components/FormItemConfig/SwitchFormItemConfig.vue';
 import TimePickerFormItemConfig from './components/FormItemConfig/TimePickerFormItemConfig.vue';
+import DatePickerFormItemConfig from './components/FormItemConfig/DatePickerFormItemConfig.vue';
 import TreeSelectFormItemConfig from './components/FormItemConfig/TreeSelectFormItemConfig.vue';
 import UploadFormItemConfig from './components/FormItemConfig/UploadFormItemConfig.vue';
 import InputNumberFormItemConfig from './components/FormItemConfig/InputNumberFormItemConfig.vue';
@@ -58,6 +59,8 @@ const showComponent = computed(() => {
     case '11':
       return CheckBoxFormItemConfig;
     case '12':
+      return DatePickerFormItemConfig;
+    case '13':
       return DividerConfig;
 
     default:
