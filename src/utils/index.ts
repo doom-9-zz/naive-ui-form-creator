@@ -127,7 +127,7 @@ const getTypeToFormItem = (item: formItemType): string => {
 };
 
 const getFormItemConfig = (item: formItemType): string => {
-  return `label="${item.label}"`;
+  return `label="${item.formItemConfig.label as string}"`;
 };
 
 const getFormItemContentConfig = (item: { [key: string]: any }, type: string): string => {

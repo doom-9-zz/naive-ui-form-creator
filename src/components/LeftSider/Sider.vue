@@ -8,13 +8,11 @@ window.$message = useMessage();
 const handleAddClick = (value: string) => {
   store.commit('add', {
     value: value,
-    label: options.find(item => item.value === value)!.label,
   });
 };
 const handleLayoutAddClick = (value: string) => {
   store.commit('add', {
     value: value,
-    label: LayoutOptions.find(item => item.value === value)!.label,
   });
 };
 </script>
@@ -28,7 +26,7 @@ const handleLayoutAddClick = (value: string) => {
       size="large"
       @click="handleAddClick(item.value)"
     >
-      {{ item.label }}
+      {{ item.formItemConfig.label }}
     </n-button>
     <n-divider title-placement="center">辅助组件</n-divider>
     <n-button
@@ -37,7 +35,7 @@ const handleLayoutAddClick = (value: string) => {
       size="large"
       @click="handleLayoutAddClick(item.value)"
     >
-      {{ item.label }}
+      {{ item.formItemConfig.label }}
     </n-button>
   </n-space>
 </template>

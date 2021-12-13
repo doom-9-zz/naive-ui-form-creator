@@ -26,26 +26,7 @@ const formValue = useConfig<{
   showRemoveButton: boolean;
   showRetryButton: boolean;
   showFileList: boolean;
-}>({
-  label: undefined,
-  name: undefined,
-  accept: undefined,
-  action: undefined,
-  defaultUpload: true,
-  data: [],
-  headers: [],
-  listType: 'text',
-  max: undefined,
-  method: 'POST',
-  multiple: false,
-  fileName: 'file',
-  withCredentials: false,
-  showCancelButton: true,
-  showDownloadButton: false,
-  showRemoveButton: true,
-  showRetryButton: true,
-  showFileList: true,
-});
+}>();
 
 const onCreate = () => {
   return {

@@ -1,17 +1,7 @@
 <script setup lang="ts">
 import { useConfig } from '../../../../utils/hook/useConfig';
 
-const formValue = useConfig({
-  label: undefined,
-  name: undefined,
-  max: 100,
-  min: 0,
-  step: 1,
-  range: false,
-  reverse: false,
-  vertical: false,
-  tooltip: true,
-});
+const formValue = useConfig();
 </script>
 
 <template>

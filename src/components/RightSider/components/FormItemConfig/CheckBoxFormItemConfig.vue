@@ -10,13 +10,7 @@ const formValue = useConfig<{
     label: string;
     value: string;
   }>;
-}>({
-  label: undefined,
-  name: undefined,
-  max: undefined,
-  min: undefined,
-  options: [],
-});
+}>();
 const onCreate = () => {
   return {
     label: '',

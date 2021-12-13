@@ -12,15 +12,7 @@ const formValue = useConfig<{
     label: string;
     value: string;
   }>;
-}>({
-  label: undefined,
-  name: undefined,
-  size: 'medium',
-  multiple: false,
-  placeholder: '请选择',
-  clearable: false,
-  options: [],
-});
+}>();
 
 const onCreate = () => {
   return {

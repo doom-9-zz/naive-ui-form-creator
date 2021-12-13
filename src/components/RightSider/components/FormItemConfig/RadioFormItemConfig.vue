@@ -9,12 +9,7 @@ const formValue = useConfig<{
     label: string;
     value: string;
   }>;
-}>({
-  label: undefined,
-  name: undefined,
-  size: 'medium',
-  options: [],
-});
+}>();
 const onCreate = () => {
   return {
     label: '',

@@ -16,7 +16,6 @@ const formConfig = computed(() => {
 const handleAddClick = () => {
   store.commit('add', {
     value: '0',
-    label: '文本输入',
   });
 };
 const handleRemoveClick = (id: string) => {
@@ -80,7 +79,7 @@ const selectedFormItem = computed(() => {
               </n-button>
             </n-space>
           </div>
-          <n-form-item :label="item.label">
+          <n-form-item :label="item.formItemConfig.label">
             <n-input
               v-if="item.value === '0'"
               :clearable="item.formItemConfig.clearable"

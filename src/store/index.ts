@@ -1,9 +1,9 @@
+import { getItemConfig, initialFormState } from '../const/const';
+
 import { createStore } from 'vuex';
-import { initialFormState } from '../const/const';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface formItemType {
-  label: string;
   value: string;
   id: string;
   formItemConfig: {
@@ -48,7 +48,7 @@ export const store = createStore<State>({
       const id = uuidv4();
       state.formItemArray.push({
         id,
-        formItemConfig: {},
+        formItemConfig: getItemConfig(payload.value),
         ...payload,
       });
       window.$message.success('操作成功');
@@ -57,7 +57,7 @@ export const store = createStore<State>({
       const id = uuidv4();
       state.formItemArray.push({
         id,
-        formItemConfig: {},
+        formItemConfig: getItemConfig(payload.value),
         ...payload,
       });
       store.commit('changeSelectedFormItem', id);
@@ -157,7 +157,6 @@ export const store = createStore<State>({
           ...state.formItemArray[index].formItemConfig,
           ...payload,
         };
-        state.formItemArray[index].label = payload.label;
         window.$message.success('操作成功');
       } else {
         window.$message.warning('请先选中一个表单项');

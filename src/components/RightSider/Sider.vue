@@ -29,7 +29,6 @@ const formItemArrayLength = computed(() => {
 const handleAddClick = () => {
   store.commit('addAndSelect', {
     value: '0',
-    label: '文本输入',
   });
 };
 const showComponent = computed(() => {
