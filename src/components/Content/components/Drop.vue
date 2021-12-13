@@ -85,16 +85,6 @@ const handleTranslate = () => {
   }
 };
 
-const handleResetTranslate = () => {
-  if (dropContainerElement.value !== null && dragElement.value !== null) {
-    dragElement.value!.style.opacity = '1';
-    const children = Array.from(dropContainerElement.value.children);
-    children.forEach(child => {
-      (child as HTMLDivElement).style.transform = `translateY(0px)`;
-    });
-  }
-};
-
 const handleDragOver = (e: DragEvent) => {
   let ele = getParentElement(e.target as HTMLElement);
   if (ele !== null) {
@@ -120,12 +110,9 @@ const handleDragStart = (e: DragEvent) => {
 
 const handleDragEnd = () => {
   if (dragId !== null && dropId !== null && dragElement.value !== null) {
-    handleResetTranslate();
-
     const nowDragDataIndex = Number(dragElement.value.getAttribute('data-index'));
     if (nowDragDataIndex === initDragElementDataIndex.value) return;
 
-    // dom diff
     store.commit('insertDrop', {
       from: initDragElementDataIndex.value,
       to: nowDragDataIndex,

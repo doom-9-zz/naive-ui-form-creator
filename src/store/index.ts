@@ -124,6 +124,8 @@ export const store = createStore<State>({
           state.formItemArray.splice(payload.from, 1);
           state.formItemArray.splice(payload.to, 0, item1);
         }
+
+        // dom diff
         state.formItemArray = state.formItemArray.map((item, index) => {
           item.id = uuidv4();
           return item;
