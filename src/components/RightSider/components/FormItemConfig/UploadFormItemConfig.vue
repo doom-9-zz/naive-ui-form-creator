@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useStore } from 'vuex';
 import { useConfig } from '../../../../utils/hook/useConfig';
 
 const formValue = useConfig<{
@@ -26,13 +27,19 @@ const formValue = useConfig<{
   showRemoveButton: boolean;
   showRetryButton: boolean;
   showFileList: boolean;
-}>({});
+}>({
+  sync: false,
+});
 
 const onCreate = () => {
   return {
     key: '',
     value: '',
   };
+};
+const store = useStore();
+const handleSubmit = () => {
+  store.commit('changeSelectedFormItemConfig', formValue.value);
 };
 </script>
 
@@ -184,6 +191,7 @@ const onCreate = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
+    <n-button @click="handleSubmit" type="primary">应用</n-button>
   </n-form>
 </template>
 <style></style>

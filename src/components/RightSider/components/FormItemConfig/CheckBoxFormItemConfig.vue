@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useStore } from 'vuex';
 import { useConfig } from '../../../../utils/hook/useConfig';
 
 const formValue = useConfig<{
@@ -18,6 +19,10 @@ const onCreate = () => {
     label: '',
     value: '',
   };
+};
+const store = useStore();
+const handleSubmit = () => {
+  store.commit('changeSelectedFormItemConfig', formValue.value);
 };
 </script>
 
@@ -61,6 +66,7 @@ const onCreate = () => {
         </div>
       </n-dynamic-input>
     </n-form-item>
+    <n-button @click="handleSubmit" type="primary">应用</n-button>
   </n-form>
 </template>
 <style></style>
