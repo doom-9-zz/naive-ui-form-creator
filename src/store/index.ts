@@ -40,7 +40,7 @@ export const store = createStore<State>({
       formConfig: initialFormState,
       selectedFormItem: '',
       selectedFormItemType: '',
-      tabsValue: 'form',
+      tabsValue: 'formItem',
     };
   },
   mutations: {
