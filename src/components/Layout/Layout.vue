@@ -94,7 +94,7 @@ const handleGenerateCodeSet = () => {
         </n-layout-sider>
       </n-layout>
       <n-layout-footer bordered position="absolute" style="height: 64px; padding: 24px">
-        持续完善中
+        使用过程中如果遇到问题或者 bug，欢迎提交 issue，作者会尽快修复。
       </n-layout-footer>
     </n-layout>
     <n-modal
