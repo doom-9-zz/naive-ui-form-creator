@@ -134,6 +134,7 @@ const selectedFormItem = computed(() => {
               "
             />
             <n-slider
+              :default-value="[0, 0]"
               v-else-if="item.value === '5'"
               :max="item.formItemConfig.max"
               :min="item.formItemConfig.min"
