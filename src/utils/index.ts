@@ -1,22 +1,12 @@
 import { PREFIX, UI_NAME } from '../const/const';
 import { formItemType, store } from '../store';
 
-const typeToImport: Record<string, string[]> = {
-  0: ['Input'],
-  1: ['InputNumber'],
-  2: ['Radio', 'RadioGroup', 'Space'],
-  3: ['Rate'],
-  4: ['Select'],
-  5: ['Slider'],
-  6: ['Switch'],
-  7: ['TimePicker'],
-  8: ['TreeSelect'],
-  9: ['Upload'],
-  10: ['ColorPicker'],
-  11: ['Checkbox', 'CheckboxGroup', 'Space'],
-  12: ['DatePicker'],
-  13: ['Divider'],
-};
+interface bindConfig {
+  name: string;
+  val: any;
+}
+
+// formItemConfig
 
 const getTypeToFormItem = (item: formItemType): string => {
   const type = item.value;
@@ -166,19 +156,6 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
     default:
       return ``;
   }
-};
-
-const combineNameAndValue = (
-  name: string,
-  val: any,
-): {
-  name: string;
-  val: any;
-} => {
-  return {
-    name,
-    val,
-  };
 };
 
 const getInputFormItemContentConfig = (item: { [key: string]: any }): string => {
@@ -394,10 +371,20 @@ const getDatePickerFormItemContentConfig = (item: { [key: string]: any }): strin
   )}`;
 };
 
-interface bindConfig {
+// bind
+
+const combineNameAndValue = (
+  name: string,
+  val: any,
+): {
   name: string;
   val: any;
-}
+} => {
+  return {
+    name,
+    val,
+  };
+};
 
 const bindBooleanAndNumberConfig = (config: bindConfig): string => {
   return `${config.val !== undefined ? `:${String(config.name)}="${String(config.val)}"` : ''}`;
@@ -424,6 +411,8 @@ const bindFileListConfig = (config: bindConfig): string => {
 const replaceOptions = (str: string): string => {
   return str.replace(/"label"/g, 'label').replace(/"value"/g, 'value');
 };
+
+// formConfig
 
 const getFormConfig = (): string => {
   const {
@@ -454,6 +443,25 @@ const getFormConfig = (): string => {
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('show-require-mark', showRequireMark),
   )} ${bindStringConfig(combineNameAndValue('require-mark-placement', requireMarkPlacement))}`;
+};
+
+// import
+
+const typeToImport: Record<string, string[]> = {
+  0: ['Input'],
+  1: ['InputNumber'],
+  2: ['Radio', 'RadioGroup', 'Space'],
+  3: ['Rate'],
+  4: ['Select'],
+  5: ['Slider'],
+  6: ['Switch'],
+  7: ['TimePicker'],
+  8: ['TreeSelect'],
+  9: ['Upload'],
+  10: ['ColorPicker'],
+  11: ['Checkbox', 'CheckboxGroup', 'Space'],
+  12: ['DatePicker'],
+  13: ['Divider'],
 };
 
 const getTypeToImport = (data: formItemType[]): string => {
@@ -488,6 +496,8 @@ export const generateCode = (data: formItemType[]): string => {
 
   return Code;
 };
+
+// normal
 
 export const copy = (value: string): void => {
   const textarea = document.createElement('textarea');
