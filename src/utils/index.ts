@@ -371,6 +371,24 @@ const getDatePickerFormItemContentConfig = (item: { [key: string]: any }): strin
   )}`;
 };
 
+const getFormItemImport = (data: formItemType[]): string => {
+  const prefix = PREFIX.toUpperCase();
+  const { confirmAndCancelBtn } = store.state;
+  const array: string[] = [];
+  data.forEach(item => {
+    return typeToImport[item.value].forEach(importItem => {
+      array.push(`${prefix}${importItem} ,`);
+    });
+  });
+  // button
+  if (confirmAndCancelBtn) {
+    ['Button', 'Space'].forEach(item => {
+      array.push(`${prefix}${item} ,`);
+    });
+  }
+  return `${Array.from(new Set(array)).join('')}`;
+};
+
 // bind
 
 const combineNameAndValue = (
@@ -464,24 +482,33 @@ const typeToImport: Record<string, string[]> = {
   13: ['Divider'],
 };
 
-const getTypeToImport = (data: formItemType[]): string => {
+const getImport = (data: formItemType[]): string => {
   const prefix = PREFIX.toUpperCase();
   if (store.state.autoAddImport) {
     const importStr = `
 <script setup type="ts">
-  import { ${Array.from(
-    new Set(
-      data.map(item => {
-        return typeToImport[item.value].map(importItem => `${prefix}${importItem} ,`).join('');
-      }),
-    ),
-  ).join('')} ${prefix}Form, ${prefix}FormItem } from '${UI_NAME}';
+  import { ${getFormItemImport(data)} ${prefix}Form, ${prefix}FormItem } from '${UI_NAME}';
 </script>
     `;
-
     return importStr;
   }
 
+  return '';
+};
+
+// confirmAndCancelButton
+
+const getConfirmAndCancelButton = (): string => {
+  const { confirmAndCancelBtn } = store.state;
+  if (confirmAndCancelBtn) {
+    return `
+      <${PREFIX}-form-item>
+        <${PREFIX}-space justify="center">
+          <${PREFIX}-button @click="handleValidateClick">确认</${PREFIX}-button>
+          <${PREFIX}-button>取消</${PREFIX}-button>
+        </${PREFIX}-space>
+      </${PREFIX}-form-item>`;
+  }
   return '';
 };
 
@@ -489,10 +516,11 @@ const getTypeToImport = (data: formItemType[]): string => {
 export const generateCode = (data: formItemType[]): string => {
   let Code: string = `<template>
     <${PREFIX}-form ${getFormConfig()}>${data.map(item => getTypeToFormItem(item)).join('')}
+    ${getConfirmAndCancelButton()}
     </${PREFIX}-form>
 </template>`;
 
-  Code = Code.concat(getTypeToImport(data));
+  Code = Code.concat(getImport(data));
 
   return Code;
 };

@@ -16,6 +16,7 @@ export interface State {
   selectedFormItem: string;
   selectedFormItemType: string;
   autoAddImport: boolean;
+  confirmAndCancelBtn: boolean;
   formConfig: {
     labelPlacement: 'left' | 'top';
     labelWidth: string;
@@ -37,6 +38,7 @@ export const store = createStore<State>({
     return {
       formItemArray: [],
       autoAddImport: false,
+      confirmAndCancelBtn: false,
       formConfig: initialFormState,
       selectedFormItem: '',
       selectedFormItemType: '',
@@ -164,6 +166,9 @@ export const store = createStore<State>({
     },
     changeTabsValue(state, payload: State['tabsValue']) {
       state.tabsValue = payload;
+    },
+    changeConfirmAndCancelBtn(state, payload: boolean) {
+      state.confirmAndCancelBtn = payload;
     },
   },
   getters: {
