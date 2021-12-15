@@ -117,7 +117,9 @@ const getTypeToFormItem = (item: formItemType): string => {
 };
 
 const getFormItemConfig = (item: formItemType): string => {
-  return `label="${item.formItemConfig.label as string}"`;
+  return `label="${item.formItemConfig.label as string}" path="${
+    item.formItemConfig.name as string
+  }"`;
 };
 
 const getFormItemContentConfig = (item: { [key: string]: any }, type: string): string => {
@@ -460,7 +462,9 @@ const getFormConfig = (): string => {
     combineNameAndValue('show-label', showLabel),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('show-require-mark', showRequireMark),
-  )} ${bindStringConfig(combineNameAndValue('require-mark-placement', requireMarkPlacement))}`;
+  )} ${bindBooleanAndNumberConfig(combineNameAndValue('rules', 'rules'))} ${bindStringConfig(
+    combineNameAndValue('require-mark-placement', requireMarkPlacement),
+  )}`;
 };
 
 // import
@@ -512,6 +516,37 @@ const getConfirmAndCancelButton = (): string => {
   return '';
 };
 
+// rules
+
+const getRulesObject = (data: formItemType[]): string => {
+  let returnStr = '';
+
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i];
+    const rules = data[i].formItemConfig.rules as string[];
+    for (let i = 0; i < rules.length; i++) {
+      const element = rules[i];
+      switch (element) {
+        case '0':
+          returnStr += `${item.formItemConfig.name as string}: [
+              { required: true, message: '请输入${
+                item.formItemConfig.label as string
+              }', trigger: 'blur' },
+            ]`;
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  return `
+  const rules = {
+    ${returnStr}
+  }
+`;
+};
+
 // entry
 export const generateCode = (data: formItemType[]): string => {
   let Code: string = `<template>
@@ -520,9 +555,18 @@ export const generateCode = (data: formItemType[]): string => {
     </${PREFIX}-form>
 </template>`;
 
-  Code = Code.concat(getImport(data));
+  Code = Code.concat(getScriptCode(data));
 
   return Code;
+};
+
+const getScriptCode = (data: formItemType[]): string => {
+  return `
+  <script setup type="ts">
+    ${getImport(data)}
+    ${getRulesObject(data)}
+  </script>
+      `;
 };
 
 // normal
