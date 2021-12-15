@@ -27,6 +27,7 @@ const formValue = useConfig<{
   showRemoveButton: boolean;
   showRetryButton: boolean;
   showFileList: boolean;
+  rules: Array<string>;
 }>({
   sync: false,
 });
@@ -50,6 +51,18 @@ const handleSubmit = () => {
     </n-form-item>
     <n-form-item label="字段名称">
       <n-input v-model:value="formValue.label" type="text" placeholder="请输入字段名称" />
+    </n-form-item>
+    <n-form-item label="校验规则">
+      <n-select
+        v-model:value="formValue.rules"
+        multiple
+        :options="[
+          {
+            label: '必填',
+            value: '0',
+          },
+        ]"
+      />
     </n-form-item>
     <n-form-item label="接受的文件类型">
       <n-input v-model:value="formValue.accept" type="text" placeholder="请输入接受的文件类型" />

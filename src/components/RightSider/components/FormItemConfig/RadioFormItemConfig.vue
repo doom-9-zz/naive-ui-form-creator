@@ -10,6 +10,7 @@ const formValue = useConfig<{
     label: string;
     value: string;
   }>;
+  rules: Array<string>;
 }>({
   sync: false,
 });
@@ -32,6 +33,18 @@ const handleSubmit = () => {
     </n-form-item>
     <n-form-item label="字段名称">
       <n-input v-model:value="formValue.label" type="text" placeholder="请输入字段名称" />
+    </n-form-item>
+    <n-form-item label="校验规则">
+      <n-select
+        v-model:value="formValue.rules"
+        multiple
+        :options="[
+          {
+            label: '必填',
+            value: '0',
+          },
+        ]"
+      />
     </n-form-item>
     <n-form-item label="大小">
       <n-radio-group v-model:value="formValue.size">

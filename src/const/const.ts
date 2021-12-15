@@ -13,6 +13,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '文本输入',
       name: undefined,
+      rules: [],
       clearable: false,
       maxlength: undefined,
       minlength: undefined,
@@ -25,6 +26,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '数字输入',
       name: undefined,
+      rules: [],
       clearable: false,
       max: undefined,
       min: undefined,
@@ -39,6 +41,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '单选',
       name: undefined,
+      rules: [],
       size: 'medium',
       options: [],
     },
@@ -48,6 +51,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '评分',
       name: undefined,
+      rules: [],
       size: 'medium',
       count: 5,
       allowHalf: false,
@@ -58,6 +62,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '选择器',
       name: undefined,
+      rules: [],
       size: 'medium',
       multiple: false,
       placeholder: '请选择',
@@ -70,6 +75,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '滑动选择',
       name: undefined,
+      rules: [],
       max: 100,
       min: 0,
       step: 1,
@@ -84,6 +90,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '开关',
       name: undefined,
+      rules: [],
       round: true,
       size: 'medium',
     },
@@ -93,6 +100,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '时间选择器',
       name: undefined,
+      rules: [],
       actions: [],
       clearable: false,
       format: 'HH:mm:ss',
@@ -106,6 +114,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '日期选择器',
       name: undefined,
+      rules: [],
       actions: [],
       clearable: false,
       format: '',
@@ -122,6 +131,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '树形选择',
       name: undefined,
+      rules: [],
       size: 'medium',
       clearable: false,
     },
@@ -131,6 +141,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '上传',
       name: undefined,
+      rules: [],
       accept: undefined,
       action: undefined,
       defaultUpload: true,
@@ -154,6 +165,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '颜色选择器',
       name: undefined,
+      rules: [],
       size: 'medium',
       modes: [],
       showAlpha: true,
@@ -165,6 +177,7 @@ export const options: selectItem = [
     formItemConfig: {
       label: '复选框',
       name: undefined,
+      rules: [],
       max: undefined,
       min: undefined,
       options: [],
