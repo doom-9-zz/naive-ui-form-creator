@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
 import { useConfig } from '../../../../utils/hook/useConfig';
+import { ruleOptions } from '../../../../const/const';
 
 const formValue = useConfig<{
   label: string | undefined;
@@ -36,16 +37,7 @@ const handleSubmit = () => {
       <n-input v-model:value="formValue.label" type="text" placeholder="请输入字段名称" />
     </n-form-item>
     <n-form-item label="校验规则">
-      <n-select
-        v-model:value="formValue.rules"
-        multiple
-        :options="[
-          {
-            label: '必填',
-            value: '0',
-          },
-        ]"
-      />
+      <n-select v-model:value="formValue.rules" multiple :options="ruleOptions" />
     </n-form-item>
     <n-form-item label="可被勾选的 checkbox 的最大数量">
       <n-input-number v-model:value="formValue.max" placeholder="请输入最大数量" />

@@ -519,30 +519,47 @@ const getConfirmAndCancelButton = (): string => {
 // rules
 
 const getRulesObject = (data: formItemType[]): string => {
-  let returnStr = '';
+  const rulesArray: string[] = [];
 
   for (let i = 0; i < data.length; i++) {
     const item = data[i];
     const rules = data[i].formItemConfig.rules as string[];
+    const itemRulesArray: string[] = [];
+
     for (let i = 0; i < rules.length; i++) {
       const element = rules[i];
       switch (element) {
         case '0':
-          returnStr += `${item.formItemConfig.name as string}: [
-              { required: true, message: '请输入${
-                item.formItemConfig.label as string
-              }', trigger: 'blur' },
-            ]`;
+          itemRulesArray.push(
+            `{ required: true, message: '请输入${
+              item.formItemConfig.label as string
+            }', trigger: 'blur' },`,
+          );
+          break;
+        case '1':
+          itemRulesArray.push(
+            `{ validator: (rule,value)=>{
+              let reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])d{8}$/;
+              if(!reg.test(value)){
+                return new Error('请输入正确的手机号码');
+              }
+              return true;
+            }, message: '请输入正确的${item.formItemConfig.label as string}', trigger: 'blur' },`,
+          );
           break;
         default:
           break;
       }
     }
+
+    rulesArray.push(`${item.formItemConfig.name as string}: [
+      ${itemRulesArray.join('')}
+    ],`);
   }
 
   return `
   const rules = {
-    ${returnStr}
+    ${rulesArray.join('')}
   }
 `;
 };

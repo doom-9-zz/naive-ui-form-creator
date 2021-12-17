@@ -226,3 +226,17 @@ export const getItemConfig = (
   }
   return {};
 };
+
+export const ruleOptions: Array<{
+  value: string;
+  label: string;
+}> = [
+  {
+    label: '必填',
+    value: '0',
+  },
+  {
+    label: '手机号',
+    value: '1',
+  },
+];
