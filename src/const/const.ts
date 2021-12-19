@@ -208,7 +208,7 @@ export const initialFormState: State['formConfig'] = {
   showFeedback: true,
   showLabel: true,
   requireMarkPlacement: 'right',
-  model: undefined,
+  model: 'formValue',
 };
 
 export const UI_NAME = 'naive-ui';

@@ -159,7 +159,6 @@ export const store = createStore<State>({
           ...state.formItemArray[index].formItemConfig,
           ...payload,
         };
-        window.$message.success('操作成功');
       } else {
         window.$message.warning('请先选中一个表单项');
       }
