@@ -190,7 +190,7 @@ export const LayoutOptions: selectItem = [
     value: '13',
     formItemConfig: {
       label: '分割线',
-      name: undefined,
+      name: '分割线',
       dashed: false,
       vertical: false,
       titlePlacement: 'center',
