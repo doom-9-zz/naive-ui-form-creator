@@ -239,4 +239,8 @@ export const ruleOptions: Array<{
     label: '手机号',
     value: '1',
   },
+  {
+    label: '身份证',
+    value: '2',
+  },
 ];

@@ -539,9 +539,20 @@ const getRulesObject = (data: formItemType[]): string => {
         case '1':
           itemRulesArray.push(
             `{ validator: (rule,value)=>{
-              let reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])d{8}$/;
+              let reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
               if(!reg.test(value)){
-                return new Error('请输入正确的手机号码');
+                return new Error('请输入正确的${item.formItemConfig.label as string}');
+              }
+              return true;
+            }, message: '请输入正确的${item.formItemConfig.label as string}', trigger: 'blur' },`,
+          );
+          break;
+        case '2':
+          itemRulesArray.push(
+            `{ validator: (rule,value)=>{
+              let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+              if(!reg.test(value)){
+                return new Error('请输入正确的${item.formItemConfig.label as string}');
               }
               return true;
             }, message: '请输入正确的${item.formItemConfig.label as string}', trigger: 'blur' },`,
