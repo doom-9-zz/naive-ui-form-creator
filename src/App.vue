@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, provide, computed } from 'vue';
+import { useStore } from 'vuex';
 import Layout from './components/Layout/Layout.vue';
 import { darkTheme, NLocale, NDateLocale } from 'naive-ui';
 import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface';
@@ -20,13 +21,17 @@ const changeTheme = () => {
     theme.value = null;
   }
 };
+
+const store = useStore();
 const changeLocale = () => {
   if (locale.value === null) {
     locale.value = zhCN;
     dateLocale.value = dateZhCN;
+    store.commit('changeLocal', 'zh');
   } else {
     locale.value = null;
     dateLocale.value = null;
+    store.commit('changeLocal', 'en');
   }
 };
 
