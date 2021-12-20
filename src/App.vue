@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, provide, computed } from 'vue';
 import Layout from './components/Layout/Layout.vue';
-import { darkTheme } from 'naive-ui';
+import { darkTheme, NLocale, NDateLocale } from 'naive-ui';
 import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -10,8 +10,8 @@ import { appProvideKey } from './const/const';
 
 hljs.registerLanguage('javascript', javascript);
 const theme = ref<null | BuiltInGlobalTheme>(null);
-const locale = ref<any>(zhCN);
-const dateLocale = ref<any>(dateZhCN);
+const locale = ref<null | NLocale>(zhCN);
+const dateLocale = ref<null | NDateLocale>(dateZhCN);
 
 const changeTheme = () => {
   if (theme.value === null) {
