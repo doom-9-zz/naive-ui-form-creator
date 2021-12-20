@@ -35,10 +35,17 @@ const selectedFormItem = computed(() => {
 const appProvideConfig = inject(appProvideKey);
 </script>
 <template>
-  <n-divider title-placement="left">预览</n-divider>
-  <n-empty description="从左侧添加表单项" v-if="formItemArray.length === 0">
+  <n-divider title-placement="left">
+    {{ $t('preview', appProvideConfig?.local.value) }}
+  </n-divider>
+  <n-empty
+    :description="$t('addFormItem', appProvideConfig?.local.value)"
+    v-if="formItemArray.length === 0"
+  >
     <template #extra>
-      <n-button @click="handleAddClick">试着添加一个</n-button>
+      <n-button @click="handleAddClick">
+        {{ $t('add', appProvideConfig?.local.value) }}
+      </n-button>
     </template>
   </n-empty>
   <n-form

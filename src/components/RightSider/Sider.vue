@@ -15,7 +15,8 @@ import UploadFormItemConfig from './components/FormItemConfig/UploadFormItemConf
 import InputNumberFormItemConfig from './components/FormItemConfig/InputNumberFormItemConfig.vue';
 import DividerConfig from './components/FormItemConfig/DividerConfig.vue';
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
+import { appProvideKey } from '../../const/const';
 const store = useStore();
 const selectedFormItemType = computed(() => {
   return store.state.selectedFormItemType;
@@ -73,22 +74,33 @@ const tabsValue = computed(() => {
 const handleTabsChange = (val: 'form' | 'formItem') => {
   store.commit('changeTabsValue', val);
 };
+const appProvideConfig = inject(appProvideKey);
 </script>
 <template>
-  <n-divider title-placement="left">配置</n-divider>
+  <n-divider title-placement="left">{{ $t('setUp', appProvideConfig?.local.value) }}</n-divider>
   <n-tabs type="segment" :value="tabsValue">
-    <n-tab-pane name="formItem" tab="表单项配置" @click="handleTabsChange('formItem')">
+    <n-tab-pane
+      name="formItem"
+      :tab="$t('formItemConfiguration', appProvideConfig?.local.value)"
+      @click="handleTabsChange('formItem')"
+    >
       <n-empty
-        description="从最左侧添加表单项"
+        :description="$t('addFormItem', appProvideConfig?.local.value)"
         v-if="formItemArrayLength === 0 || selectedFormItemType === ''"
       >
         <template #extra>
-          <n-button @click="handleAddClick">试着添加一个并且选中它</n-button>
+          <n-button @click="handleAddClick">
+            {{ $t('addFormItemAndSelect', appProvideConfig?.local.value) }}
+          </n-button>
         </template>
       </n-empty>
       <component v-else :is="showComponent" :key="selectedFormItem"></component>
     </n-tab-pane>
-    <n-tab-pane name="form" tab="表单配置" @click="handleTabsChange('form')">
+    <n-tab-pane
+      name="form"
+      :tab="$t('formConfiguration', appProvideConfig?.local.value)"
+      @click="handleTabsChange('form')"
+    >
       <FormConfig />
     </n-tab-pane>
   </n-tabs>
