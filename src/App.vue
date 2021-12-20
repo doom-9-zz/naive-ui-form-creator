@@ -10,8 +10,8 @@ import { appProvideKey } from './const/const';
 
 hljs.registerLanguage('javascript', javascript);
 const theme = ref<null | BuiltInGlobalTheme>(null);
-const locale = ref<any>(null);
-const dateLocale = ref<any>(null);
+const locale = ref<any>(zhCN);
+const dateLocale = ref<any>(dateZhCN);
 
 const changeTheme = () => {
   if (theme.value === null) {
@@ -32,7 +32,7 @@ const changeLocale = () => {
 
 provide(appProvideKey, {
   local: computed(() => {
-    return locale.value === null ? 'zh' : 'en';
+    return locale.value === null ? 'en' : 'zh';
   }),
 });
 </script>

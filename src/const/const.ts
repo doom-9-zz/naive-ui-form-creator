@@ -50,7 +50,7 @@ export const options: selectItem = [
   {
     value: '3',
     formItemConfig: {
-      label: '评分',
+      label: 'rate',
       name: undefined,
       rules: [],
       size: 'medium',
@@ -61,7 +61,7 @@ export const options: selectItem = [
   {
     value: '4',
     formItemConfig: {
-      label: '选择器',
+      label: 'select',
       name: undefined,
       rules: [],
       size: 'medium',
@@ -74,7 +74,7 @@ export const options: selectItem = [
   {
     value: '5',
     formItemConfig: {
-      label: '滑动选择',
+      label: 'slider',
       name: undefined,
       rules: [],
       max: 100,
@@ -89,7 +89,7 @@ export const options: selectItem = [
   {
     value: '6',
     formItemConfig: {
-      label: '开关',
+      label: 'switch',
       name: undefined,
       rules: [],
       round: true,
@@ -99,7 +99,7 @@ export const options: selectItem = [
   {
     value: '7',
     formItemConfig: {
-      label: '时间选择器',
+      label: 'timePicker',
       name: undefined,
       rules: [],
       actions: [],
@@ -113,7 +113,7 @@ export const options: selectItem = [
   {
     value: '12',
     formItemConfig: {
-      label: '日期选择器',
+      label: 'datePicker',
       name: undefined,
       rules: [],
       actions: [],
@@ -130,7 +130,7 @@ export const options: selectItem = [
   {
     value: '8',
     formItemConfig: {
-      label: '树形选择',
+      label: 'treeSelect',
       name: undefined,
       rules: [],
       size: 'medium',
@@ -140,7 +140,7 @@ export const options: selectItem = [
   {
     value: '9',
     formItemConfig: {
-      label: '上传',
+      label: 'upload',
       name: undefined,
       rules: [],
       accept: undefined,
@@ -164,7 +164,7 @@ export const options: selectItem = [
   {
     value: '10',
     formItemConfig: {
-      label: '颜色选择器',
+      label: 'colorPicker',
       name: undefined,
       rules: [],
       size: 'medium',
@@ -176,7 +176,7 @@ export const options: selectItem = [
   {
     value: '11',
     formItemConfig: {
-      label: '复选框',
+      label: 'checkbox',
       name: undefined,
       rules: [],
       max: undefined,
@@ -190,8 +190,8 @@ export const LayoutOptions: selectItem = [
   {
     value: '13',
     formItemConfig: {
-      label: '分割线',
-      name: '分割线',
+      label: 'divider',
+      name: 'divider',
       dashed: false,
       vertical: false,
       titlePlacement: 'center',

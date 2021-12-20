@@ -76,7 +76,7 @@ const handleGenerateCodeSet = () => {
             {{ $props.isDark ? '白天' : '黑夜' }}
           </n-button>
           <n-button strong quaternary round @click="$emit('changeLocale')">
-            {{ $props.isEnglish ? 'English' : '中文' }}
+            {{ $props.isEnglish ? '中文' : 'English' }}
           </n-button>
           <n-button strong quaternary round @click="handleOpenGithub">Github</n-button>
         </n-space>
