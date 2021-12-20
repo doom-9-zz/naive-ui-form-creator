@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { inject, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { initialFormState } from '../../../../const/const';
 import { State } from '../../../../store/index';
 import { copyPropertyValue } from '../../../../utils/index';
+import { appProvideKey } from '../../../../const/const';
 
 const formValue = ref<State['formConfig']>({
   ...initialFormState,
@@ -23,14 +24,16 @@ const handleResetClick = () => {
     copyPropertyValue(formValue.value, initialFormState, key as keyof State['formConfig']);
   });
 };
+
+const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
   <n-form>
-    <n-form-item label="收集到的值的对象标识">
+    <n-form-item :label="$t('model', appProvideConfig?.local.value)">
       <n-input v-model:value="formValue.model" type="text" placeholder="请输入对象标识" />
     </n-form-item>
-    <n-form-item label="表单尺寸">
+    <n-form-item :label="$t('size', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.size">
         <n-space>
           <n-radio key="small" value="small">small</n-radio>
@@ -39,10 +42,10 @@ const handleResetClick = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否展示为行内表单">
+    <n-form-item :label="$t('inline', appProvideConfig?.local.value)">
       <n-switch v-model:value="formValue.inline"></n-switch>
     </n-form-item>
-    <n-form-item label="标签位置">
+    <n-form-item :label="$t('labelPlacement', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.labelPlacement">
         <n-space>
           <n-radio key="left" value="left">left</n-radio>
@@ -50,10 +53,10 @@ const handleResetClick = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="标签宽度">
+    <n-form-item :label="$t('labelWidth', appProvideConfig?.local.value)">
       <n-input v-model:value="formValue.labelWidth" type="text" placeholder="请输入标签宽度" />
     </n-form-item>
-    <n-form-item label="标签对其方式">
+    <n-form-item :label="$t('labelAlign', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.labelAlign">
         <n-space>
           <n-radio key="left" value="left">left</n-radio>
@@ -61,16 +64,16 @@ const handleResetClick = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否展示校验反馈">
+    <n-form-item :label="$t('showFeedback', appProvideConfig?.local.value)">
       <n-switch v-model:value="formValue.showFeedback"></n-switch>
     </n-form-item>
-    <n-form-item label="是否展示标签">
+    <n-form-item :label="$t('showLabel', appProvideConfig?.local.value)">
       <n-switch v-model:value="formValue.showLabel"></n-switch>
     </n-form-item>
-    <n-form-item label="是否显示必填标志">
+    <n-form-item :label="$t('showRequireMark', appProvideConfig?.local.value)">
       <n-switch v-model:value="formValue.showRequireMark" />
     </n-form-item>
-    <n-form-item label="必填标志的位置">
+    <n-form-item :label="$t('requireMarkPlacement', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.requireMarkPlacement">
         <n-space>
           <n-radio key="left" value="left">left</n-radio>
@@ -80,7 +83,9 @@ const handleResetClick = () => {
     </n-form-item>
   </n-form>
   <n-space>
-    <n-button type="warning" @click="handleResetClick">重置</n-button>
+    <n-button type="warning" @click="handleResetClick">
+      {{ $t('reset', appProvideConfig?.local.value) }}
+    </n-button>
   </n-space>
 </template>
 <style></style>

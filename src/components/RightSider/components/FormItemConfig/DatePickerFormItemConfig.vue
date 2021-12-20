@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import { useConfig } from '../../../../utils/hook/useConfig';
 import { ruleOptions } from '../../../../const/const';
+import { inject } from 'vue';
+import { appProvideKey } from '../../../../const/const';
 
 const formValue = useConfig({});
+const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
   <n-form>
-    <n-form-item label="字段标识">
-      <n-input v-model:value="formValue.name" type="text" placeholder="请输入字段标识" />
+    <n-form-item :label="$t('id', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.name" type="text" />
     </n-form-item>
-    <n-form-item label="字段名称">
-      <n-input v-model:value="formValue.label" type="text" placeholder="请输入字段名称" />
+    <n-form-item :label="$t('name', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.label" type="text" />
     </n-form-item>
-    <n-form-item label="校验规则">
+    <n-form-item :label="$t('rules', appProvideConfig?.local.value)">
       <n-select v-model:value="formValue.rules" multiple :options="ruleOptions" />
     </n-form-item>
-    <n-form-item label="选择框的类型">
+    <n-form-item :label="$t('type', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.type">
         <n-space>
           <n-radio :key="0" value="date">date</n-radio>
@@ -28,10 +31,10 @@ const formValue = useConfig({});
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="时间格式化字符串">
-      <n-input v-model:value="formValue.format" type="text" placeholder="请输入时间格式化字符串" />
+    <n-form-item :label="$t('format', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.format" type="text" />
     </n-form-item>
-    <n-form-item label="Date Picker 中支持的操作">
+    <n-form-item :label="$t('actions', appProvideConfig?.local.value)">
       <n-select
         v-model:value="formValue.actions"
         multiple
@@ -77,7 +80,7 @@ const formValue = useConfig({});
         "
       />
     </n-form-item>
-    <n-form-item label="是否可清空">
+    <n-form-item :label="$t('clearable', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.clearable">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -85,7 +88,7 @@ const formValue = useConfig({});
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="选择框的尺寸">
+    <n-form-item :label="$t('size', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.size">
         <n-space>
           <n-radio :key="0" value="small">small</n-radio>
@@ -95,21 +98,26 @@ const formValue = useConfig({});
       </n-radio-group>
     </n-form-item>
 
-    <n-form-item label="start 选框的提示信息" v-if="formValue.type.includes('range')">
-      <n-input v-model:value="formValue.startPlaceholder" type="text" placeholder="请输入" />
+    <n-form-item
+      :label="$t('startPlaceholder', appProvideConfig?.local.value)"
+      v-if="formValue.type.includes('range')"
+    >
+      <n-input v-model:value="formValue.startPlaceholder" type="text" />
     </n-form-item>
-    <n-form-item label="end 选框的提示信息" v-if="formValue.type.includes('range')">
-      <n-input v-model:value="formValue.endPlaceholder" type="text" placeholder="请输入" />
+    <n-form-item
+      :label="$t('endPlaceholder', appProvideConfig?.local.value)"
+      v-if="formValue.type.includes('range')"
+    >
+      <n-input v-model:value="formValue.endPlaceholder" type="text" />
     </n-form-item>
-    <n-form-item label="start 选框与 end 选框之间的分隔符" v-if="formValue.type.includes('range')">
-      <n-input v-model:value="formValue.separator" type="text" placeholder="请输入" />
+    <n-form-item
+      :label="$t('separator', appProvideConfig?.local.value)"
+      v-if="formValue.type.includes('range')"
+    >
+      <n-input v-model:value="formValue.separator" type="text" />
     </n-form-item>
-    <n-form-item label="选择框的占位符" v-else>
-      <n-input
-        v-model:value="formValue.placeholder"
-        type="text"
-        placeholder="请输入选择框的占位符"
-      />
+    <n-form-item :label="$t('placeholder', appProvideConfig?.local.value)" v-else>
+      <n-input v-model:value="formValue.placeholder" type="text" />
     </n-form-item>
   </n-form>
 </template>

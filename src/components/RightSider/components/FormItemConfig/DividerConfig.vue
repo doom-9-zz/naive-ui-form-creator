@@ -7,7 +7,7 @@ const formValue = useConfig({});
 <template>
   <n-form>
     <n-form-item label="字段标识">
-      <n-input v-model:value="formValue.name" type="text" placeholder="请输入字段标识" />
+      <n-input v-model:value="formValue.name" type="text" />
     </n-form-item>
     <n-form-item label="是否使用虚线分割">
       <n-radio-group v-model:value="formValue.dashed">

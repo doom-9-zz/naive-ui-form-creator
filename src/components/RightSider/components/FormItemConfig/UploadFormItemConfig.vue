@@ -2,6 +2,8 @@
 import { useStore } from 'vuex';
 import { useConfig } from '../../../../utils/hook/useConfig';
 import { ruleOptions } from '../../../../const/const';
+import { inject } from 'vue';
+import { appProvideKey } from '../../../../const/const';
 
 const formValue = useConfig<{
   label: string | undefined;
@@ -43,17 +45,18 @@ const store = useStore();
 const handleSubmit = () => {
   store.commit('changeSelectedFormItemConfig', formValue.value);
 };
+const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
   <n-form>
-    <n-form-item label="字段标识">
-      <n-input v-model:value="formValue.name" type="text" placeholder="请输入字段标识" />
+    <n-form-item :label="$t('id', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.name" type="text" />
     </n-form-item>
-    <n-form-item label="字段名称">
-      <n-input v-model:value="formValue.label" type="text" placeholder="请输入字段名称" />
+    <n-form-item :label="$t('name', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.label" type="text" />
     </n-form-item>
-    <n-form-item label="校验规则">
+    <n-form-item :label="$t('rules', appProvideConfig?.local.value)">
       <n-select v-model:value="formValue.rules" multiple :options="ruleOptions" />
     </n-form-item>
     <n-form-item label="接受的文件类型">
