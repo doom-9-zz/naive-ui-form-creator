@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import { useStore } from 'vuex';
-import { options, LayoutOptions } from '../../const/const';
+import { options, LayoutOptions, appProvideKey } from '../../const/const';
 import { useMessage } from 'naive-ui';
 
 const store = useStore();
@@ -15,6 +16,8 @@ const handleLayoutAddClick = (value: string) => {
     value: value,
   });
 };
+
+const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
@@ -26,7 +29,7 @@ const handleLayoutAddClick = (value: string) => {
       size="large"
       @click="handleAddClick(item.value)"
     >
-      {{ item.formItemConfig.label }}
+      {{ $t(item.formItemConfig.label, appProvideConfig?.local.value) }}
     </n-button>
     <n-divider title-placement="center">辅助组件</n-divider>
     <n-button

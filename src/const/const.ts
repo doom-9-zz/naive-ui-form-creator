@@ -1,4 +1,5 @@
 import { State } from '../store';
+import { ComputedRef, InjectionKey } from 'vue';
 
 type selectItem = Array<{
   value: string;
@@ -11,7 +12,7 @@ export const options: selectItem = [
   {
     value: '0',
     formItemConfig: {
-      label: '文本输入',
+      label: 'input',
       name: undefined,
       rules: [],
       clearable: false,
@@ -24,7 +25,7 @@ export const options: selectItem = [
   {
     value: '1',
     formItemConfig: {
-      label: '数字输入',
+      label: 'inputNumber',
       name: undefined,
       rules: [],
       clearable: false,
@@ -39,7 +40,7 @@ export const options: selectItem = [
   {
     value: '2',
     formItemConfig: {
-      label: '单选',
+      label: 'radio',
       name: undefined,
       rules: [],
       size: 'medium',
@@ -244,3 +245,9 @@ export const ruleOptions: Array<{
     value: '2',
   },
 ];
+
+interface appProvideConfig {
+  local: ComputedRef<string>;
+}
+
+export const appProvideKey: InjectionKey<appProvideConfig> = Symbol('appProvideConfig');

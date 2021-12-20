@@ -9,8 +9,8 @@ import { ref } from 'vue';
 import { SettingOutlined, FolderOutlined } from '@vicons/antd';
 import { State } from '../../store';
 
-defineProps<{ isDark: boolean }>();
-defineEmits(['changeTheme']);
+defineProps<{ isDark: boolean; isEnglish: boolean }>();
+defineEmits(['changeTheme', 'changeLocale']);
 const store = useStore<State>();
 const handleOpenGithub = () => {
   window.open('https://github.com/doom-9/naive-create-form', '_blank');
@@ -74,6 +74,9 @@ const handleGenerateCodeSet = () => {
           </n-button>
           <n-button strong quaternary round @click="$emit('changeTheme')">
             {{ $props.isDark ? '白天' : '黑夜' }}
+          </n-button>
+          <n-button strong quaternary round @click="$emit('changeLocale')">
+            {{ $props.isEnglish ? 'English' : '中文' }}
           </n-button>
           <n-button strong quaternary round @click="handleOpenGithub">Github</n-button>
         </n-space>
