@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, provide, computed } from 'vue';
+import { useStore } from 'vuex';
 import Layout from './components/Layout/Layout.vue';
-import { darkTheme } from 'naive-ui';
+import { darkTheme, NLocale, NDateLocale } from 'naive-ui';
 import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { zhCN, dateZhCN } from 'naive-ui';
+import { appProvideKey } from './const/const';
 
 hljs.registerLanguage('javascript', javascript);
 const theme = ref<null | BuiltInGlobalTheme>(null);
+const locale = ref<null | NLocale>(zhCN);
+const dateLocale = ref<null | NDateLocale>(dateZhCN);
 
 const changeTheme = () => {
   if (theme.value === null) {
@@ -17,12 +21,36 @@ const changeTheme = () => {
     theme.value = null;
   }
 };
+
+const store = useStore();
+const changeLocale = () => {
+  if (locale.value === null) {
+    locale.value = zhCN;
+    dateLocale.value = dateZhCN;
+    store.commit('changeLocal', 'zh');
+  } else {
+    locale.value = null;
+    dateLocale.value = null;
+    store.commit('changeLocal', 'en');
+  }
+};
+
+provide(appProvideKey, {
+  local: computed(() => {
+    return locale.value === null ? 'en' : 'zh';
+  }),
+});
 </script>
 
 <template>
-  <n-config-provider :theme="theme" :hljs="hljs" :locale="zhCN" :date-locale="dateZhCN">
+  <n-config-provider :theme="theme" :hljs="hljs" :locale="locale" :date-locale="dateLocale">
     <n-message-provider :max="3">
-      <Layout @changeTheme="changeTheme" :isDark="theme === null ? false : true" />
+      <Layout
+        @changeTheme="changeTheme"
+        @changeLocale="changeLocale"
+        :isDark="theme === null ? false : true"
+        :isEnglish="locale === null ? true : false"
+      />
     </n-message-provider>
   </n-config-provider>
 </template>

@@ -5,12 +5,13 @@ import RightSider from '../RightSider/Sider.vue';
 import Content from '../Content/Content.vue';
 import SetGenerateCodeModal from './components/SetGenerateCodeModal/SetGenerateCodeModal.vue';
 import { copy, generateCode } from '../../utils';
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 import { SettingOutlined, FolderOutlined } from '@vicons/antd';
 import { State } from '../../store';
+import { appProvideKey } from '../../const/const';
 
-defineProps<{ isDark: boolean }>();
-defineEmits(['changeTheme']);
+defineProps<{ isDark: boolean; isEnglish: boolean }>();
+defineEmits(['changeTheme', 'changeLocale']);
 const store = useStore<State>();
 const handleOpenGithub = () => {
   window.open('https://github.com/doom-9/naive-create-form', '_blank');
@@ -36,6 +37,7 @@ const handleGenerateCodeSet = () => {
     SetGenerateCodeModalRef.value.handleShowModal();
   }
 };
+const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
@@ -61,19 +63,26 @@ const handleGenerateCodeSet = () => {
             size="medium"
             @click="handleGenerateCodeSet"
           >
-            生成代码设置
+            {{ $t('generateCodeSettings', appProvideConfig?.local.value) }}
             <n-icon size="20">
               <SettingOutlined />
             </n-icon>
           </n-button>
           <n-button type="primary" strong secondary round size="medium" @click="handleGenerateCode">
-            生成组件代码
+            {{ $t('generateComponentCode', appProvideConfig?.local.value) }}
             <n-icon size="20">
               <FolderOutlined />
             </n-icon>
           </n-button>
           <n-button strong quaternary round @click="$emit('changeTheme')">
-            {{ $props.isDark ? '白天' : '黑夜' }}
+            {{
+              $props.isDark
+                ? $t('light', appProvideConfig?.local.value)
+                : $t('dark', appProvideConfig?.local.value)
+            }}
+          </n-button>
+          <n-button strong quaternary round @click="$emit('changeLocale')">
+            {{ $props.isEnglish ? '中文' : 'English' }}
           </n-button>
           <n-button strong quaternary round @click="handleOpenGithub">Github</n-button>
         </n-space>
@@ -94,7 +103,7 @@ const handleGenerateCodeSet = () => {
         </n-layout-sider>
       </n-layout>
       <n-layout-footer bordered position="absolute" style="height: 64px; padding: 24px">
-        使用过程中如果遇到问题或者 bug，欢迎提交 issue。
+        {{ $t('tip', appProvideConfig?.local.value) }}
       </n-layout-footer>
     </n-layout>
     <n-modal

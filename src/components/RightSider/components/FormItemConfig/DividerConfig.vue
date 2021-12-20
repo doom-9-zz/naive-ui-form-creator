@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { useConfig } from '../../../../utils/hook/useConfig';
+import { inject } from 'vue';
+import { appProvideKey } from '../../../../const/const';
 
 const formValue = useConfig({});
+const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
   <n-form>
-    <n-form-item label="字段标识">
-      <n-input v-model:value="formValue.name" type="text" placeholder="请输入字段标识" />
+    <n-form-item :label="$t('name', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.name" type="text" />
     </n-form-item>
-    <n-form-item label="是否使用虚线分割">
+    <n-form-item :label="$t('dashed', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.dashed">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -17,7 +20,7 @@ const formValue = useConfig({});
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否垂直分隔">
+    <n-form-item :label="$t('vertical', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.vertical">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -25,7 +28,7 @@ const formValue = useConfig({});
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="标题的位置">
+    <n-form-item :label="$t('titlePlacement', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.titlePlacement">
         <n-space>
           <n-radio :key="0" value="left">left</n-radio>

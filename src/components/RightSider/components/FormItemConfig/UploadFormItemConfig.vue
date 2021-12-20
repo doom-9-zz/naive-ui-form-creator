@@ -2,6 +2,8 @@
 import { useStore } from 'vuex';
 import { useConfig } from '../../../../utils/hook/useConfig';
 import { ruleOptions } from '../../../../const/const';
+import { inject } from 'vue';
+import { appProvideKey } from '../../../../const/const';
 
 const formValue = useConfig<{
   label: string | undefined;
@@ -43,26 +45,27 @@ const store = useStore();
 const handleSubmit = () => {
   store.commit('changeSelectedFormItemConfig', formValue.value);
 };
+const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
   <n-form>
-    <n-form-item label="字段标识">
-      <n-input v-model:value="formValue.name" type="text" placeholder="请输入字段标识" />
+    <n-form-item :label="$t('id', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.name" type="text" />
     </n-form-item>
-    <n-form-item label="字段名称">
-      <n-input v-model:value="formValue.label" type="text" placeholder="请输入字段名称" />
+    <n-form-item :label="$t('name', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.label" type="text" />
     </n-form-item>
-    <n-form-item label="校验规则">
+    <n-form-item :label="$t('rules', appProvideConfig?.local.value)">
       <n-select v-model:value="formValue.rules" multiple :options="ruleOptions" />
     </n-form-item>
-    <n-form-item label="接受的文件类型">
-      <n-input v-model:value="formValue.accept" type="text" placeholder="请输入接受的文件类型" />
+    <n-form-item :label="$t('accept', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.accept" type="text" />
     </n-form-item>
-    <n-form-item label="请求提交的地址">
-      <n-input v-model:value="formValue.action" type="text" placeholder="请输入请求提交的地址" />
+    <n-form-item :label="$t('action', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.action" type="text" />
     </n-form-item>
-    <n-form-item label="提交表单需要附加的数据">
+    <n-form-item :label="$t('uploadData', appProvideConfig?.local.value)">
       <n-dynamic-input
         item-style="margin-bottom: 0;"
         v-model:value="formValue.data"
@@ -88,7 +91,7 @@ const handleSubmit = () => {
         </div>
       </n-dynamic-input>
     </n-form-item>
-    <n-form-item label="HTTP 请求需要附加的 Headers">
+    <n-form-item :label="$t('headers', appProvideConfig?.local.value)">
       <n-dynamic-input
         item-style="margin-bottom: 0;"
         v-model:value="formValue.headers"
@@ -114,7 +117,7 @@ const handleSubmit = () => {
         </div>
       </n-dynamic-input>
     </n-form-item>
-    <n-form-item label="选择文件时候是否默认上传">
+    <n-form-item :label="$t('defaultUpload', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.defaultUpload">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -122,7 +125,7 @@ const handleSubmit = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="文件列表的内建样式">
+    <n-form-item :label="$t('listType', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.listType">
         <n-space>
           <n-radio :key="0" value="text">text</n-radio>
@@ -131,13 +134,13 @@ const handleSubmit = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="限制上传文件数量">
-      <n-input-number v-model:value="formValue.max" placeholder="请输入限制上传文件数量" />
+    <n-form-item :label="$t('uploadMax', appProvideConfig?.local.value)">
+      <n-input-number v-model:value="formValue.max" />
     </n-form-item>
-    <n-form-item label="HTTP 请求的方法">
-      <n-input v-model:value="formValue.method" type="text" placeholder="请输入请求的方法" />
+    <n-form-item :label="$t('method', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.method" type="text" />
     </n-form-item>
-    <n-form-item label="是否支持多个文件">
+    <n-form-item :label="$t('multiple', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.multiple">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -145,10 +148,10 @@ const handleSubmit = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="文件在提交表单中的字段名">
-      <n-input v-model:value="formValue.fileName" type="text" placeholder="请输入" />
+    <n-form-item :label="$t('fileName', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.fileName" type="text" />
     </n-form-item>
-    <n-form-item label="是否携带 Cookie">
+    <n-form-item :label="$t('withCredentials', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.withCredentials">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -156,7 +159,7 @@ const handleSubmit = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否显示取消按钮（在 pending、uploading、error 的时候展示）">
+    <n-form-item :label="$t('showCancelButton', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.showCancelButton">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -164,7 +167,7 @@ const handleSubmit = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否显示下载按钮（在 finished 后展示）">
+    <n-form-item :label="$t('showDownloadButton', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.showDownloadButton">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -172,7 +175,7 @@ const handleSubmit = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否显示删除按钮（在 finished 后时候展示）">
+    <n-form-item :label="$t('showRemoveButton', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.showRemoveButton">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -180,7 +183,7 @@ const handleSubmit = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否显示重新上传按钮（在 error 时展示）">
+    <n-form-item :label="$t('showRetryButton', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.showRetryButton">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -188,7 +191,7 @@ const handleSubmit = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否显示文件列表">
+    <n-form-item :label="$t('showFileList', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.showFileList">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -196,7 +199,9 @@ const handleSubmit = () => {
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-button @click="handleSubmit" type="primary">应用</n-button>
+    <n-button @click="handleSubmit" type="primary">
+      {{ $t('apply', appProvideConfig?.local.value) }}
+    </n-button>
   </n-form>
 </template>
 <style></style>

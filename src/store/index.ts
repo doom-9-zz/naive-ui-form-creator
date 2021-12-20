@@ -30,6 +30,7 @@ export interface State {
     model: string | undefined;
   };
   tabsValue: 'form' | 'formItem';
+  local: string;
 }
 
 export const store = createStore<State>({
@@ -43,6 +44,7 @@ export const store = createStore<State>({
       selectedFormItem: '',
       selectedFormItemType: '',
       tabsValue: 'formItem',
+      local: 'zh',
     };
   },
   mutations: {
@@ -53,7 +55,7 @@ export const store = createStore<State>({
         formItemConfig: getItemConfig(payload.value),
         ...payload,
       });
-      window.$message.success('操作成功');
+      window.$message.success(state.local === 'zh' ? '操作成功' : 'Success');
     },
     addAndSelect(state, payload: Omit<formItemType, 'id' | 'formItemConfig'>): void {
       const id = uuidv4();
@@ -63,14 +65,14 @@ export const store = createStore<State>({
         ...payload,
       });
       store.commit('changeSelectedFormItem', id);
-      window.$message.success('操作成功');
+      window.$message.success(state.local === 'zh' ? '操作成功' : 'Success');
     },
     remove(state, payload: string): void {
       state.formItemArray.splice(
         state.formItemArray.findIndex(item => item.id === payload),
         1,
       );
-      window.$message.success('操作成功');
+      window.$message.success(state.local === 'zh' ? '操作成功' : 'Success');
     },
     clear(state): void {
       state.formItemArray = [];
@@ -82,7 +84,7 @@ export const store = createStore<State>({
         newItem.id = uuidv4();
         state.formItemArray.splice(index + 1, 0, newItem);
       }
-      window.$message.success('操作成功');
+      window.$message.success(state.local === 'zh' ? '操作成功' : 'Success');
     },
     up(state, payload: string) {
       const index = state.formItemArray.findIndex(item => item.id === payload);
@@ -91,7 +93,7 @@ export const store = createStore<State>({
         state.formItemArray.splice(index, 1);
         state.formItemArray.splice(index - 1, 0, item);
       } else {
-        window.$message.warning('已经是第一个了');
+        window.$message.warning(state.local === 'zh' ? '已经是第一个了' : 'Already the first');
       }
     },
     down(state, payload: string) {
@@ -101,7 +103,7 @@ export const store = createStore<State>({
         state.formItemArray.splice(index, 1);
         state.formItemArray.splice(index + 1, 0, item);
       } else {
-        window.$message.warning('已经是最后一个了');
+        window.$message.warning(state.local === 'zh' ? '已经是最后一个了' : 'Already the last');
       }
     },
     exchange(state, payload: { id1: string; id2: string }) {
@@ -136,14 +138,14 @@ export const store = createStore<State>({
     },
     changeAutoAddImport(state, payload: boolean) {
       state.autoAddImport = payload;
-      window.$message.success('操作成功');
+      window.$message.success(state.local === 'zh' ? '操作成功' : 'Success');
     },
     changeFormConfig(state, payload: Partial<State['formConfig']>) {
       state.formConfig = {
         ...state.formConfig,
         ...payload,
       };
-      window.$message.success('操作成功');
+      window.$message.success(state.local === 'zh' ? '操作成功' : 'Success');
     },
     changeSelectedFormItem(state, payload: string) {
       state.selectedFormItem = payload;
@@ -160,7 +162,9 @@ export const store = createStore<State>({
           ...payload,
         };
       } else {
-        window.$message.warning('请先选中一个表单项');
+        window.$message.warning(
+          state.local === 'zh' ? '请先选择一个表单项' : 'Please select a form item',
+        );
       }
     },
     changeTabsValue(state, payload: State['tabsValue']) {
@@ -168,6 +172,9 @@ export const store = createStore<State>({
     },
     changeConfirmAndCancelBtn(state, payload: boolean) {
       state.confirmAndCancelBtn = payload;
+    },
+    changeLocal(state, payload: State['local']) {
+      state.local = payload;
     },
   },
   getters: {

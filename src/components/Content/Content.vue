@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
-import { computed, ref } from 'vue';
+import { computed, inject } from 'vue';
 import { DeleteOutlined, CopyOutlined } from '@vicons/antd';
 import { State } from '../../store/index';
 import DraggableItem from './components/DraggableItem.vue';
 import Drop from './components/Drop.vue';
+import { appProvideKey } from '../../const/const';
 
 const store = useStore<State>();
 const formItemArray = computed(() => {
@@ -31,12 +32,20 @@ const setSelectedFormItem = (id: string) => {
 const selectedFormItem = computed(() => {
   return store.state.selectedFormItem;
 });
+const appProvideConfig = inject(appProvideKey);
 </script>
 <template>
-  <n-divider title-placement="left">预览</n-divider>
-  <n-empty description="从左侧添加表单项" v-if="formItemArray.length === 0">
+  <n-divider title-placement="left">
+    {{ $t('preview', appProvideConfig?.local.value) }}
+  </n-divider>
+  <n-empty
+    :description="$t('addFormItem', appProvideConfig?.local.value)"
+    v-if="formItemArray.length === 0"
+  >
     <template #extra>
-      <n-button @click="handleAddClick">试着添加一个</n-button>
+      <n-button @click="handleAddClick">
+        {{ $t('add', appProvideConfig?.local.value) }}
+      </n-button>
     </template>
   </n-empty>
   <n-form
@@ -79,7 +88,7 @@ const selectedFormItem = computed(() => {
               </n-button>
             </n-space>
           </div>
-          <n-form-item :label="item.formItemConfig.label">
+          <n-form-item :label="$t(item.formItemConfig.label, appProvideConfig?.local.value)">
             <n-input
               v-if="item.value === '0'"
               :clearable="item.formItemConfig.clearable"

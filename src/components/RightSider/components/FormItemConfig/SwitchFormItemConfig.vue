@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import { useConfig } from '../../../../utils/hook/useConfig';
 import { ruleOptions } from '../../../../const/const';
+import { inject } from 'vue';
+import { appProvideKey } from '../../../../const/const';
 
 const formValue = useConfig({});
+const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
   <n-form>
-    <n-form-item label="字段标识">
-      <n-input v-model:value="formValue.name" type="text" placeholder="请输入字段标识" />
+    <n-form-item :label="$t('id', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.name" type="text" />
     </n-form-item>
-    <n-form-item label="字段名称">
-      <n-input v-model:value="formValue.label" type="text" placeholder="请输入字段名称" />
+    <n-form-item :label="$t('name', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.label" type="text" />
     </n-form-item>
-    <n-form-item label="校验规则">
+    <n-form-item :label="$t('rules', appProvideConfig?.local.value)">
       <n-select v-model:value="formValue.rules" multiple :options="ruleOptions" />
     </n-form-item>
-    <n-form-item label="开关大小">
+    <n-form-item :label="$t('size', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.size">
         <n-space>
           <n-radio :key="0" value="small">small</n-radio>
@@ -25,7 +28,7 @@ const formValue = useConfig({});
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否为圆形按钮">
+    <n-form-item :label="$t('round', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.round">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
