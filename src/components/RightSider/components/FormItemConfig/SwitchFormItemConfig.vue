@@ -19,7 +19,7 @@ const appProvideConfig = inject(appProvideKey);
     <n-form-item :label="$t('rules', appProvideConfig?.local.value)">
       <n-select v-model:value="formValue.rules" multiple :options="ruleOptions" />
     </n-form-item>
-    <n-form-item label="开关大小">
+    <n-form-item :label="$t('size', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.size">
         <n-space>
           <n-radio :key="0" value="small">small</n-radio>
@@ -28,7 +28,7 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否为圆形按钮">
+    <n-form-item :label="$t('round', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.round">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>

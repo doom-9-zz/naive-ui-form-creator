@@ -19,10 +19,10 @@ const appProvideConfig = inject(appProvideKey);
     <n-form-item :label="$t('rules', appProvideConfig?.local.value)">
       <n-select v-model:value="formValue.rules" multiple :options="ruleOptions" />
     </n-form-item>
-    <n-form-item label="时间格式化字符串">
-      <n-input v-model:value="formValue.format" type="text" placeholder="请输入时间格式化字符串" />
+    <n-form-item :label="$t('format', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.format" type="text" />
     </n-form-item>
-    <n-form-item label="Time Picker 中支持的操作">
+    <n-form-item :label="$t('actions', appProvideConfig?.local.value)">
       <n-select
         v-model:value="formValue.actions"
         multiple
@@ -46,7 +46,7 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="选择框的尺寸">
+    <n-form-item :label="$t('size', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.size">
         <n-space>
           <n-radio :key="0" value="small">small</n-radio>
@@ -55,14 +55,10 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="选择框的占位符">
-      <n-input
-        v-model:value="formValue.placeholder"
-        type="text"
-        placeholder="请输入选择框的占位符"
-      />
+    <n-form-item :label="$t('placeholder', appProvideConfig?.local.value)">
+      <n-input v-model:value="formValue.placeholder" type="text" />
     </n-form-item>
-    <n-form-item label="是否使用 12 小时制的面板">
+    <n-form-item :label="$t('use12Hours', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.use12Hours">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>

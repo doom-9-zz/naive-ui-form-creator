@@ -54,7 +54,7 @@ const appProvideConfig = inject(appProvideKey);
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('placeholder', appProvideConfig?.local.value)">
-      <n-input v-model:value="formValue.placeholder" type="text" placeholder="请输入提示信息" />
+      <n-input v-model:value="formValue.placeholder" type="text" />
     </n-form-item>
     <n-form-item :label="$t('size', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.size">

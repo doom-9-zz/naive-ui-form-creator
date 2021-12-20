@@ -19,7 +19,7 @@ const appProvideConfig = inject(appProvideKey);
     <n-form-item :label="$t('rules', appProvideConfig?.local.value)">
       <n-select v-model:value="formValue.rules" multiple :options="ruleOptions" />
     </n-form-item>
-    <n-form-item label="是否选择范围值">
+    <n-form-item :label="$t('range', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.range">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -27,7 +27,7 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否倒转轨道">
+    <n-form-item :label="$t('reverse', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.reverse">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -35,7 +35,7 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否启用垂直模式">
+    <n-form-item :label="$t('vertical', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.vertical">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -43,7 +43,7 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="是否展示 tooltip">
+    <n-form-item :label="$t('tooltip', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.tooltip">
         <n-space>
           <n-radio :key="0" :value="true">是</n-radio>
@@ -51,14 +51,14 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="最大值">
-      <n-input-number v-model:value="formValue.max" placeholder="请输入最大值" />
+    <n-form-item :label="$t('max', appProvideConfig?.local.value)">
+      <n-input-number v-model:value="formValue.max" />
     </n-form-item>
-    <n-form-item label="最小值">
-      <n-input-number v-model:value="formValue.min" placeholder="请输入最小值" />
+    <n-form-item :label="$t('min', appProvideConfig?.local.value)">
+      <n-input-number v-model:value="formValue.min" />
     </n-form-item>
-    <n-form-item label="步长">
-      <n-input-number v-model:value="formValue.step" placeholder="请输入步长" />
+    <n-form-item :label="$t('step', appProvideConfig?.local.value)">
+      <n-input-number v-model:value="formValue.step" />
     </n-form-item>
   </n-form>
 </template>

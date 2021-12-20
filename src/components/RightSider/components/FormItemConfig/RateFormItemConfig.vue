@@ -29,7 +29,7 @@ const appProvideConfig = inject(appProvideKey);
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('count', appProvideConfig?.local.value)">
-      <n-input-number v-model:value="formValue.count" placeholder="请输入图标个数" />
+      <n-input-number v-model:value="formValue.count" />
     </n-form-item>
     <n-form-item :label="$t('allowHalf', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.allowHalf">

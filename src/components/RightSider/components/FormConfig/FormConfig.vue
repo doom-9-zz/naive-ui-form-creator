@@ -31,7 +31,7 @@ const appProvideConfig = inject(appProvideKey);
 <template>
   <n-form>
     <n-form-item :label="$t('model', appProvideConfig?.local.value)">
-      <n-input v-model:value="formValue.model" type="text" placeholder="请输入对象标识" />
+      <n-input v-model:value="formValue.model" type="text" />
     </n-form-item>
     <n-form-item :label="$t('size', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.size">
@@ -54,7 +54,7 @@ const appProvideConfig = inject(appProvideKey);
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('labelWidth', appProvideConfig?.local.value)">
-      <n-input v-model:value="formValue.labelWidth" type="text" placeholder="请输入标签宽度" />
+      <n-input v-model:value="formValue.labelWidth" type="text" />
     </n-form-item>
     <n-form-item :label="$t('labelAlign', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.labelAlign">
