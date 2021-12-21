@@ -2,13 +2,13 @@
 
 ## Introduce
 
-`Naive UI form creator`is a **visual form generator** based on the `naive UI` component library. You can use this tool if you often need to **create `naive UI` forms**`. Naive UI form creator is **Visual**, which can present and feed back the contents of the form in time.
+`Naive UI form creator` is a **visual form generator** based on the `naive UI` component library. You can use this tool if you often need to **create `naive UI` forms**. Naive UI form creator is **Visual**, which can present and feed back the contents of the form in time.
 
-Online preview:[Address One](https://naive-create-form.vercel.app/) [Address Two](https://naive-create-form-7etnzbd9494f6f-1300547621.ap-shanghai.app.tcloudbase.com/)
+Online preview: [Address One](https://naive-create-form.vercel.app/) [Address Two](https://naive-create-form-7etnzbd9494f6f-1300547621.ap-shanghai.app.tcloudbase.com/)
 
 ## How to use
 
-You can either deploy your own access to the Fock project or directly access the address already deployed above.
+You can either deploy your own access to the Fork project or directly access the address already deployed above.
 
 When you have finished making the form, click **Generate Component Code** in the upper right corner, and you will get a template code for Vue3 and copy it to use in your project.
 
