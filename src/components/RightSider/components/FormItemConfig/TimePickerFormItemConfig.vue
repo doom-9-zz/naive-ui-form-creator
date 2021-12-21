@@ -41,8 +41,8 @@ const appProvideConfig = inject(appProvideKey);
     <n-form-item :label="$t('clearable', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.clearable">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
@@ -61,8 +61,8 @@ const appProvideConfig = inject(appProvideKey);
     <n-form-item :label="$t('use12Hours', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.use12Hours">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>

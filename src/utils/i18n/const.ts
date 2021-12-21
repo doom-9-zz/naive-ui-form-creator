@@ -88,6 +88,8 @@ export default {
     showFileList: '显示文件列表',
     dashed: '虚线',
     titlePlacement: '标题位置',
+    yes: '是',
+    no: '否',
   },
   en: {
     input: 'Input',
@@ -178,5 +180,7 @@ export default {
     showFileList: 'Show File List',
     dashed: 'Dashed',
     titlePlacement: 'Title Placement',
+    yes: 'Yes',
+    no: 'No',
   },
 };

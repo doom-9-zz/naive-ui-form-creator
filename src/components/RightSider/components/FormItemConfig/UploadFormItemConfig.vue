@@ -120,8 +120,8 @@ const appProvideConfig = inject(appProvideKey);
     <n-form-item :label="$t('defaultUpload', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.defaultUpload">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
@@ -143,8 +143,8 @@ const appProvideConfig = inject(appProvideKey);
     <n-form-item :label="$t('multiple', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.multiple">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
@@ -154,48 +154,48 @@ const appProvideConfig = inject(appProvideKey);
     <n-form-item :label="$t('withCredentials', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.withCredentials">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showCancelButton', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.showCancelButton">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showDownloadButton', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.showDownloadButton">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showRemoveButton', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.showRemoveButton">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showRetryButton', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.showRetryButton">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showFileList', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.showFileList">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>

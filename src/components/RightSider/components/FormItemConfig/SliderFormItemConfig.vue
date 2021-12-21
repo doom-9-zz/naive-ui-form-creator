@@ -22,32 +22,32 @@ const appProvideConfig = inject(appProvideKey);
     <n-form-item :label="$t('range', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.range">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('reverse', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.reverse">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('vertical', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.vertical">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('tooltip', appProvideConfig?.local.value)">
       <n-radio-group v-model:value="formValue.tooltip">
         <n-space>
-          <n-radio :key="0" :value="true">是</n-radio>
-          <n-radio :key="1" :value="false">否</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
