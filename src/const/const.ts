@@ -106,7 +106,7 @@ export const options: selectItem = [
       clearable: false,
       format: 'HH:mm:ss',
       size: 'medium',
-      placeholder: '请选择时间',
+      placeholder: undefined,
       use12Hours: false,
     },
   },
@@ -120,11 +120,11 @@ export const options: selectItem = [
       clearable: false,
       format: '',
       size: 'medium',
-      placeholder: '选择',
+      placeholder: undefined,
       type: 'date',
-      startPlaceholder: '开始',
-      endPlaceholder: '结束',
-      separator: '至',
+      startPlaceholder: undefined,
+      endPlaceholder: undefined,
+      separator: undefined,
     },
   },
   {
@@ -233,15 +233,15 @@ export const ruleOptions: Array<{
   label: string;
 }> = [
   {
-    label: '必填',
+    label: 'Required verification',
     value: '0',
   },
   {
-    label: '手机号',
+    label: 'Mobile phone number verification',
     value: '1',
   },
   {
-    label: '身份证',
+    label: 'ID card verification',
     value: '2',
   },
 ];
