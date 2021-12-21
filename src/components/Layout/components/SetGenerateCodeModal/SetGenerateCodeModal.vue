@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import { FormValidate } from 'naive-ui/es/form/src/interface';
 import { useStore } from 'vuex';
+import { appProvideKey } from '../../../../const/const';
 
 const showModal = ref<boolean>(false);
 const cancelCallback = () => {};
@@ -15,6 +16,8 @@ const formValue = ref({
   import: false,
   confirmAndCancelBtn: false,
 });
+const appProvideConfig = inject(appProvideKey);
+
 const store = useStore();
 const handleValidateClick = () => {
   if (formRef.value) {
@@ -37,17 +40,17 @@ defineExpose({
   <n-modal
     v-model:show="showModal"
     preset="dialog"
-    title="选项"
-    positive-text="确认"
+    :title="$t('modalTitle', appProvideConfig?.local.value)"
+    :positive-text="$t('confirm', appProvideConfig?.local.value)"
     @positive-click="handleValidateClick"
     @negative-click="cancelCallback"
-    negative-text="取消"
+    :negative-text="$t('cancel', appProvideConfig?.local.value)"
   >
     <n-form :model="formValue" ref="formRef" label-placement="left">
-      <n-form-item label="是否自动添加import" path="user.import">
+      <n-form-item :label="$t('import', appProvideConfig?.local.value)">
         <n-switch v-model:value="formValue.import" />
       </n-form-item>
-      <n-form-item label="是否添加‘确认’,‘取消’ 按钮" path="user.confirmAndCancelBtn">
+      <n-form-item :label="$t('confirmAndCancelBtn', appProvideConfig?.local.value)">
         <n-switch v-model:value="formValue.confirmAndCancelBtn" />
       </n-form-item>
     </n-form>

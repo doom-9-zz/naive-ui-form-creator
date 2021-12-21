@@ -23,7 +23,7 @@ const handleGenerateCode = () => {
 const showModal = ref<boolean>(false);
 const submitCallback = () => {
   copy(modalCode.value);
-  window.$message.success('复制成功');
+  window.$message.success('Success');
 };
 const cancelCallback = () => {
   showModal.value = false;
@@ -109,11 +109,11 @@ const appProvideConfig = inject(appProvideKey);
     <n-modal
       v-model:show="showModal"
       preset="dialog"
-      title="预览"
-      positive-text="复制"
+      :title="$t('preview', appProvideConfig?.local.value)"
+      :positive-text="$t('copy', appProvideConfig?.local.value)"
       @positive-click="submitCallback"
       @negative-click="cancelCallback"
-      negative-text="重新弄一下"
+      :negative-text="$t('redo', appProvideConfig?.local.value)"
     >
       <n-code :code="modalCode" language="javascript" />
     </n-modal>
