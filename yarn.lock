@@ -2964,6 +2964,11 @@ vue-tsc@^0.3.0:
   dependencies:
     vscode-vue-languageservice "^0.27.0"
 
+vue3-i18n-plugin@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/vue3-i18n-plugin/-/vue3-i18n-plugin-1.0.7.tgz#90b19169bbf81d11e1800c581a0a6020bde80190"
+  integrity sha512-Ib/TLhw0vtn9sPec/LtDW7f10nXdnN3MgtA+Q4JmbE3Uj0cm1Dw2phwk1rKmnoFCHtotKiIqALGCb6ewqKk6/w==
+
 vue@^3.2.16:
   version "3.2.23"
   resolved "https://registry.npmmirror.com/vue/download/vue-3.2.23.tgz#fe17e4a98bee1afe2aed351a0a80e052728f9ce2"

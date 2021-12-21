@@ -2,7 +2,7 @@ import App from './App.vue';
 import { createApp } from 'vue';
 import naive from 'naive-ui';
 import { store } from './store/index';
-import i18n from './utils/i18n/index';
+import i18n from 'vue3-i18n-plugin';
 import i18nConfig from './utils/i18n/const';
 
 createApp(App)
@@ -10,6 +10,6 @@ createApp(App)
   .use(naive)
   .use(i18n, {
     initial: 'zh',
-    i18nConfig,
+    translationConfiguration: i18nConfig,
   })
   .mount('#app');

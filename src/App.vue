@@ -7,7 +7,7 @@ import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { zhCN, dateZhCN } from 'naive-ui';
-import { changeLocal } from './utils/i18n/index';
+import { changeLocal } from 'vue3-i18n-plugin';
 
 hljs.registerLanguage('javascript', javascript);
 const theme = ref<null | BuiltInGlobalTheme>(null);
