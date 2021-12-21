@@ -1,13 +1,16 @@
-import { App } from 'vue';
+import { App, ref } from 'vue';
 
-const getOptionsValue = (
-  target: string,
-  local: string | undefined,
-  options: Record<string, any>,
-): string => {
+interface I18nOptions {
+  initial: string;
+  i18nConfig: Record<string, any>;
+}
+
+const local = ref<string | undefined>(undefined);
+
+const getOptionsValue = (target: string, options: Record<string, any>): string => {
   const targetSplitArray = target.split('.');
-  if (local === undefined) return '';
-  targetSplitArray.unshift(local);
+  if (local.value === undefined) return '';
+  targetSplitArray.unshift(local.value);
   let current = options;
   while (targetSplitArray.length > 0) {
     current = current[targetSplitArray[0]];
@@ -22,10 +25,15 @@ const getOptionsValue = (
   return '';
 };
 
+export const changeLocal = (value: string): void => {
+  local.value = value;
+};
+
 export default {
-  install: (app: App, options: Record<string, any>) => {
-    app.config.globalProperties.$t = (target: string, local: string | undefined): string => {
-      return getOptionsValue(target, local, options);
+  install: (app: App, options: I18nOptions) => {
+    local.value = options.initial;
+    app.config.globalProperties.$t = (target: string): string => {
+      return getOptionsValue(target, options.i18nConfig);
     };
   },
 };

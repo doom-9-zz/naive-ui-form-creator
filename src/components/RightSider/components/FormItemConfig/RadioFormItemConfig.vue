@@ -2,8 +2,6 @@
 import { useStore } from 'vuex';
 import { useConfig } from '../../../../utils/hook/useConfig';
 import { ruleOptions } from '../../../../const/const';
-import { inject } from 'vue';
-import { appProvideKey } from '../../../../const/const';
 
 const formValue = useConfig<{
   label: string | undefined;
@@ -27,21 +25,20 @@ const store = useStore();
 const handleSubmit = () => {
   store.commit('changeSelectedFormItemConfig', formValue.value);
 };
-const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
   <n-form>
-    <n-form-item :label="$t('id', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('id')">
       <n-input v-model:value="formValue.name" type="text" />
     </n-form-item>
-    <n-form-item :label="$t('name', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('name')">
       <n-input v-model:value="formValue.label" type="text" />
     </n-form-item>
-    <n-form-item :label="$t('rules', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('rules')">
       <n-select v-model:value="formValue.rules" multiple :options="ruleOptions" />
     </n-form-item>
-    <n-form-item :label="$t('size', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('size')">
       <n-radio-group v-model:value="formValue.size">
         <n-space>
           <n-radio :key="0" value="small">small</n-radio>
@@ -50,7 +47,7 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item :label="$t('addOptions', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('addOptions')">
       <n-dynamic-input
         item-style="margin-bottom: 0;"
         v-model:value="formValue.options"
@@ -77,7 +74,7 @@ const appProvideConfig = inject(appProvideKey);
       </n-dynamic-input>
     </n-form-item>
     <n-button @click="handleSubmit" type="primary">
-      {{ $t('apply', appProvideConfig?.local.value) }}
+      {{ $t('apply') }}
     </n-button>
   </n-form>
 </template>

@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 import { DeleteOutlined, CopyOutlined } from '@vicons/antd';
 import { State } from '../../store/index';
 import DraggableItem from './components/DraggableItem.vue';
 import Drop from './components/Drop.vue';
-import { appProvideKey } from '../../const/const';
 
 const store = useStore<State>();
 const formItemArray = computed(() => {
@@ -32,19 +31,15 @@ const setSelectedFormItem = (id: string) => {
 const selectedFormItem = computed(() => {
   return store.state.selectedFormItem;
 });
-const appProvideConfig = inject(appProvideKey);
 </script>
 <template>
   <n-divider title-placement="left">
-    {{ $t('preview', appProvideConfig?.local.value) }}
+    {{ $t('preview') }}
   </n-divider>
-  <n-empty
-    :description="$t('addFormItem', appProvideConfig?.local.value)"
-    v-if="formItemArray.length === 0"
-  >
+  <n-empty :description="$t('addFormItem')" v-if="formItemArray.length === 0">
     <template #extra>
       <n-button @click="handleAddClick">
-        {{ $t('add', appProvideConfig?.local.value) }}
+        {{ $t('add') }}
       </n-button>
     </template>
   </n-empty>
@@ -88,7 +83,7 @@ const appProvideConfig = inject(appProvideKey);
               </n-button>
             </n-space>
           </div>
-          <n-form-item :label="$t(item.formItemConfig.label, appProvideConfig?.local.value)">
+          <n-form-item :label="$t(item.formItemConfig.label)">
             <n-input
               v-if="item.value === '0'"
               :clearable="item.formItemConfig.clearable"

@@ -1,25 +1,22 @@
 <script setup lang="ts">
 import { useConfig } from '../../../../utils/hook/useConfig';
 import { ruleOptions } from '../../../../const/const';
-import { inject } from 'vue';
-import { appProvideKey } from '../../../../const/const';
 
 const formValue = useConfig({});
-const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
   <n-form>
-    <n-form-item :label="$t('id', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('id')">
       <n-input v-model:value="formValue.name" type="text" />
     </n-form-item>
-    <n-form-item :label="$t('name', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('name')">
       <n-input v-model:value="formValue.label" type="text" />
     </n-form-item>
-    <n-form-item :label="$t('rules', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('rules')">
       <n-select v-model:value="formValue.rules" multiple :options="ruleOptions" />
     </n-form-item>
-    <n-form-item :label="$t('size', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('size')">
       <n-radio-group v-model:value="formValue.size">
         <n-space>
           <n-radio :key="0" value="small">small</n-radio>
@@ -28,15 +25,15 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item :label="$t('showAlpha', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('showAlpha')">
       <n-radio-group v-model:value="formValue.showAlpha">
         <n-space>
-          <n-radio :key="0" :value="true">{{ $t('yes', appProvideConfig?.local.value) }}</n-radio>
-          <n-radio :key="1" :value="false">{{ $t('no', appProvideConfig?.local.value) }}</n-radio>
+          <n-radio :key="0" :value="true">{{ $t('yes') }}</n-radio>
+          <n-radio :key="1" :value="false">{{ $t('no') }}</n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item :label="$t('modes', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('modes')">
       <n-select
         v-model:value="formValue.modes"
         multiple
@@ -60,7 +57,7 @@ const appProvideConfig = inject(appProvideKey);
         ]"
       />
     </n-form-item>
-    <n-form-item :label="$t('actions', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('actions')">
       <n-select
         v-model:value="formValue.actions"
         multiple

@@ -1,5 +1,4 @@
 import { State } from '../store';
-import { ComputedRef, InjectionKey } from 'vue';
 
 type selectItem = Array<{
   value: string;
@@ -245,9 +244,3 @@ export const ruleOptions: Array<{
     value: '2',
   },
 ];
-
-interface appProvideConfig {
-  local: ComputedRef<string>;
-}
-
-export const appProvideKey: InjectionKey<appProvideConfig> = Symbol('appProvideConfig');

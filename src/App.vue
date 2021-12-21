@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, provide, computed } from 'vue';
+import { ref } from 'vue';
 import { useStore } from 'vuex';
 import Layout from './components/Layout/Layout.vue';
 import { darkTheme, NLocale, NDateLocale } from 'naive-ui';
@@ -7,7 +7,7 @@ import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { zhCN, dateZhCN } from 'naive-ui';
-import { appProvideKey } from './const/const';
+import { changeLocal } from './utils/i18n/index';
 
 hljs.registerLanguage('javascript', javascript);
 const theme = ref<null | BuiltInGlobalTheme>(null);
@@ -28,18 +28,14 @@ const changeLocale = () => {
     locale.value = zhCN;
     dateLocale.value = dateZhCN;
     store.commit('changeLocal', 'zh');
+    changeLocal('zh');
   } else {
     locale.value = null;
     dateLocale.value = null;
     store.commit('changeLocal', 'en');
+    changeLocal('en');
   }
 };
-
-provide(appProvideKey, {
-  local: computed(() => {
-    return locale.value === null ? 'en' : 'zh';
-  }),
-});
 </script>
 
 <template>

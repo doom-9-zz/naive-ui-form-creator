@@ -5,10 +5,9 @@ import RightSider from '../RightSider/Sider.vue';
 import Content from '../Content/Content.vue';
 import SetGenerateCodeModal from './components/SetGenerateCodeModal/SetGenerateCodeModal.vue';
 import { copy, generateCode } from '../../utils';
-import { inject, ref } from 'vue';
+import { ref } from 'vue';
 import { SettingOutlined, FolderOutlined } from '@vicons/antd';
 import { State } from '../../store';
-import { appProvideKey } from '../../const/const';
 
 defineProps<{ isDark: boolean; isEnglish: boolean }>();
 defineEmits(['changeTheme', 'changeLocale']);
@@ -37,7 +36,6 @@ const handleGenerateCodeSet = () => {
     SetGenerateCodeModalRef.value.handleShowModal();
   }
 };
-const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
@@ -63,23 +61,19 @@ const appProvideConfig = inject(appProvideKey);
             size="medium"
             @click="handleGenerateCodeSet"
           >
-            {{ $t('generateCodeSettings', appProvideConfig?.local.value) }}
+            {{ $t('generateCodeSettings') }}
             <n-icon size="20">
               <SettingOutlined />
             </n-icon>
           </n-button>
           <n-button type="primary" strong secondary round size="medium" @click="handleGenerateCode">
-            {{ $t('generateComponentCode', appProvideConfig?.local.value) }}
+            {{ $t('generateComponentCode') }}
             <n-icon size="20">
               <FolderOutlined />
             </n-icon>
           </n-button>
           <n-button strong quaternary round @click="$emit('changeTheme')">
-            {{
-              $props.isDark
-                ? $t('light', appProvideConfig?.local.value)
-                : $t('dark', appProvideConfig?.local.value)
-            }}
+            {{ $props.isDark ? $t('light') : $t('dark') }}
           </n-button>
           <n-button strong quaternary round @click="$emit('changeLocale')">
             {{ $props.isEnglish ? '中文' : 'English' }}
@@ -103,17 +97,17 @@ const appProvideConfig = inject(appProvideKey);
         </n-layout-sider>
       </n-layout>
       <n-layout-footer bordered position="absolute" style="height: 64px; padding: 24px">
-        {{ $t('tip', appProvideConfig?.local.value) }}
+        {{ $t('tip') }}
       </n-layout-footer>
     </n-layout>
     <n-modal
       v-model:show="showModal"
       preset="dialog"
-      :title="$t('preview', appProvideConfig?.local.value)"
-      :positive-text="$t('copy', appProvideConfig?.local.value)"
+      :title="$t('preview')"
+      :positive-text="$t('copy')"
       @positive-click="submitCallback"
       @negative-click="cancelCallback"
-      :negative-text="$t('redo', appProvideConfig?.local.value)"
+      :negative-text="$t('redo')"
     >
       <n-code :code="modalCode" language="javascript" />
     </n-modal>

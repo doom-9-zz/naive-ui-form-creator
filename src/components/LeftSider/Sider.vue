@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { inject } from 'vue';
 import { useStore } from 'vuex';
-import { options, LayoutOptions, appProvideKey } from '../../const/const';
+import { options, LayoutOptions } from '../../const/const';
 import { useMessage } from 'naive-ui';
 
 const store = useStore();
@@ -16,14 +15,12 @@ const handleLayoutAddClick = (value: string) => {
     value: value,
   });
 };
-
-const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
   <n-space vertical>
     <n-divider title-placement="center">
-      {{ $t('formComponent', appProvideConfig?.local.value) }}
+      {{ $t('formComponent') }}
     </n-divider>
     <n-button
       type="primary"
@@ -31,10 +28,10 @@ const appProvideConfig = inject(appProvideKey);
       size="large"
       @click="handleAddClick(item.value)"
     >
-      {{ $t(item.formItemConfig.label, appProvideConfig?.local.value) }}
+      {{ $t(item.formItemConfig.label) }}
     </n-button>
     <n-divider title-placement="center">
-      {{ $t('layoutComponent', appProvideConfig?.local.value) }}
+      {{ $t('layoutComponent') }}
     </n-divider>
     <n-button
       type="warning"
@@ -42,7 +39,7 @@ const appProvideConfig = inject(appProvideKey);
       size="large"
       @click="handleLayoutAddClick(item.value)"
     >
-      {{ $t(item.formItemConfig.label, appProvideConfig?.local.value) }}
+      {{ $t(item.formItemConfig.label) }}
     </n-button>
   </n-space>
 </template>

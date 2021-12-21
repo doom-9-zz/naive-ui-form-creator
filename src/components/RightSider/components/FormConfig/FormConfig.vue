@@ -4,7 +4,6 @@ import { useStore } from 'vuex';
 import { initialFormState } from '../../../../const/const';
 import { State } from '../../../../store/index';
 import { copyPropertyValue } from '../../../../utils/index';
-import { appProvideKey } from '../../../../const/const';
 
 const formValue = ref<State['formConfig']>({
   ...initialFormState,
@@ -24,16 +23,14 @@ const handleResetClick = () => {
     copyPropertyValue(formValue.value, initialFormState, key as keyof State['formConfig']);
   });
 };
-
-const appProvideConfig = inject(appProvideKey);
 </script>
 
 <template>
   <n-form>
-    <n-form-item :label="$t('model', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('model')">
       <n-input v-model:value="formValue.model" type="text" />
     </n-form-item>
-    <n-form-item :label="$t('size', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('size')">
       <n-radio-group v-model:value="formValue.size">
         <n-space>
           <n-radio key="small" value="small">small</n-radio>
@@ -42,10 +39,10 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item :label="$t('inline', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('inline')">
       <n-switch v-model:value="formValue.inline"></n-switch>
     </n-form-item>
-    <n-form-item :label="$t('labelPlacement', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('labelPlacement')">
       <n-radio-group v-model:value="formValue.labelPlacement">
         <n-space>
           <n-radio key="left" value="left">left</n-radio>
@@ -53,10 +50,10 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item :label="$t('labelWidth', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('labelWidth')">
       <n-input v-model:value="formValue.labelWidth" type="text" />
     </n-form-item>
-    <n-form-item :label="$t('labelAlign', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('labelAlign')">
       <n-radio-group v-model:value="formValue.labelAlign">
         <n-space>
           <n-radio key="left" value="left">left</n-radio>
@@ -64,16 +61,16 @@ const appProvideConfig = inject(appProvideKey);
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-form-item :label="$t('showFeedback', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('showFeedback')">
       <n-switch v-model:value="formValue.showFeedback"></n-switch>
     </n-form-item>
-    <n-form-item :label="$t('showLabel', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('showLabel')">
       <n-switch v-model:value="formValue.showLabel"></n-switch>
     </n-form-item>
-    <n-form-item :label="$t('showRequireMark', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('showRequireMark')">
       <n-switch v-model:value="formValue.showRequireMark" />
     </n-form-item>
-    <n-form-item :label="$t('requireMarkPlacement', appProvideConfig?.local.value)">
+    <n-form-item :label="$t('requireMarkPlacement')">
       <n-radio-group v-model:value="formValue.requireMarkPlacement">
         <n-space>
           <n-radio key="left" value="left">left</n-radio>
@@ -84,7 +81,7 @@ const appProvideConfig = inject(appProvideKey);
   </n-form>
   <n-space>
     <n-button type="warning" @click="handleResetClick">
-      {{ $t('reset', appProvideConfig?.local.value) }}
+      {{ $t('reset') }}
     </n-button>
   </n-space>
 </template>
