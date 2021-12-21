@@ -1,4 +1,4 @@
-[英文](https://github.com/doom-9/naive-ui-form-creator/README.md)
+[英文](https://github.com/doom-9/naive-ui-form-creator/blob/main/README.md)
 
 ## 简介
 
