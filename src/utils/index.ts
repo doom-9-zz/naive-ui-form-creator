@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { PREFIX, UI_NAME } from '../const/const';
 import { formItemType, store } from '../store';
 
@@ -523,6 +524,7 @@ const getRulesObject = (data: formItemType[]): string => {
 
   for (let i = 0; i < data.length; i++) {
     const item = data[i];
+    if (item.formItemConfig.name === undefined) continue;
     const rules = data[i].formItemConfig.rules as string[];
     const itemRulesArray: string[] = [];
 
@@ -590,9 +592,7 @@ export const generateCode = (data: formItemType[]): string => {
 
 const getScriptCode = (data: formItemType[]): string => {
   return `
-  <script setup type="ts">
-    ${getImport(data)}
-    ${getRulesObject(data)}
+  <script setup type="ts">${getImport(data)}${getRulesObject(data)}
   </script>
       `;
 };
