@@ -2,7 +2,7 @@
 
 ## Introduce
 
-`Naive UI form creator` is a **visual form generator** based on the `naive UI` component library. You can use this tool if you often need to **create `naive UI` forms**. Naive UI form creator is **Visual**, which can present and feed back the contents of the form in time.
+`Naive UI form creator` is a **visual form generator** based on the `naive UI` component library. You can use this tool if you often need to **create `naive UI` forms**. Naive UI form creator is **Visual** and **Support drag-and-drop sorting**,which can present and feed back the contents of the form in time.
 
 Online preview: [Address One](https://naive-create-form.vercel.app/) [Address Two](https://naive-create-form-7etnzbd9494f6f-1300547621.ap-shanghai.app.tcloudbase.com/)
 
