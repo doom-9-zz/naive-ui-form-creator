@@ -570,6 +570,8 @@ const getRulesObject = (data: formItemType[]): string => {
     ],`);
   }
 
+  if (rulesArray.length === 0) return '';
+
   return `
   const rules = {
     ${rulesArray.join('')}
