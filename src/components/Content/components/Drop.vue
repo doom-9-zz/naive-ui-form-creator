@@ -103,14 +103,14 @@ const handleDragStart = (e: DragEvent) => {
   if (ele !== null) {
     dragId.value = ele.id;
     dragElement.value = ele;
-    dragElement.value!.style.opacity = '0';
+    dragElement.value!.style.visibility = 'hidden';
     initDragElementDataIndex.value = Number(dragElement.value.getAttribute('data-index'));
   }
 };
 
 const handleDragEnd = () => {
   if (dragId !== null && dropId !== null && dragElement.value !== null) {
-    dragElement.value!.style.opacity = '1';
+    dragElement.value!.style.visibility = 'visible';
     const nowDragDataIndex = Number(dragElement.value.getAttribute('data-index'));
     if (nowDragDataIndex === initDragElementDataIndex.value) return;
 
