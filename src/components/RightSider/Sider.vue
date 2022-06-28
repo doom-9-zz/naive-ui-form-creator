@@ -79,12 +79,8 @@ const handleTabsChange = (val: 'form' | 'formItem') => {
   <n-divider title-placement="left">
     {{ $t('setUp') }}
   </n-divider>
-  <n-tabs type="segment" :value="tabsValue">
-    <n-tab-pane
-      name="formItem"
-      :tab="$t('formItemConfiguration')"
-      @click="handleTabsChange('formItem')"
-    >
+  <n-tabs type="segment" :value="tabsValue" @update:value="handleTabsChange">
+    <n-tab-pane name="formItem" :tab="$t('formItemConfiguration')">
       <n-empty
         v-if="formItemArrayLength === 0 || selectedFormItemType === ''"
         :description="$t('addFormItem')"
@@ -97,7 +93,7 @@ const handleTabsChange = (val: 'form' | 'formItem') => {
       </n-empty>
       <component :is="showComponent" v-else :key="selectedFormItem" />
     </n-tab-pane>
-    <n-tab-pane name="form" :tab="$t('formConfiguration')" @click="handleTabsChange('form')">
+    <n-tab-pane name="form" :tab="$t('formConfiguration')">
       <FormConfig />
     </n-tab-pane>
   </n-tabs>
