@@ -18,15 +18,9 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@antfu/eslint-config": "^0.25.2",
     "@vitejs/plugin-vue": "^2.3.3",
     "eslint": "^8.18.0",
-    "eslint-config-next": "^12.1.6",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard-with-typescript": "^21.0.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.2.0",
     "husky": "^7.0.4",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
