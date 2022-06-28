@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { useStore } from 'vuex';
-import { options, LayoutOptions } from '../../const/const';
-import { useMessage } from 'naive-ui';
+import { useStore } from 'vuex'
+import { useMessage } from 'naive-ui'
+import { LayoutOptions, options } from '../../const/const'
 
-const store = useStore();
-window.$message = useMessage();
+const store = useStore()
+window.$message = useMessage()
 const handleAddClick = (value: string) => {
   store.commit('add', {
-    value: value,
-  });
-};
+    value,
+  })
+}
 const handleLayoutAddClick = (value: string) => {
   store.commit('add', {
-    value: value,
-  });
-};
+    value,
+  })
+}
 </script>
 
 <template>
@@ -23,8 +23,9 @@ const handleLayoutAddClick = (value: string) => {
       {{ $t('formComponent') }}
     </n-divider>
     <n-button
-      type="primary"
       v-for="item in options"
+      :key="item.value"
+      type="primary"
       size="large"
       @click="handleAddClick(item.value)"
     >
@@ -34,8 +35,9 @@ const handleLayoutAddClick = (value: string) => {
       {{ $t('layoutComponent') }}
     </n-divider>
     <n-button
-      type="warning"
       v-for="item in LayoutOptions"
+      :key="item.value"
+      type="warning"
       size="large"
       @click="handleLayoutAddClick(item.value)"
     >

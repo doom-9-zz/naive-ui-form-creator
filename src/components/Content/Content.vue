@@ -1,42 +1,43 @@
 <script setup lang="ts">
-import { useStore } from 'vuex';
-import { computed } from 'vue';
-import { DeleteOutlined, CopyOutlined } from '@vicons/antd';
-import { State } from '../../store/index';
-import DraggableItem from './components/DraggableItem.vue';
-import Drop from './components/Drop.vue';
+import { useStore } from 'vuex'
+import { computed } from 'vue'
+import { CopyOutlined, DeleteOutlined } from '@vicons/antd'
+import type { State } from '../../store/index'
+import DraggableItem from './components/DraggableItem.vue'
+import Drop from './components/Drop.vue'
 
-const store = useStore<State>();
+const store = useStore<State>()
 const formItemArray = computed(() => {
-  return store.state.formItemArray;
-});
+  return store.state.formItemArray
+})
 const formConfig = computed(() => {
-  return store.state.formConfig;
-});
+  return store.state.formConfig
+})
 const handleAddClick = () => {
   store.commit('add', {
     value: '0',
-  });
-};
+  })
+}
 const handleRemoveClick = (id: string) => {
-  store.commit('remove', id);
-};
+  store.commit('remove', id)
+}
 const handleCopyClick = (id: string) => {
-  store.commit('copy', id);
-};
+  store.commit('copy', id)
+}
 const setSelectedFormItem = (id: string) => {
-  store.commit('changeSelectedFormItem', id);
-  store.commit('changeTabsValue', 'formItem');
-};
+  store.commit('changeSelectedFormItem', id)
+  store.commit('changeTabsValue', 'formItem')
+}
 const selectedFormItem = computed(() => {
-  return store.state.selectedFormItem;
-});
+  return store.state.selectedFormItem
+})
 </script>
+
 <template>
   <n-divider title-placement="left">
     {{ $t('preview') }}
   </n-divider>
-  <n-empty :description="$t('addFormItem')" v-if="formItemArray.length === 0">
+  <n-empty v-if="formItemArray.length === 0" :description="$t('addFormItem')">
     <template #extra>
       <n-button @click="handleAddClick">
         {{ $t('add') }}
@@ -44,6 +45,7 @@ const selectedFormItem = computed(() => {
     </template>
   </n-empty>
   <n-form
+    v-else
     :label-placement="formConfig.labelPlacement"
     :size="formConfig.size"
     :label-width="formConfig.labelWidth"
@@ -52,22 +54,21 @@ const selectedFormItem = computed(() => {
     :show-label="formConfig.showLabel"
     :show-require-mark="formConfig.showRequireMark"
     :require-mark-placement="formConfig.requireMarkPlacement"
-    v-else
   >
     <Drop>
       <DraggableItem
         v-for="item in formItemArray"
         :id="item.id"
+        :key="item.id"
         :style="{
           marginBottom: '15px',
         }"
-        :key="item.id"
       >
         <n-card
-          @click="setSelectedFormItem(item.id)"
-          :contentStyle="`cursor: pointer; ${
+          :content-style="`cursor: pointer; ${
             selectedFormItem === item.id ? 'border: 1px solid #18a058;' : ''
           }`"
+          @click="setSelectedFormItem(item.id)"
         >
           <div class="buttons">
             <n-space>
@@ -103,16 +104,16 @@ const selectedFormItem = computed(() => {
             <n-radio-group v-else-if="item.value === '2'" :size="item.formItemConfig.size">
               <n-space>
                 <n-radio
-                  v-for="item in item.formItemConfig.options ?? [
+                  v-for="item2 in item.formItemConfig.options ?? [
                     {
                       value: 'demo',
                       label: 'demo',
                     },
                   ]"
-                  :key="item.value"
-                  :value="item.value"
+                  :key="item2.value"
+                  :value="item2.value"
                 >
-                  {{ item.label }}
+                  {{ item2.label }}
                 </n-radio>
               </n-space>
             </n-radio-group>
@@ -138,8 +139,8 @@ const selectedFormItem = computed(() => {
               "
             />
             <n-slider
-              :default-value="[0, 0]"
               v-else-if="item.value === '5'"
+              :default-value="[0, 0]"
               :max="item.formItemConfig.max"
               :min="item.formItemConfig.min"
               :step="item.formItemConfig.step"
@@ -212,9 +213,10 @@ const selectedFormItem = computed(() => {
             >
               <n-space item-style="display: flex;">
                 <n-checkbox
-                  v-for="item in item.formItemConfig.options ?? [{ label: 'demo', value: 'demo' }]"
-                  :value="item.value"
-                  :label="item.label"
+                  v-for="item2 in item.formItemConfig.options ?? [{ label: 'demo', value: 'demo' }]"
+                  :key="item2.value"
+                  :value="item2.value"
+                  :label="item2.label"
                 />
               </n-space>
             </n-checkbox-group>

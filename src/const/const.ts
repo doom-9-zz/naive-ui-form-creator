@@ -1,11 +1,11 @@
-import { State } from '../store';
+import type { State } from '../store'
 
 type selectItem = Array<{
-  value: string;
+  value: string
   formItemConfig: {
-    [key: string]: any;
-  };
-}>;
+    [key: string]: any
+  }
+}>
 
 export const options: selectItem = [
   {
@@ -183,7 +183,7 @@ export const options: selectItem = [
       options: [],
     },
   },
-];
+]
 
 export const LayoutOptions: selectItem = [
   {
@@ -196,7 +196,7 @@ export const LayoutOptions: selectItem = [
       titlePlacement: 'center',
     },
   },
-];
+]
 
 export const initialFormState: State['formConfig'] = {
   labelPlacement: 'left',
@@ -209,27 +209,27 @@ export const initialFormState: State['formConfig'] = {
   showLabel: true,
   requireMarkPlacement: 'right',
   model: 'formValue',
-};
+}
 
-export const UI_NAME = 'naive-ui';
-export const PREFIX = 'n';
+export const UI_NAME = 'naive-ui'
+export const PREFIX = 'n'
 
 export const getItemConfig = (
   value: string,
 ): {
-  [key: string]: any;
+  [key: string]: any
 } => {
-  const mergeOptions = [...options, ...LayoutOptions];
-  const config = mergeOptions.find(item => item.value === value);
-  if (config !== undefined) {
-    return config.formItemConfig;
-  }
-  return {};
-};
+  const mergeOptions = [...options, ...LayoutOptions]
+  const config = mergeOptions.find(item => item.value === value)
+  if (config !== undefined)
+    return config.formItemConfig
+
+  return {}
+}
 
 export const ruleOptions: Array<{
-  value: string;
-  label: string;
+  value: string
+  label: string
 }> = [
   {
     label: 'Required verification',
@@ -243,4 +243,4 @@ export const ruleOptions: Array<{
     label: 'ID card verification',
     value: '2',
   },
-];
+]

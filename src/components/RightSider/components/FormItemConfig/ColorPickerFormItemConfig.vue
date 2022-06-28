@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useConfig } from '../../../../utils/hook/useConfig';
-import { ruleOptions } from '../../../../const/const';
+import { useConfig } from '../../../../utils/hook/useConfig'
+import { ruleOptions } from '../../../../const/const'
 
-const formValue = useConfig({});
+const formValue = useConfig({})
 </script>
 
 <template>
@@ -19,17 +19,27 @@ const formValue = useConfig({});
     <n-form-item :label="$t('size')">
       <n-radio-group v-model:value="formValue.size">
         <n-space>
-          <n-radio :key="0" value="small">small</n-radio>
-          <n-radio :key="1" value="medium">medium</n-radio>
-          <n-radio :key="2" value="large">large</n-radio>
+          <n-radio :key="0" value="small">
+            small
+          </n-radio>
+          <n-radio :key="1" value="medium">
+            medium
+          </n-radio>
+          <n-radio :key="2" value="large">
+            large
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showAlpha')">
       <n-radio-group v-model:value="formValue.showAlpha">
         <n-space>
-          <n-radio :key="0" :value="true">{{ $t('yes') }}</n-radio>
-          <n-radio :key="1" :value="false">{{ $t('no') }}</n-radio>
+          <n-radio :key="0" :value="true">
+            {{ $t('yes') }}
+          </n-radio>
+          <n-radio :key="1" :value="false">
+            {{ $t('no') }}
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
@@ -71,4 +81,5 @@ const formValue = useConfig({});
     </n-form-item>
   </n-form>
 </template>
+
 <style></style>

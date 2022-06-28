@@ -1,4 +1,5 @@
 <script setup lang="ts"></script>
+
 <template>
   <div
     draggable="true"
@@ -7,7 +8,8 @@
       transition: 'all 0.1s',
     }"
   >
-    <slot></slot>
+    <slot />
   </div>
 </template>
+
 <style scoped></style>

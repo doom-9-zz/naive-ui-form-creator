@@ -197,4 +197,4 @@ export default {
     copy: 'Copy',
     redo: 'Redo',
   },
-};
+}

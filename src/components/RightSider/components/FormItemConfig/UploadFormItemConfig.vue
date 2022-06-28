@@ -1,48 +1,48 @@
 <script setup lang="ts">
-import { useStore } from 'vuex';
-import { useConfig } from '../../../../utils/hook/useConfig';
-import { ruleOptions } from '../../../../const/const';
+import { useStore } from 'vuex'
+import { useConfig } from '../../../../utils/hook/useConfig'
+import { ruleOptions } from '../../../../const/const'
 
 const formValue = useConfig<{
-  label: string | undefined;
-  name: string | undefined;
-  accept: string | undefined;
-  action: string | undefined;
-  defaultUpload: boolean;
+  label: string | undefined
+  name: string | undefined
+  accept: string | undefined
+  action: string | undefined
+  defaultUpload: boolean
   data: Array<{
-    key: string;
-    value: string;
-  }>;
+    key: string
+    value: string
+  }>
   headers: Array<{
-    key: string;
-    value: string;
-  }>;
-  listType: 'text' | 'image' | 'image-card';
-  max: number | undefined;
-  method: string;
-  multiple: boolean;
-  fileName: string;
-  withCredentials: boolean;
-  showCancelButton: boolean;
-  showDownloadButton: boolean;
-  showRemoveButton: boolean;
-  showRetryButton: boolean;
-  showFileList: boolean;
-  rules: Array<string>;
+    key: string
+    value: string
+  }>
+  listType: 'text' | 'image' | 'image-card'
+  max: number | undefined
+  method: string
+  multiple: boolean
+  fileName: string
+  withCredentials: boolean
+  showCancelButton: boolean
+  showDownloadButton: boolean
+  showRemoveButton: boolean
+  showRetryButton: boolean
+  showFileList: boolean
+  rules: Array<string>
 }>({
   sync: false,
-});
+})
 
 const onCreate = () => {
   return {
     key: '',
     value: '',
-  };
-};
-const store = useStore();
+  }
+}
+const store = useStore()
 const handleSubmit = () => {
-  store.commit('changeSelectedFormItemConfig', formValue.value);
-};
+  store.commit('changeSelectedFormItemConfig', formValue.value)
+}
 </script>
 
 <template>
@@ -64,25 +64,27 @@ const handleSubmit = () => {
     </n-form-item>
     <n-form-item :label="$t('uploadData')">
       <n-dynamic-input
-        item-style="margin-bottom: 0;"
+        v-slot="{ index }"
         v-model:value="formValue.data"
+        item-style="margin-bottom: 0;"
         :on-create="onCreate"
-        #default="{ index, value }"
       >
         <div style="display: flex">
           <n-form-item :show-label="false">
             <n-input
+              v-model:value="formValue.data[index].key"
               placeholder="Key"
               @keydown.enter.prevent
-              v-model:value="formValue.data[index].key"
             />
           </n-form-item>
-          <div style="height: 34px; line-height: 34px; margin: 0 8px">-</div>
+          <div style="height: 34px; line-height: 34px; margin: 0 8px">
+            -
+          </div>
           <n-form-item :show-label="false">
             <n-input
+              v-model:value="formValue.data[index].value"
               placeholder="Value"
               @keydown.enter.prevent
-              v-model:value="formValue.data[index].value"
             />
           </n-form-item>
         </div>
@@ -90,25 +92,27 @@ const handleSubmit = () => {
     </n-form-item>
     <n-form-item :label="$t('headers')">
       <n-dynamic-input
-        item-style="margin-bottom: 0;"
+        v-slot="{ index }"
         v-model:value="formValue.headers"
+        item-style="margin-bottom: 0;"
         :on-create="onCreate"
-        #default="{ index, value }"
       >
         <div style="display: flex">
           <n-form-item :show-label="false">
             <n-input
+              v-model:value="formValue.headers[index].key"
               placeholder="Key"
               @keydown.enter.prevent
-              v-model:value="formValue.headers[index].key"
             />
           </n-form-item>
-          <div style="height: 34px; line-height: 34px; margin: 0 8px">-</div>
+          <div style="height: 34px; line-height: 34px; margin: 0 8px">
+            -
+          </div>
           <n-form-item :show-label="false">
             <n-input
+              v-model:value="formValue.headers[index].value"
               placeholder="Value"
               @keydown.enter.prevent
-              v-model:value="formValue.headers[index].value"
             />
           </n-form-item>
         </div>
@@ -117,17 +121,27 @@ const handleSubmit = () => {
     <n-form-item :label="$t('defaultUpload')">
       <n-radio-group v-model:value="formValue.defaultUpload">
         <n-space>
-          <n-radio :key="0" :value="true">{{ $t('yes') }}</n-radio>
-          <n-radio :key="1" :value="false">{{ $t('no') }}</n-radio>
+          <n-radio :key="0" :value="true">
+            {{ $t('yes') }}
+          </n-radio>
+          <n-radio :key="1" :value="false">
+            {{ $t('no') }}
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('listType')">
       <n-radio-group v-model:value="formValue.listType">
         <n-space>
-          <n-radio :key="0" value="text">text</n-radio>
-          <n-radio :key="1" value="image">image</n-radio>
-          <n-radio :key="2" value="image-card">image-card</n-radio>
+          <n-radio :key="0" value="text">
+            text
+          </n-radio>
+          <n-radio :key="1" value="image">
+            image
+          </n-radio>
+          <n-radio :key="2" value="image-card">
+            image-card
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
@@ -140,8 +154,12 @@ const handleSubmit = () => {
     <n-form-item :label="$t('multiple')">
       <n-radio-group v-model:value="formValue.multiple">
         <n-space>
-          <n-radio :key="0" :value="true">{{ $t('yes') }}</n-radio>
-          <n-radio :key="1" :value="false">{{ $t('no') }}</n-radio>
+          <n-radio :key="0" :value="true">
+            {{ $t('yes') }}
+          </n-radio>
+          <n-radio :key="1" :value="false">
+            {{ $t('no') }}
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
@@ -151,54 +169,79 @@ const handleSubmit = () => {
     <n-form-item :label="$t('withCredentials')">
       <n-radio-group v-model:value="formValue.withCredentials">
         <n-space>
-          <n-radio :key="0" :value="true">{{ $t('yes') }}</n-radio>
-          <n-radio :key="1" :value="false">{{ $t('no') }}</n-radio>
+          <n-radio :key="0" :value="true">
+            {{ $t('yes') }}
+          </n-radio>
+          <n-radio :key="1" :value="false">
+            {{ $t('no') }}
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showCancelButton')">
       <n-radio-group v-model:value="formValue.showCancelButton">
         <n-space>
-          <n-radio :key="0" :value="true">{{ $t('yes') }}</n-radio>
-          <n-radio :key="1" :value="false">{{ $t('no') }}</n-radio>
+          <n-radio :key="0" :value="true">
+            {{ $t('yes') }}
+          </n-radio>
+          <n-radio :key="1" :value="false">
+            {{ $t('no') }}
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showDownloadButton')">
       <n-radio-group v-model:value="formValue.showDownloadButton">
         <n-space>
-          <n-radio :key="0" :value="true">{{ $t('yes') }}</n-radio>
-          <n-radio :key="1" :value="false">{{ $t('no') }}</n-radio>
+          <n-radio :key="0" :value="true">
+            {{ $t('yes') }}
+          </n-radio>
+          <n-radio :key="1" :value="false">
+            {{ $t('no') }}
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showRemoveButton')">
       <n-radio-group v-model:value="formValue.showRemoveButton">
         <n-space>
-          <n-radio :key="0" :value="true">{{ $t('yes') }}</n-radio>
-          <n-radio :key="1" :value="false">{{ $t('no') }}</n-radio>
+          <n-radio :key="0" :value="true">
+            {{ $t('yes') }}
+          </n-radio>
+          <n-radio :key="1" :value="false">
+            {{ $t('no') }}
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showRetryButton')">
       <n-radio-group v-model:value="formValue.showRetryButton">
         <n-space>
-          <n-radio :key="0" :value="true">{{ $t('yes') }}</n-radio>
-          <n-radio :key="1" :value="false">{{ $t('no') }}</n-radio>
+          <n-radio :key="0" :value="true">
+            {{ $t('yes') }}
+          </n-radio>
+          <n-radio :key="1" :value="false">
+            {{ $t('no') }}
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
     <n-form-item :label="$t('showFileList')">
       <n-radio-group v-model:value="formValue.showFileList">
         <n-space>
-          <n-radio :key="0" :value="true">{{ $t('yes') }}</n-radio>
-          <n-radio :key="1" :value="false">{{ $t('no') }}</n-radio>
+          <n-radio :key="0" :value="true">
+            {{ $t('yes') }}
+          </n-radio>
+          <n-radio :key="1" :value="false">
+            {{ $t('no') }}
+          </n-radio>
         </n-space>
       </n-radio-group>
     </n-form-item>
-    <n-button @click="handleSubmit" type="primary">
+    <n-button type="primary" @click="handleSubmit">
       {{ $t('apply') }}
     </n-button>
   </n-form>
 </template>
+
 <style></style>
