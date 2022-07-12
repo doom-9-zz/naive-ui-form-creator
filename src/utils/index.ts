@@ -40,25 +40,37 @@ const combineNameAndValue = (
 }
 
 const bindBooleanAndNumberConfig = (config: bindConfig): string => {
-  return `${config.val !== undefined ? `:${String(config.name)}="${String(config.val)}"` : ''}`
+  return `${
+    config.val !== undefined
+      ? `:${String(config.name)}="${String(config.val)}"`
+      : ''
+  }`
 }
 
 const bindStringConfig = (config: bindConfig): string => {
-  return `${config.val !== undefined ? `${String(config.name)}="${String(config.val)}"` : ''}`
+  return `${
+    config.val !== undefined
+      ? `${String(config.name)}="${String(config.val)}"`
+      : ''
+  }`
 }
 
 const bindValueConfig = (config: bindConfig): string => {
   return `${
     config.val !== undefined
       ? `v-model="${
-          store.state.formConfig.model !== undefined ? `${store.state.formConfig.model}.` : ''
+          store.state.formConfig.model !== undefined
+            ? `${store.state.formConfig.model}.`
+            : ''
         }${String(config.val)}"`
       : ''
   }`
 }
 
 const bindFileListConfig = (config: bindConfig): string => {
-  return `${config.val !== undefined ? `v-model:file-list="${String(config.val)}"` : ''}`
+  return `${
+    config.val !== undefined ? `v-model:file-list="${String(config.val)}"` : ''
+  }`
 }
 
 const replaceOptions = (str: string): string => {
@@ -67,49 +79,73 @@ const replaceOptions = (str: string): string => {
 
 // formItemConfig
 
-const getInputFormItemContentConfig = (item: { [key: string]: any }): string => {
+const getInputFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
   const { name, clearable, maxlength, minlength, type, size } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('clearable', clearable),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('maxlength', maxlength),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('minlength', minlength))} ${bindStringConfig(
-    combineNameAndValue('type', type),
-  )} ${bindStringConfig(combineNameAndValue('size', size))}`
-}
-
-const getInputNumberFormItemContentConfig = (item: { [key: string]: any }): string => {
-  const { name, clearable, max, min, size, step, showButton } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
-    combineNameAndValue('clearable', clearable),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('max', max))} ${bindBooleanAndNumberConfig(
-    combineNameAndValue('min', min),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('step', step))} ${bindStringConfig(
-    combineNameAndValue('size', size),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('show-button', showButton))}`
-}
-
-const getRadioFormItemContentConfig = (item: { [key: string]: any }): string => {
-  const { name, size } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindStringConfig(
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('minlength', minlength),
+  )} ${bindStringConfig(combineNameAndValue('type', type))} ${bindStringConfig(
     combineNameAndValue('size', size),
   )}`
 }
 
+const getInputNumberFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
+  const { name, clearable, max, min, size, step, showButton } = item
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('clearable', clearable),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('max', max),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('min', min),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('step', step),
+  )} ${bindStringConfig(
+    combineNameAndValue('size', size),
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('show-button', showButton),
+  )}`
+}
+
+const getRadioFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
+  const { name, size } = item
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindStringConfig(combineNameAndValue('size', size))}`
+}
+
 const getRateFormItemContentConfig = (item: { [key: string]: any }): string => {
   const { name, size, count, allowHalf } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindStringConfig(
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindStringConfig(
     combineNameAndValue('size', size),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('count', count),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('allow-half', allowHalf))}`
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('allow-half', allowHalf),
+  )}`
 }
 
-const getSelectFormItemContentConfig = (item: { [key: string]: any }): string => {
+const getSelectFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
   const { name, size, multiple, placeholder, clearable, options } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindStringConfig(
-    combineNameAndValue('size', size),
-  )} ${bindStringConfig(
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindStringConfig(combineNameAndValue('size', size))} ${bindStringConfig(
     combineNameAndValue('placeholder', placeholder),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('multiple', multiple),
@@ -120,11 +156,17 @@ const getSelectFormItemContentConfig = (item: { [key: string]: any }): string =>
   )}`
 }
 
-const getSliderFormItemContentConfig = (item: { [key: string]: any }): string => {
+const getSliderFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
   const { name, max, min, step, range, reverse, vertical, tooltip } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('max', max),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('min', min))} ${bindBooleanAndNumberConfig(
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('min', min),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('step', step),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('range', range),
@@ -135,34 +177,51 @@ const getSliderFormItemContentConfig = (item: { [key: string]: any }): string =>
   )} ${bindBooleanAndNumberConfig(combineNameAndValue('tooltip', tooltip))}`
 }
 
-const getSwitchFormItemContentConfig = (item: { [key: string]: any }): string => {
+const getSwitchFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
   const { name, round, size } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('round', round),
   )} ${bindStringConfig(combineNameAndValue('size', size))}`
 }
 
-const getTimePickerFormItemContentConfig = (item: { [key: string]: any }): string => {
-  const { name, size, actions, clearable, format, placeholder, use12Hours } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+const getTimePickerFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
+  const { name, size, actions, clearable, format, placeholder, use12Hours }
+    = item
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('clearable', clearable),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('use-12-hours', use12Hours),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('actions', JSON.stringify(actions)),
-  )} ${bindStringConfig(combineNameAndValue('format', format))} ${bindStringConfig(
+  )} ${bindStringConfig(
+    combineNameAndValue('format', format),
+  )} ${bindStringConfig(
     combineNameAndValue('placeholder', placeholder),
   )} ${bindStringConfig(combineNameAndValue('size', size))}`
 }
 
-const getTreeSelectFormItemContentConfig = (item: { [key: string]: any }): string => {
+const getTreeSelectFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
   const { name, size, clearable } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('clearable', clearable),
   )} ${bindStringConfig(combineNameAndValue('size', size))}`
 }
 
-const getUploadFormItemContentConfig = (item: { [key: string]: any }): string => {
+const getUploadFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
   const {
     name,
     accept,
@@ -200,7 +259,9 @@ const getUploadFormItemContentConfig = (item: { [key: string]: any }): string =>
   ).map((item) => {
     return (handledHeaders[item.key] = item.value)
   })
-  return `${bindFileListConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+  return `${bindFileListConfig(
+    combineNameAndValue('name', name),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('default-upload', defaultUpload),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('data', JSON.stringify(handledDate)),
@@ -216,27 +277,43 @@ const getUploadFormItemContentConfig = (item: { [key: string]: any }): string =>
     combineNameAndValue('show-retry-button', showRetryButton),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('show-file-list', showFileList),
-  )} ${bindStringConfig(combineNameAndValue('accept', accept))} ${bindStringConfig(
+  )} ${bindStringConfig(
+    combineNameAndValue('accept', accept),
+  )} ${bindStringConfig(
     combineNameAndValue('action', action),
-  )} ${bindStringConfig(combineNameAndValue('list-type', listType))} ${bindBooleanAndNumberConfig(
+  )} ${bindStringConfig(
+    combineNameAndValue('list-type', listType),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('max', max),
-  )} ${bindStringConfig(combineNameAndValue('method', method))} ${bindBooleanAndNumberConfig(
+  )} ${bindStringConfig(
+    combineNameAndValue('method', method),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('multiple', multiple),
-  )} ${bindStringConfig(combineNameAndValue('name', fileName))} ${bindBooleanAndNumberConfig(
+  )} ${bindStringConfig(
+    combineNameAndValue('name', fileName),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('with-credentials', withCredentials),
   )}`
 }
 
-const getCheckBoxFormItemContentConfig = (item: { [key: string]: any }): string => {
+const getCheckBoxFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
   const { name, max, min } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('max', max),
   )} ${bindBooleanAndNumberConfig(combineNameAndValue('min', min))}`
 }
 
-const getColorPickerFormItemContentConfig = (item: { [key: string]: any }): string => {
+const getColorPickerFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
   const { name, size, modes, showAlpha, actions } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('modes', JSON.stringify(modes)),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('showAlpha', showAlpha),
@@ -249,12 +326,16 @@ const getDividerContentConfig = (item: { [key: string]: any }): string => {
   const { dashed, vertical, titlePlacement } = item
   return `${bindBooleanAndNumberConfig(
     combineNameAndValue('dashed', dashed),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('vertical', vertical))} ${bindStringConfig(
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('vertical', vertical),
+  )} ${bindStringConfig(
     combineNameAndValue('title-placement', titlePlacement),
   )}`
 }
 
-const getDatePickerFormItemContentConfig = (item: { [key: string]: any }): string => {
+const getDatePickerFormItemContentConfig = (item: {
+  [key: string]: any
+}): string => {
   const {
     name,
     clearable,
@@ -267,17 +348,21 @@ const getDatePickerFormItemContentConfig = (item: { [key: string]: any }): strin
     endPlaceholder,
     separator,
   } = item
-  return `${bindValueConfig(combineNameAndValue('name', name))} ${bindBooleanAndNumberConfig(
+  return `${bindValueConfig(
+    combineNameAndValue('name', name),
+  )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('actions', JSON.stringify(actions)),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('clearable', clearable))} ${bindStringConfig(
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('clearable', clearable),
+  )} ${bindStringConfig(
     combineNameAndValue('format', format),
   )} ${bindStringConfig(combineNameAndValue('size', size))} ${bindStringConfig(
     combineNameAndValue('placeholder', placeholder),
   )} ${bindStringConfig(combineNameAndValue('type', type))} ${bindStringConfig(
     combineNameAndValue('start-placeholder', startPlaceholder),
-  )} ${bindStringConfig(combineNameAndValue('end-placeholder', endPlaceholder))} ${bindStringConfig(
-    combineNameAndValue('separator', separator),
-  )}`
+  )} ${bindStringConfig(
+    combineNameAndValue('end-placeholder', endPlaceholder),
+  )} ${bindStringConfig(combineNameAndValue('separator', separator))}`
 }
 
 const getFormItemConfig = (item: formItemType): string => {
@@ -286,7 +371,10 @@ const getFormItemConfig = (item: formItemType): string => {
   }"`
 }
 
-const getFormItemContentConfig = (item: { [key: string]: any }, type: string): string => {
+const getFormItemContentConfig = (
+  item: { [key: string]: any },
+  type: string,
+): string => {
   if (Object.keys(item).length === 0)
     return ''
 
@@ -327,7 +415,10 @@ const getFormItemContentConfig = (item: { [key: string]: any }, type: string): s
 const getTypeToFormItem = (item: formItemType): string => {
   const type = item.value
   const formItemConfig = getFormItemConfig(item)
-  const formItemContentConfig = getFormItemContentConfig(item.formItemConfig, type)
+  const formItemContentConfig = getFormItemContentConfig(
+    item.formItemConfig,
+    type,
+  )
   switch (type) {
     case '0':
       return `
@@ -346,7 +437,12 @@ const getTypeToFormItem = (item: formItemType): string => {
           <${PREFIX}-space>
             ${
               item.formItemConfig.options !== undefined
-                ? (item.formItemConfig.options as Array<{ label: string; value: string }>)
+                ? (
+                    item.formItemConfig.options as Array<{
+                      label: string
+                      value: string
+                    }>
+                  )
                     .map(
                       (option: { value: string; label: string }) =>
                         `<${PREFIX}-radio value="${option.value}">${option.label}</${PREFIX}-radio>`,
@@ -406,7 +502,12 @@ const getTypeToFormItem = (item: formItemType): string => {
           <${PREFIX}-space item-style="display: flex;">
             ${
               item.formItemConfig.options !== undefined
-                ? (item.formItemConfig.options as Array<{ label: string; value: string }>)
+                ? (
+                    item.formItemConfig.options as Array<{
+                      label: string
+                      value: string
+                    }>
+                  )
                     .map(
                       (option: { value: string; label: string }) =>
                         `<${PREFIX}-checkbox value="${option.value}" label="${option.label}"/>`,
@@ -466,13 +567,17 @@ const getFormConfig = (): string => {
     model,
   } = store.state.formConfig
 
-  return `${bindBooleanAndNumberConfig(combineNameAndValue('model', model))} ${bindStringConfig(
+  return `${bindBooleanAndNumberConfig(
+    combineNameAndValue('model', model),
+  )} ${bindStringConfig(
     combineNameAndValue('size', size),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('inline', inline),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('label-width', labelWidth),
-  )} ${bindStringConfig(combineNameAndValue('label-align', labelAlign))} ${bindStringConfig(
+  )} ${bindStringConfig(
+    combineNameAndValue('label-align', labelAlign),
+  )} ${bindStringConfig(
     combineNameAndValue('label-placement', labelPlacement),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('show-feedback', showFeedback),
@@ -480,7 +585,9 @@ const getFormConfig = (): string => {
     combineNameAndValue('show-label', showLabel),
   )} ${bindBooleanAndNumberConfig(
     combineNameAndValue('show-require-mark', showRequireMark),
-  )} ${bindBooleanAndNumberConfig(combineNameAndValue('rules', 'rules'))} ${bindStringConfig(
+  )} ${bindBooleanAndNumberConfig(
+    combineNameAndValue('rules', 'rules'),
+  )} ${bindStringConfig(
     combineNameAndValue('require-mark-placement', requireMarkPlacement),
   )}`
 }
@@ -492,7 +599,9 @@ const getImport = (data: formItemType[]): string => {
   if (store.state.autoAddImport) {
     const importStr = `
 <script setup type="ts">
-  import { ${getFormItemImport(data)} ${prefix}Form, ${prefix}FormItem } from '${UI_NAME}';
+  import { ${getFormItemImport(
+    data,
+  )} ${prefix}Form, ${prefix}FormItem } from '${UI_NAME}';
 </script>
     `
     return importStr
@@ -544,10 +653,14 @@ const getRulesObject = (data: formItemType[]): string => {
             `{ validator: (rule,value)=>{
               let reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
               if(!reg.test(value)){
-                return new Error('请输入正确的${item.formItemConfig.label as string}');
+                return new Error('请输入正确的${
+                  item.formItemConfig.label as string
+                }');
               }
               return true;
-            }, message: '请输入正确的${item.formItemConfig.label as string}', trigger: 'blur' },`,
+            }, message: '请输入正确的${
+              item.formItemConfig.label as string
+            }', trigger: 'blur' },`,
           )
           break
         case '2':
@@ -555,10 +668,14 @@ const getRulesObject = (data: formItemType[]): string => {
             `{ validator: (rule,value)=>{
               let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
               if(!reg.test(value)){
-                return new Error('请输入正确的${item.formItemConfig.label as string}');
+                return new Error('请输入正确的${
+                  item.formItemConfig.label as string
+                }');
               }
               return true;
-            }, message: '请输入正确的${item.formItemConfig.label as string}', trigger: 'blur' },`,
+            }, message: '请输入正确的${
+              item.formItemConfig.label as string
+            }', trigger: 'blur' },`,
           )
           break
         default:
@@ -583,21 +700,19 @@ const getRulesObject = (data: formItemType[]): string => {
 
 // entry
 
-const getScriptCode = (data: formItemType[]): string => {
-  return `
-  <script setup type="ts">${getImport(data)}${getRulesObject(data)}
-  </script>
-      `
-}
-
 export const generateCode = (data: formItemType[]): string => {
-  let Code = `<template>
-    <${PREFIX}-form ${getFormConfig()}>${data.map(item => getTypeToFormItem(item)).join('')}
+  const Code = `
+  <template>
+    <${PREFIX}-form ${getFormConfig()}>
+    ${data.map(item => getTypeToFormItem(item)).join('')}
     ${getConfirmAndCancelButton()}
     </${PREFIX}-form>
-</template>`
-
-  Code = Code.concat(getScriptCode(data))
+  </template>
+  <script setup type="ts">
+  ${getImport(data)}
+  ${getRulesObject(data)}
+  </script>
+  `
 
   return Code
 }
@@ -617,11 +732,17 @@ export const copy = (value: string): void => {
   document.body.removeChild(textarea)
 }
 
-export function copyPropertyValue<T, K extends keyof T>(obj: T, target: T, key: K): void {
+export function copyPropertyValue<T, K extends keyof T>(
+  obj: T,
+  target: T,
+  key: K,
+): void {
   obj[key] = target[key]
 }
 
-export function getParentElement(element: HTMLElement | null): HTMLElement | null {
+export function getParentElement(
+  element: HTMLElement | null,
+): HTMLElement | null {
   if (element === null)
     return null
 
