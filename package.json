@@ -36,13 +36,8 @@
       "eslint --fix"
     ],
     "*.vue": [
-      "prettier --write"
-    ],
-    "*.css": [
-      "prettier --write"
-    ],
-    "*.scss": [
-      "prettier --write"
+      "prettier --write",
+      "eslint --fix"
     ]
   }
 }
