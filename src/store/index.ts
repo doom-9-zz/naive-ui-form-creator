@@ -131,7 +131,7 @@ export const store = createStore<State>({
         }
 
         // dom diff
-        state.formItemArray = state.formItemArray.map((item, index) => {
+        state.formItemArray = state.formItemArray.map((item) => {
           item.id = uuidv4()
           return item
         })

@@ -55,7 +55,7 @@ const handleSubmit = () => {
     </n-form-item>
     <n-form-item :label="$t('addOptions')">
       <n-dynamic-input
-        v-slot="{ index, value }"
+        v-slot="{ index }"
         v-model:value="formValue.options"
         item-style="margin-bottom: 0;"
         :on-create="onCreate"

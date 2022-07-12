@@ -18,9 +18,7 @@ const dateLocale = ref<null | NDateLocale>(dateZhCN)
 const changeTheme = () => {
   if (theme.value === null)
     theme.value = darkTheme
-
-  else
-    theme.value = null
+  else theme.value = null
 }
 
 const store = useStore()
@@ -41,7 +39,12 @@ const changeLocale = () => {
 </script>
 
 <template>
-  <n-config-provider :theme="theme" :hljs="hljs" :locale="locale" :date-locale="dateLocale">
+  <n-config-provider
+    :theme="theme"
+    :hljs="hljs"
+    :locale="locale"
+    :date-locale="dateLocale"
+  >
     <n-message-provider :max="3">
       <Layout
         :is-dark="theme === null ? false : true"
