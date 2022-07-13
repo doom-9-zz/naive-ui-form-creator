@@ -10,20 +10,20 @@ const formItems = [
         },
          {
             type:'inputNumber',
-            label:'个数',
-            key:'count'
+            label:'年龄',
+            key:'age'
         },
         {
             type:'radio',
-            label:'姓名',
-            key:'age',
+            label:'婚姻情况',
+            key:'maritalStatus',
             valueEnum:[
                 {
-                    label:'是',
+                    label:'已婚',
                     value:'1'
                 },
                 {
-                    label:'否',
+                    label:'未婚',
                     value:'0'
                 },
             ]
@@ -35,18 +35,34 @@ const formItems = [
             valueEnum:[
                 {
                     label:'足球',
-                    value:'1'
+                    value:'0'
                 },
                 {
                     label:'篮球',
-                    value:'0'
+                    value:'1'
+                },
+                {
+                    label:'乒乓球',
+                    value:'2'
                 },
             ]
+        },
+        {
+            type:'rate',
+            label:'朋友打分',
+            key:'rate'
         }
     ]
 
 const formProps = {
-    labelPlacement:'left'
+    labelPlacement:'left',
+    rules: {
+        name: {
+          required: true,
+          message: '请输入电话号码',
+          trigger: ['input']
+        }
+      }
 }
 
 
@@ -56,7 +72,7 @@ const formProps = {
 
 This is a .md using a custom component
 
-<proForm :formItems="formItems" :formProps="formProps"/>
+<proForm :formItems="formItems" :formProps="formProps" title="个人信息录入" resetButton/>
 
 ## More docs
 

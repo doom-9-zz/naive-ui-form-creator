@@ -3,6 +3,7 @@ import type {
   InputNumberProps,
   InputProps,
   RadioProps,
+  RateProps,
   SelectProps,
 } from 'naive-ui'
 
@@ -41,6 +42,10 @@ export type ProFormItem =
       value: string | number
       disabled: boolean
     }[]
+  }>
+  | addFormItemProps<{
+    type: 'rate'
+    props?: Omit<RateProps, 'onUpdateValue' | 'value'>
   }>
 
 export type ProFormItemType = 'input' | 'radio'
