@@ -23,6 +23,7 @@ import {
   NUpload,
 } from 'naive-ui'
 import type { FormValidateCallback } from 'naive-ui/es/form/src/interface'
+import type { FileInfo } from 'naive-ui/es/upload/src/interface'
 import type { ProFormItem } from '../../types/props'
 
 const ProFormProps = {
@@ -91,7 +92,7 @@ export default defineComponent({
     }
 
     const handleInputUpdateValue = (
-      val: string | number | null | (string | number)[],
+      val: string | number | null | (string | number)[] | Required<FileInfo>[],
       key: string,
     ) => {
       modalData.value[key] = val
@@ -288,7 +289,13 @@ export default defineComponent({
                                     )
                                   : item.type === 'upload'
                                     ? (
-                <NUpload {...item.props}>
+                <NUpload
+                  {...item.props}
+                  fileList={modalData[item.key] ?? []}
+                  onUpdateFileList={(value) => {
+                    handleInputUpdateValue(value, item.key)
+                  }}
+                >
                   <NButton>{item.buttonText}</NButton>
                 </NUpload>
                                       )

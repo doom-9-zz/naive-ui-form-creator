@@ -97,7 +97,7 @@ const formItems = [
             type:'upload',
             label:'上传头像',
             key:'avatar',
-            buttonText:'上传图片'
+            buttonText:'上传图片',
         },
     ]
 

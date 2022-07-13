@@ -13,6 +13,7 @@ import type {
   TimePickerProps,
   UploadProps,
 } from 'naive-ui'
+import type { FileInfo } from 'naive-ui/es/upload/src/interface'
 
 type addFormItemProps<T extends Record<string, any>> = T & {
   formItemProps?: Omit<FormItemProps, 'label' | 'path'>
@@ -87,8 +88,9 @@ export type ProFormItem =
   }>
   | addFormItemProps<{
     type: 'upload'
-    props?: UploadProps
+    props?: Omit<UploadProps, 'fileList' | 'onUpdateFileList'>
     buttonText: string
+    fileList: FileInfo[]
   }>
 
 export type ProFormItemType = 'input' | 'radio'
