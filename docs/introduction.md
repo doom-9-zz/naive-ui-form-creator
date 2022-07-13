@@ -43,7 +43,8 @@ const formItems = [
                 },
                 {
                     label:'乒乓球',
-                    value:'2'
+                    value:'2',
+                    disabled:true
                 },
             ]
         },
@@ -51,7 +52,53 @@ const formItems = [
             type:'rate',
             label:'朋友打分',
             key:'rate'
-        }
+        },
+         {
+            type:'switch',
+            label:'是否工作',
+            key:'job'
+        },
+        {
+            type:'timePicker',
+            label:'早上几点起床',
+            key:'getup'
+        },
+        {
+            type:'datePicker',
+            label:'出生年月',
+            key:'born'
+        },
+        {
+            type:'colorPicker',
+            label:'喜欢的颜色',
+            key:'color'
+        },
+         {
+            type:'checkbox',
+            label:'喜欢的食物',
+            key:'food',
+            valueEnum:[
+                {
+                    label:'苹果',
+                    value:'0'
+                },
+                {
+                    label:'香蕉',
+                    value:'1'
+                },
+                {
+                    label:'西瓜',
+                    value:'2',
+                    disabled:true
+                },
+            ]
+        },
+        {
+            type:'upload',
+            label:'上传头像',
+            key:'avatar',
+            buttonText:'上传图片'
+        },
     ]
 
 const formProps = {
@@ -59,7 +106,7 @@ const formProps = {
     rules: {
         name: {
           required: true,
-          message: '请输入电话号码',
+          message: '请输入姓名',
           trigger: ['input']
         }
       }
@@ -72,7 +119,7 @@ const formProps = {
 
 This is a .md using a custom component
 
-<proForm :formItems="formItems" :formProps="formProps" title="个人信息录入" resetButton/>
+<proForm :formItems="formItems" :formProps="formProps" title="个人信息录入" resetButton isKeyPressSubmit/>
 
 ## More docs
 
