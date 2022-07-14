@@ -6,7 +6,11 @@ const formItems = [
         {
             type:'input',
             label:'姓名',
-            key:'name'
+            key:'name',
+            tooltipConfig:{
+                show:true,
+                text:'自己的真实姓名'
+            }
         },
          {
             type:'inputNumber',
@@ -61,7 +65,11 @@ const formItems = [
         {
             type:'timePicker',
             label:'早上几点起床',
-            key:'getup'
+            key:'getup',
+            tooltipConfig:{
+                show:true,
+                text:'时分秒'
+            }
         },
         {
             type:'datePicker',
@@ -71,7 +79,11 @@ const formItems = [
         {
             type:'colorPicker',
             label:'喜欢的颜色',
-            key:'color'
+            key:'color',
+            tooltipConfig:{
+                show:true,
+                text:'多彩的颜色'
+            }
         },
          {
             type:'checkbox',

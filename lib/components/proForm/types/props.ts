@@ -17,23 +17,27 @@ import type {
 } from 'naive-ui'
 // import type { FileInfo } from 'naive-ui/es/upload/src/interface'
 
-type addFormItemProps<T extends Record<string, any>> = T & {
+type addCommonProps<T extends Record<string, any>> = T & {
   formItemProps?: Omit<FormItemProps, 'label' | 'path'>
   label: string
   key: string
   show?: boolean
+  tooltipConfig?: {
+    show: boolean
+    text: string
+  }
 }
 
 export type ProFormItem =
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'input'
     props?: Omit<InputProps, 'onUpdateValue' | 'value'>
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'inputNumber'
     props?: Omit<InputNumberProps, 'onUpdateValue' | 'value'>
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'radio'
     props?:
     | Omit<RadioProps, 'label' | 'value' | 'checked' | 'onUpdateChecked'>
@@ -44,7 +48,7 @@ export type ProFormItem =
     }[]
     group?: boolean
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'select'
     props?: Omit<SelectProps, 'onUpdateValue' | 'value' | 'options'>
     valueEnum: {
@@ -53,27 +57,27 @@ export type ProFormItem =
       disabled: boolean
     }[]
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'rate'
     props?: Omit<RateProps, 'onUpdateValue' | 'value'>
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'switch'
     props?: Omit<SwitchProps, 'onUpdateValue' | 'value'>
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'timePicker'
     props?: Omit<TimePickerProps, 'onUpdateValue' | 'value'>
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'datePicker'
     props?: Omit<DatePickerProps, 'onUpdateValue' | 'value'>
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'colorPicker'
     props?: Omit<ColorPickerProps, 'onUpdateValue' | 'value'>
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'checkbox'
     props?:
     | Omit<
@@ -87,12 +91,12 @@ export type ProFormItem =
       disabled: boolean
     }[]
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'upload'
     props?: Omit<UploadProps, 'fileList' | 'onUpdateFileList'>
     buttonText?: string
   }>
-  | addFormItemProps<{
+  | addCommonProps<{
     type: 'slider'
     props?: Omit<SliderProps, 'onUpdateValue' | 'value'>
   }>

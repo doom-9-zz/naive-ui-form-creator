@@ -17,6 +17,7 @@ import {
   NDivider,
   NForm,
   NFormItem,
+  NIcon,
   NInput,
   NInputNumber,
   NRadio,
@@ -27,10 +28,12 @@ import {
   NSpace,
   NSwitch,
   NTimePicker,
+  NTooltip,
   NUpload,
 } from 'naive-ui'
 import type { FormValidateCallback } from 'naive-ui/es/form/src/interface'
 import type { FileInfo } from 'naive-ui/es/upload/src/interface'
+import { QuestionCircle48Regular } from '@vicons/fluent'
 import type { ProFormItem } from './types/props'
 
 const ProFormProps = {
@@ -127,6 +130,25 @@ export default defineComponent({
         window.addEventListener('keydown', keyDownHandler)
       else window.removeEventListener('keydown', keyDownHandler)
     })
+
+    const getNTooltipVnode = (item: ProFormItem) => {
+      if (item.type === 'divider')
+        return
+      return item.tooltipConfig?.show
+        ? (
+        <NTooltip trigger="hover">
+          {{
+            trigger: () => (
+              <NIcon size={20}>
+                <QuestionCircle48Regular />
+              </NIcon>
+            ),
+            default: () => item.tooltipConfig?.text,
+          }}
+        </NTooltip>
+          )
+        : null
+    }
 
     const getNFormItemVnode: (
       item: ProFormItem
@@ -332,6 +354,7 @@ export default defineComponent({
               path={item.key}
             >
               {getNFormItemVnode(item)}
+              {getNTooltipVnode(item)}
             </NFormItem>
           )
         }
