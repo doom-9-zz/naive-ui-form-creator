@@ -30,5 +30,6 @@ export default defineConfig({
         },
       },
     },
+    outDir: 'es',
   },
 })

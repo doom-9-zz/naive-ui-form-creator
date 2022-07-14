@@ -24,7 +24,7 @@ import {
 } from 'naive-ui'
 import type { FormValidateCallback } from 'naive-ui/es/form/src/interface'
 import type { FileInfo } from 'naive-ui/es/upload/src/interface'
-import type { ProFormItem } from '../../types/props'
+import type { ProFormItem } from './types/props'
 
 const ProFormProps = {
   formProps: Object as PropType<Omit<FormProps, 'model'>>,
