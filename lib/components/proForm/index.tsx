@@ -38,6 +38,7 @@ const ProFormProps = {
   onReset: Function as PropType<() => void>,
   onFinish: Function as PropType<() => void>,
   onError: Function as PropType<FormValidateCallback>,
+  onValidate: Function as PropType<() => void>,
   title: String,
   isKeyPressSubmit: Boolean,
 }
@@ -66,7 +67,7 @@ export default defineComponent({
     const handleValidateClick = () => {
       formRef.value?.validate((errors) => {
         if (!errors)
-          props?.onFinish && props.onFinish()
+          props?.onValidate && props.onValidate()
         else props?.onError && props.onError(errors)
       })
     }
