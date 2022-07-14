@@ -99,6 +99,15 @@ const formItems = [
             key:'avatar',
             buttonText:'上传图片',
         },
+        {
+            type:'slider',
+            label:'自我打分',
+            key:'slider',
+        },
+        {
+            type:'divider',
+            text:'配偶信息'
+        },
     ]
 
 const formProps = {

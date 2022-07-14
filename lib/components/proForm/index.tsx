@@ -1,7 +1,7 @@
 /* eslint-disable react/no-string-refs */
-import type { PropType } from 'vue'
+import type { ComputedRef, PropType } from 'vue'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Fragment, defineComponent, h, ref, watchEffect } from 'vue'
+import { Fragment, computed, defineComponent, h, ref, watchEffect } from 'vue'
 import type { CheckboxGroupProps, FormInst, FormProps } from 'naive-ui'
 import {
   NButton,
@@ -17,6 +17,7 @@ import {
   NRadio,
   NRate,
   NSelect,
+  NSlider,
   NSpace,
   NSwitch,
   NTimePicker,
@@ -54,6 +55,8 @@ export default defineComponent({
       const obj: Record<string, any> = {}
 
       data.forEach((item) => {
+        if (item.type === 'divider')
+          return
         obj[item.key] = null
       })
 
@@ -119,6 +122,200 @@ export default defineComponent({
       else window.removeEventListener('keydown', keyDownHandler)
     })
 
+    const getNFormItemVnode: (
+      item: ProFormItem
+    ) => JSX.Element | JSX.Element[] | undefined = (item) => {
+      switch (item.type) {
+        case 'input':
+          return (
+            <NInput
+              {...item.props}
+              value={modalData.value[item.key]}
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+            />
+          )
+        case 'inputNumber':
+          return (
+            <NInputNumber
+              {...item.props}
+              value={modalData.value[item.key]}
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+            />
+          )
+
+        case 'radio':
+          return item.valueEnum.map(valueItem => (
+            <NRadio
+              {...item.props}
+              {...valueItem}
+              key={valueItem.value}
+              checked={valueItem.value === modalData.value[item.key]}
+              onUpdateChecked={(value) => {
+                handleRadioUpdateChecked(value, item.key, valueItem.value)
+              }}
+            />
+          ))
+
+        case 'select':
+          return (
+            <NSelect
+              {...item.props}
+              options={item.valueEnum}
+              value={modalData.value[item.key]}
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+            />
+          )
+
+        case 'rate':
+          return (
+            <NRate
+              {...item.props}
+              value={modalData.value[item.key]}
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+            />
+          )
+
+        case 'switch':
+          return (
+            <NSwitch
+              {...item.props}
+              value={modalData.value[item.key]}
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+            />
+          )
+
+        case 'timePicker':
+          return (
+            <NTimePicker
+              {...item.props}
+              value={modalData.value[item.key]}
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+            />
+          )
+
+        case 'datePicker':
+          return (
+            <NDatePicker
+              {...item.props}
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+              value={modalData.value[item.key]}
+            />
+          )
+
+        case 'colorPicker':
+          return (
+            <NColorPicker
+              {...item.props}
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+              value={modalData.value[item.key]}
+            />
+          )
+
+        case 'checkbox':
+          return item.valueEnum.length > 1
+            ? (
+            <NCheckboxGroup
+              {...(item.props as Omit<
+                CheckboxGroupProps,
+                'onUpdateValue' | 'value'
+              >)}
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+              value={modalData.value[item.key]}
+            >
+              {item.valueEnum.map(valueItem => (
+                <NCheckbox key={valueItem.value} {...valueItem} />
+              ))}
+            </NCheckboxGroup>
+              )
+            : (
+                item.valueEnum.map(valueItem => (
+              <NCheckbox
+                {...item.props}
+                key={valueItem.value}
+                {...valueItem}
+                onUpdateChecked={(value) => {
+                  handleInputUpdateValue(value, item.key)
+                }}
+                value={modalData.value[item.key]}
+              />
+                ))
+              )
+
+        case 'upload':
+          return (
+            <NUpload
+              {...item.props}
+              fileList={modalData.value[item.key] ?? []}
+              onUpdateFileList={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+            >
+              <NButton>{item.buttonText}</NButton>
+            </NUpload>
+          )
+
+        case 'slider':
+          return (
+            <NSlider
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
+              }}
+              value={modalData.value[item.key]}
+            />
+          )
+
+        default:
+          return undefined
+      }
+    }
+
+    const Vnode: ComputedRef<JSX.Element[] | undefined> = computed(() => {
+      const { formItems } = props
+      return formItems?.map((item) => {
+        if (item.type === 'divider') {
+          return (
+            <NDivider
+              dashed={item.dashed}
+              titlePlacement={item.titlePlacement}
+              vertical={item.vertical}
+            >
+              {item.text}
+            </NDivider>
+          )
+        }
+        else {
+          return (
+            <NFormItem
+              {...item.formItemProps}
+              key={item.key}
+              label={item.label}
+              path={item.key}
+            >
+              {getNFormItemVnode(item)}
+            </NFormItem>
+          )
+        }
+      })
+    })
+
     return {
       modalData,
       formRef,
@@ -127,182 +324,28 @@ export default defineComponent({
       handleRadioUpdateChecked,
       handleResetClick,
       handleSubmitClick,
+      Vnode,
     }
   },
   render() {
     const {
-      formItems,
       formProps,
       modalData,
       handleValidateClick,
-      handleInputUpdateValue,
-      handleRadioUpdateChecked,
       handleResetClick,
       handleSubmitClick,
       resetButton,
       validateButton,
       submitButton,
       title,
+      Vnode,
     } = this
 
     return (
       <Fragment>
         {title ? <NDivider>{title}</NDivider> : null}
         <NForm {...formProps} model={modalData} ref="formRef">
-          {formItems?.map(item => (
-            <NFormItem
-              {...item.formItemProps}
-              key={item.key}
-              label={item.label}
-              path={item.key}
-            >
-              {item.type === 'input'
-                ? (
-                <NInput
-                  {...item.props}
-                  value={modalData[item.key]}
-                  onUpdateValue={(value) => {
-                    handleInputUpdateValue(value, item.key)
-                  }}
-                />
-                  )
-                : item.type === 'inputNumber'
-                  ? (
-                <NInputNumber
-                  {...item.props}
-                  value={modalData[item.key]}
-                  onUpdateValue={(value) => {
-                    handleInputUpdateValue(value, item.key)
-                  }}
-                />
-                    )
-                  : item.type === 'radio'
-                    ? (
-                        item.valueEnum.map(valueItem => (
-                  <NRadio
-                    {...item.props}
-                    {...valueItem}
-                    key={valueItem.value}
-                    checked={valueItem.value === modalData[item.key]}
-                    onUpdateChecked={(value) => {
-                      handleRadioUpdateChecked(
-                        value,
-                        item.key,
-                        valueItem.value,
-                      )
-                    }}
-                  />
-                        ))
-                      )
-                    : item.type === 'select'
-                      ? (
-                <NSelect
-                  {...item.props}
-                  options={item.valueEnum}
-                  value={modalData[item.key]}
-                  onUpdateValue={(value) => {
-                    handleInputUpdateValue(value, item.key)
-                  }}
-                />
-                        )
-                      : item.type === 'rate'
-                        ? (
-                <NRate
-                  {...item.props}
-                  value={modalData[item.key]}
-                  onUpdateValue={(value) => {
-                    handleInputUpdateValue(value, item.key)
-                  }}
-                />
-                          )
-                        : item.type === 'switch'
-                          ? (
-                <NSwitch
-                  {...item.props}
-                  value={modalData[item.key]}
-                  onUpdateValue={(value) => {
-                    handleInputUpdateValue(value, item.key)
-                  }}
-                />
-                            )
-                          : item.type === 'timePicker'
-                            ? (
-                <NTimePicker
-                  {...item.props}
-                  value={modalData[item.key]}
-                  onUpdateValue={(value) => {
-                    handleInputUpdateValue(value, item.key)
-                  }}
-                />
-                              )
-                            : item.type === 'datePicker'
-                              ? (
-                <NDatePicker
-                  {...item.props}
-                  onUpdateValue={(value) => {
-                    handleInputUpdateValue(value, item.key)
-                  }}
-                  value={modalData[item.key]}
-                />
-                                )
-                              : item.type === 'colorPicker'
-                                ? (
-                <NColorPicker
-                  {...item.props}
-                  onUpdateValue={(value) => {
-                    handleInputUpdateValue(value, item.key)
-                  }}
-                  value={modalData[item.key]}
-                />
-                                  )
-                                : item.type === 'checkbox'
-                                  ? (
-                                      item.valueEnum.length > 1
-                                        ? (
-                  <NCheckboxGroup
-                    {...(item.props as Omit<
-                      CheckboxGroupProps,
-                      'onUpdateValue' | 'value'
-                    >)}
-                    onUpdateValue={(value) => {
-                      handleInputUpdateValue(value, item.key)
-                    }}
-                    value={modalData[item.key]}
-                  >
-                    {item.valueEnum.map(valueItem => (
-                      <NCheckbox key={valueItem.value} {...valueItem} />
-                    ))}
-                  </NCheckboxGroup>
-                                          )
-                                        : (
-                                            item.valueEnum.map(valueItem => (
-                    <NCheckbox
-                      {...item.props}
-                      key={valueItem.value}
-                      {...valueItem}
-                      onUpdateChecked={(value) => {
-                        handleInputUpdateValue(value, item.key)
-                      }}
-                      value={modalData[item.key]}
-                    />
-                                            ))
-                                          )
-                                    )
-                                  : item.type === 'upload'
-                                    ? (
-                <NUpload
-                  {...item.props}
-                  fileList={modalData[item.key] ?? []}
-                  onUpdateFileList={(value) => {
-                    handleInputUpdateValue(value, item.key)
-                  }}
-                >
-                  <NButton>{item.buttonText}</NButton>
-                </NUpload>
-                                      )
-                                    : null}
-            </NFormItem>
-          ))}
+          {Vnode}
         </NForm>
         <NSpace justify="center">
           {validateButton === true

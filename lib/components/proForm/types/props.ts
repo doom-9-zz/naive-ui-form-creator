@@ -3,17 +3,19 @@ import type {
   CheckboxProps,
   ColorPickerProps,
   DatePickerProps,
+  DividerProps,
   FormItemProps,
   InputNumberProps,
   InputProps,
   RadioProps,
   RateProps,
   SelectProps,
+  SliderProps,
   SwitchProps,
   TimePickerProps,
   UploadProps,
 } from 'naive-ui'
-import type { FileInfo } from 'naive-ui/es/upload/src/interface'
+// import type { FileInfo } from 'naive-ui/es/upload/src/interface'
 
 type addFormItemProps<T extends Record<string, any>> = T & {
   formItemProps?: Omit<FormItemProps, 'label' | 'path'>
@@ -89,8 +91,18 @@ export type ProFormItem =
   | addFormItemProps<{
     type: 'upload'
     props?: Omit<UploadProps, 'fileList' | 'onUpdateFileList'>
-    buttonText: string
-    fileList: FileInfo[]
+    buttonText?: string
   }>
+  | addFormItemProps<{
+    type: 'slider'
+    props?: Omit<SliderProps, 'onUpdateValue' | 'value'>
+  }>
+  | {
+    type: 'divider'
+    dashed?: boolean
+    titlePlacement?: 'left' | 'right' | 'center'
+    vertical?: boolean
+    text: string
+  }
 
 export type ProFormItemType = 'input' | 'radio'
