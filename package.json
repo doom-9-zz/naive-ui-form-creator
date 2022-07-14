@@ -46,6 +46,9 @@
     ],
     "*.vue": [
       "eslint --fix"
+    ],
+    "*.tsx": [
+      "eslint --fix"
     ]
   },
   "license": "MIT",

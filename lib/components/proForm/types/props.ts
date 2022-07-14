@@ -3,10 +3,10 @@ import type {
   CheckboxProps,
   ColorPickerProps,
   DatePickerProps,
-  DividerProps,
   FormItemProps,
   InputNumberProps,
   InputProps,
+  RadioGroupProps,
   RadioProps,
   RateProps,
   SelectProps,
@@ -35,10 +35,9 @@ export type ProFormItem =
   }>
   | addFormItemProps<{
     type: 'radio'
-    props?: Omit<
-        RadioProps,
-        'label' | 'value' | 'checked' | 'onUpdateChecked'
-      >
+    props?:
+    | Omit<RadioProps, 'label' | 'value' | 'checked' | 'onUpdateChecked'>
+    | Omit<RadioGroupProps, 'onUpdateValue' | 'value'>
     valueEnum: {
       label: string
       value: string | number

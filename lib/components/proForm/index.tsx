@@ -2,7 +2,12 @@
 import type { ComputedRef, PropType } from 'vue'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Fragment, computed, defineComponent, h, ref, watchEffect } from 'vue'
-import type { CheckboxGroupProps, FormInst, FormProps } from 'naive-ui'
+import type {
+  CheckboxGroupProps,
+  FormInst,
+  FormProps,
+  RadioGroupProps,
+} from 'naive-ui'
 import {
   NButton,
   NCheckbox,
@@ -15,6 +20,7 @@ import {
   NInput,
   NInputNumber,
   NRadio,
+  NRadioGroup,
   NRate,
   NSelect,
   NSlider,
@@ -148,17 +154,33 @@ export default defineComponent({
           )
 
         case 'radio':
-          return item.valueEnum.map(valueItem => (
-            <NRadio
-              {...item.props}
-              {...valueItem}
-              key={valueItem.value}
-              checked={valueItem.value === modalData.value[item.key]}
-              onUpdateChecked={(value) => {
-                handleRadioUpdateChecked(value, item.key, valueItem.value)
+          return item.valueEnum.length > 1
+            ? (
+            <NRadioGroup
+              {...(item.props as RadioGroupProps)}
+              value={modalData.value[item.key]}
+              onUpdateValue={(value) => {
+                handleInputUpdateValue(value, item.key)
               }}
-            />
-          ))
+            >
+              {item.valueEnum.map(valueItem => (
+                <NRadio {...valueItem} key={valueItem.value} />
+              ))}
+            </NRadioGroup>
+              )
+            : (
+                item.valueEnum.map(valueItem => (
+              <NRadio
+                {...item.props}
+                {...valueItem}
+                key={valueItem.value}
+                checked={valueItem.value === modalData.value[item.key]}
+                onUpdateChecked={(value) => {
+                  handleRadioUpdateChecked(value, item.key, valueItem.value)
+                }}
+              />
+                ))
+              )
 
         case 'select':
           return (
