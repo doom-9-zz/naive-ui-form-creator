@@ -53,5 +53,7 @@
     "es",
     "README.md"
   ],
-  "types": "es/index.d.ts"
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs"
 }

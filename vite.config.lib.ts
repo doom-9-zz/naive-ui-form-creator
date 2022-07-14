@@ -19,7 +19,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'lib/index.ts'),
-      formats: ['es'],
+      formats: ['es', 'cjs'],
       fileName: 'index',
     },
     rollupOptions: {
@@ -33,6 +33,6 @@ export default defineConfig({
         preserveModules: true,
       },
     },
-    outDir: 'es',
+    outDir: 'dist',
   },
 })
