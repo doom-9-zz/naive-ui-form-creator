@@ -35,6 +35,10 @@
     "vitepress": "^1.0.0-alpha.4",
     "vue-tsc": "^0.3.0"
   },
+  "peerDependencies": {
+    "vue": "^3.0.0",
+    "naive-ui": "^2.31.0"
+  },
   "lint-staged": {
     "*.ts": [
       "eslint --fix"
@@ -42,5 +46,10 @@
     "*.vue": [
       "eslint --fix"
     ]
-  }
+  },
+  "license": "MIT",
+  "files": [
+    "es",
+    "README.md"
+  ]
 }
