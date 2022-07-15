@@ -44,12 +44,15 @@
   },
   "lint-staged": {
     "*.ts": [
+      "prettier --write",
       "eslint --fix"
     ],
     "*.vue": [
+      "prettier --write",
       "eslint --fix"
     ],
     "*.tsx": [
+      "prettier --write",
       "eslint --fix"
     ]
   },
